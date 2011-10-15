@@ -1,6 +1,62 @@
 DreamTeam CDStore project for CSI5380 Fall 2011
 Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
 
-For documentation use Visio 2010 - recall you can get it for free as a student via http://msdn06.e-academy.com/uoo_ite
-And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
-Also make sure to read the following basic usage instructions: http://softwarestencils.com/tips/index.html
+===== Building & Deploying CDStore on Windows (no Eclipse required - see below for developer instructions) =====
+
+1. Tomcat
+- Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
+[???]- set up SSL as per http://blog.frankel.ch/ssl-your-tomcat-7
+- Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (required since contains servlet libraries and will auto-deploy the jars/wars to the correct folder)
+
+2. Ant
+- Download & unzip ant (ex: http://apache.parentingamerica.com//ant/binaries/apache-ant-1.8.2-bin.zip )
+- Add the ant 'bin' folder to PATH (ex: C:\Program Files\apache-ant-1.8.2\bin) so that you can run 'ant' from command line
+- As required by ant, set your JAVA_HOME environment variable to your JDK (ex: C:\Program Files\Java\jdk1.7.0)
+
+3. MySQL
+- Install mysql such that you can type 'mysql' at command line (if the installer didn't do it, ensure PATH contains "C:\Program Files\MySQL\MySQL Server 5.5\bin" or similar)
+- Run 'mysql -u root -p' from command line (if first run, press enter for the password)
+- Set the 'root' user password to 'asdasd' by entering the following two lines:
+UPDATE mysql.user SET Password=PASSWORD('asdasd') WHERE User='root';
+flush privileges;
+[???]- To insert the sample data, run the following from command line (using the correct path to the provided cdstore.sql):
+mysql -D cdstore -u root < C:\cdstore.sql
+
+4. Build & Deploy
+- Use command line to browse to the 'DBAgent' folder and enter 'ant'
+[???]- copy the CDStore.jar file from the 'CDStore\build' folder into '%TOMCAT_HOME%\lib'
+- Use command line to browse to the 'CatalogService' folder and enter 'ant'
+- Copy the CatalogService.war file from the 'CatalogService\build' folder into '%TOMCAT_HOME%\webapps'
+- Use command line to browse to the 'OrderService' folder and enter 'ant'
+- Copy the OrderService.war file from the 'OrderService\build' folder into '%TOMCAT_HOME%\webapps'
+- Use command line to browse to the 'CDStore' folder and enter 'ant'
+- Copy the CDStore.war file from the 'CDStore\build' folder into '%TOMCAT_HOME%\webapps'
+[??? eventually to replace above steps]- Browse to the root of the provided 'cdstoreproject' folder and enter 'ant'. The build.xml file will do the following:
+	- Build and deploy DBAgent.jar to Tomcat's libraries
+	- Build and deploy CatalogService.war to Tomcat's webapps
+	- Build and deploy OrderService.war to Tomcat's webapps
+	- Build and deploy CDStore.war to Tomcat's webapps
+
+5. Run
+- Start Tomcat by running %TOMCAT_HOME%\bin\startup.bat
+- Browse to https://localhost:8443/CDStore/
+
+
+===== Notes for Developers =====
+- Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
+- From the "Project" menu, make sure "Build Automatically" is unchecked
+- File > Import > Existing Projects Into Workspace
+- Provide the location of the cdstoreproject folder as the 'root directory' to import from (four projects should appear for import)
+
+- For documentation use Visio 2010 - recall you can get it for free as a student via http://msdn06.e-academy.com/uoo_ite
+	- And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
+	- Also make sure to read the following basic usage instructions: http://softwarestencils.com/tips/index.html
+
+
+===== Included Files =====
+
+This assignment submission (cdstoreproject.zip) consists of:
+- this document
+- cdstore.sql
+- cdstoreproject folder containing the source code and build scripts for the different components
+[???] - manually deployable wars/jars? could provide instructions for just deploying where omit ant and build steps but need one folder to contain all final war/jar files
