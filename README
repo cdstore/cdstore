@@ -5,8 +5,8 @@ Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
 
 1. Tomcat
 - Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
-[???]- set up SSL as per http://blog.frankel.ch/ssl-your-tomcat-7
-- Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (required since contains servlet libraries and will auto-deploy the jars/wars to the correct folder)
+[??? skip for now]- set up SSL as per http://blog.frankel.ch/ssl-your-tomcat-7
+- Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (required since contains servlet libraries and will ideally auto-deploy the jars/wars to the correct folder)
 
 2. Ant
 - Download & unzip ant (ex: http://apache.parentingamerica.com//ant/binaries/apache-ant-1.8.2-bin.zip )
@@ -19,12 +19,12 @@ Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
 - Set the 'root' user password to 'asdasd' by entering the following two lines:
 UPDATE mysql.user SET Password=PASSWORD('asdasd') WHERE User='root';
 flush privileges;
-[???]- To insert the sample data, run the following from command line (using the correct path to the provided cdstore.sql):
+[??? correct?]- To insert the sample data, run the following from command line (using the correct path to the provided cdstore.sql):
 mysql -D cdstore -u root < C:\cdstore.sql
 
 4. Build & Deploy
 - Use command line to browse to the 'DBAgent' folder and enter 'ant'
-[???]- copy the CDStore.jar file from the 'CDStore\build' folder into '%TOMCAT_HOME%\lib'
+- copy the CDStore.jar file from the 'CDStore\build' folder into '%TOMCAT_HOME%\lib'
 - Use command line to browse to the 'CatalogService' folder and enter 'ant'
 - Copy the CatalogService.war file from the 'CatalogService\build' folder into '%TOMCAT_HOME%\webapps'
 - Use command line to browse to the 'OrderService' folder and enter 'ant'
@@ -44,9 +44,14 @@ mysql -D cdstore -u root < C:\cdstore.sql
 
 ===== Notes for Developers =====
 - Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
-- From the "Project" menu, make sure "Build Automatically" is unchecked
+- From the "Project" menu, make sure "Build Automatically" is unchecked since we will be using ant to build
 - File > Import > Existing Projects Into Workspace
-- Provide the location of the cdstoreproject folder as the 'root directory' to import from (four projects should appear for import)
+- Provide the location of the 'cdstoreproject' folder obtained from git as the 'root directory' to import from (four projects should appear for import)
+- Do not select 'copy projects into workspace'; leave the projects in the folder that is synchronized with git so that you can commit your changes later
+- Once imported, right click on build.xml from CDStore (for example) and select Run As > Ant Build to create CDStore.war in the 'antbuild' folder
+- While ant should work fine, Eclipse will show errors in the project because it doesn't know where Tomcat's servlet libraries are, so add Tomcat to Elipse (Servers tab at the bottom > right click in white area > New > Server > Apache Tomcat v7 > Next > Browse... > Select your Tomcat folder > Finish)
+- Don't worry about the XML warnings on build.xml
+- run 'git status' in the 'cdstoreproject' folder; git should not list any files as having been modified by these build/setup activities
 
 - For documentation use Visio 2010 - recall you can get it for free as a student via http://msdn06.e-academy.com/uoo_ite
 	- And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
