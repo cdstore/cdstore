@@ -1,5 +1,7 @@
 DreamTeam CDStore project for CSI5380 Fall 2011
 Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
+Project grading: http://www.site.uottawa.ca/~lpeyton/csi5380projectgrading.txt
+Facebook discussions: http://www.facebook.com/groups/CSI5380/
 
 ===== Building & Deploying CDStore on Windows (no Eclipse required - see below for developer instructions) =====
 
@@ -54,10 +56,6 @@ mysql -D cdstore -u root < C:\cdstore.sql
 - Don't worry about the XML warnings on build.xml
 - run 'git status' in the 'cdstoreproject' folder; git should not list any files as having been modified by these build/setup activities
 
-- For documentation use Visio 2010 - recall you can get it for free as a student via http://msdn06.e-academy.com/uoo_ite
-	- And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
-	- Also make sure to read the following basic usage instructions: http://softwarestencils.com/tips/index.html
-
 
 ===== Included Files =====
 
@@ -66,3 +64,61 @@ This assignment submission (cdstoreproject.zip) consists of:
 - cdstore.sql
 - cdstoreproject folder containing the source code and build scripts for the different components
 [???] - manually deployable wars/jars? could provide instructions for just deploying where omit ant and build steps but need one folder to contain all final war/jar files
+
+
+===== Project Files =====
+
+com.cdstore.dbagent in DBAgent/src
+	- DBAgent.java
+
+com.cdstore.entities in Utilities/src
+	- Address.java
+	- CD.java
+	- Category.java
+	- Customer.java
+	- CustomerOrder.java
+	- OrderDetails.java
+
+com.cdstore.catalogservice in CatalogService/src
+	- ProductCatalog.java
+
+com.cdstore.orderservice in OrderService/src
+	- OrderProcess.java
+
+com.cdstore.beans in CDStore/src
+	- CDStoreBean.java
+	- ShoppingCartBean.java
+	- OrderBean.java
+
+JSPs in CDStore/WebContent
+	- cdStorePage.jsp
+	- cdDetailsPage.jsp
+	- shoppingCartPage.jsp
+	- checkoutPage.jsp
+	- accountOrderPage.jsp
+	- template.jsp
+
+???
+- web.xml
+- context.xml
+
+
+
+===== Useful Links =====
+- JSP and Beans: http://www.jsptut.com/Forms.jsp
+- Web Services:
+	- In Tomcat: http://puretech.paawak.com/2010/03/09/running-jax-ws-with-tomcat/
+	- In Eclipse (also see step 2): http://angelozerr.wordpress.com/2011/08/23/jaxwscxf_step1/
+	- Serializing/marshalling objects for passing via WS: http://myarch.com/create-jax-ws-service-in-5-minutes
+- Similar project from past years (cite as source as discussed in class if ends up being useful): http://code.google.com/p/csi5380fall2009/
+	- http://code.google.com/p/csi5380fall2009/source/browse/trunk/trunk/CSI5380CDSTORE/src/com/ezilla/db/SqlQueries.properties
+	- http://code.google.com/p/csi5380fall2009/source/browse/trunk/trunk/CSI5380CDSTORE/src/com/ezilla/testing/test1.java
+- Prof's slides on unit testing web apps: http://www.site.uottawa.ca/~lpeyton/csi5380/slides/TestingWebApps.ppt
+- Using @Resource for DBAgent: http://www.mkyong.com/tomcat/how-to-configure-mysql-datasource-in-tomcat-6/
+- Links for Part0:
+	- ConnectorJ: ftp://mirror.csclub.uwaterloo.ca/mysql/Downloads/Connector-J/mysql-connector-java-5.1.17.zip
+	- add the two jars from the /lib folder in http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/jakarta-taglibs-standard-1.1.2.zip to eclipse project lib folder
+	- modify web.xml and context.xml and create index.jsp as described on http://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html
+- For documentation use Visio 2010 - recall you can get it for free as a student via http://msdn06.e-academy.com/uoo_ite
+	- And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
+	- Also make sure to read the following basic usage instructions: http://softwarestencils.com/tips/index.html
