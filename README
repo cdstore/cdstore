@@ -43,6 +43,7 @@ mysql -D cdstore -u root < C:\cdstore.sql
 
 
 ===== Notes for Developers =====
+- Ensure you have TOMCAT_HOME, JAVA_HOME to v1.7, MySQL etc. set up as per instructions above
 - Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
 - From the "Project" menu, make sure "Build Automatically" is unchecked since we will be using ant to build
 - File > Import > Existing Projects Into Workspace
