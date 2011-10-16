@@ -105,20 +105,30 @@ JSPs in CDStore/WebContent
 
 
 ===== Useful Links =====
-- JSP and Beans: http://www.jsptut.com/Forms.jsp
-- Web Services:
-	- In Tomcat: http://puretech.paawak.com/2010/03/09/running-jax-ws-with-tomcat/
-	- In Eclipse (also see step 2): http://angelozerr.wordpress.com/2011/08/23/jaxwscxf_step1/
-	- Serializing/marshalling objects for passing via WS: http://myarch.com/create-jax-ws-service-in-5-minutes
-- Similar project from past years (cite as source as discussed in class if ends up being useful): http://code.google.com/p/csi5380fall2009/
-	- http://code.google.com/p/csi5380fall2009/source/browse/trunk/trunk/CSI5380CDSTORE/src/com/ezilla/db/SqlQueries.properties
-	- http://code.google.com/p/csi5380fall2009/source/browse/trunk/trunk/CSI5380CDSTORE/src/com/ezilla/testing/test1.java
+
+JSP and Beans
+- http://www.jsptut.com/Forms.jsp
+
+Web Services:
+- In Tomcat: http://puretech.paawak.com/2010/03/09/running-jax-ws-with-tomcat/
+- In Eclipse (also see step 2): http://angelozerr.wordpress.com/2011/08/23/jaxwscxf_step1/
+- Serializing/marshalling objects for passing via WS: http://myarch.com/create-jax-ws-service-in-5-minutes
+
+Testing:
 - Prof's slides on unit testing web apps: http://www.site.uottawa.ca/~lpeyton/csi5380/slides/TestingWebApps.ppt
+
+DB:
 - Using @Resource for DBAgent: http://www.mkyong.com/tomcat/how-to-configure-mysql-datasource-in-tomcat-6/
-- Links for Part0:
-	- ConnectorJ: ftp://mirror.csclub.uwaterloo.ca/mysql/Downloads/Connector-J/mysql-connector-java-5.1.17.zip
-	- add the two jars from the /lib folder in http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/jakarta-taglibs-standard-1.1.2.zip to eclipse project lib folder
-	- modify web.xml and context.xml and create index.jsp as described on http://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html
+- Similar project from past years (cite as source as discussed in class if ends up being useful): http://code.google.com/p/csi5380fall2009/
+- http://code.google.com/p/csi5380fall2009/source/browse/trunk/trunk/CSI5380CDSTORE/src/com/ezilla/db/SqlQueries.properties
+- http://code.google.com/p/csi5380fall2009/source/browse/trunk/trunk/CSI5380CDSTORE/src/com/ezilla/testing/test1.java
+
+Part0:
+- ConnectorJ: ftp://mirror.csclub.uwaterloo.ca/mysql/Downloads/Connector-J/mysql-connector-java-5.1.17.zip
+- add the two jars from the /lib folder in http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/jakarta-taglibs-standard-1.1.2.zip to eclipse project lib folder
+- modify web.xml and context.xml and create index.jsp as described on http://tomcat.apache.org/tomcat-7.0-doc/jndi-datasource-examples-howto.html
+
+Documentation:
 - For documentation use Visio 2010 - recall you can get it for free as a student via http://msdn06.e-academy.com/uoo_ite
-	- And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
-	- Also make sure to read the following basic usage instructions: http://softwarestencils.com/tips/index.html
+- And install the following Visio 2010 UML plugin: http://softwarestencils.com/uml/index.html#Visio2010
+- Also make sure to read the following basic usage instructions: http://softwarestencils.com/tips/index.html
