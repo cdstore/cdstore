@@ -12,9 +12,9 @@ USE `cdstore` ;
 DROP TABLE IF EXISTS `cdstore`.`Category` ;
 
 CREATE  TABLE IF NOT EXISTS `cdstore`.`Category` (
-  `CategoryID` INT NOT NULL AUTO_INCREMENT ,
-  `CategoryName` VARCHAR(45) NULL ,
-  PRIMARY KEY (`CategoryID`) )
+  `categoryid` INT NOT NULL AUTO_INCREMENT ,
+  `categoryname` VARCHAR(45) NULL ,
+  PRIMARY KEY (`categoryid`) )
 ENGINE = InnoDB;
 
 
@@ -27,14 +27,14 @@ CREATE  TABLE IF NOT EXISTS `cdstore`.`CD` (
   `cdid` VARCHAR(20) NOT NULL ,
   `title` VARCHAR(60) NULL ,
   `price` INT NULL ,
-  `CategoryID` INT NOT NULL ,
+  `categoryid` INT NOT NULL ,
   `artist` VARCHAR(45) NULL ,
   `label` VARCHAR(45) NULL ,
   PRIMARY KEY (`cdid`) ,
-  INDEX `fk_CD_Category` (`CategoryID` ASC) ,
+  INDEX `fk_CD_Category` (`categoryid` ASC) ,
   CONSTRAINT `fk_CD_Category`
-    FOREIGN KEY (`CategoryID` )
-    REFERENCES `cdstore`.`Category` (`CategoryID` )
+    FOREIGN KEY (`categoryid` )
+    REFERENCES `cdstore`.`Category` (`categoryid` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -46,13 +46,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `cdstore`.`Address` ;
 
 CREATE  TABLE IF NOT EXISTS `cdstore`.`Address` (
-  `AddressID` INT NOT NULL AUTO_INCREMENT ,
+  `addressid` INT NOT NULL AUTO_INCREMENT ,
   `street` VARCHAR(100) NOT NULL ,
-  `Province` VARCHAR(20) NOT NULL ,
+  `province` VARCHAR(20) NOT NULL ,
   `country` VARCHAR(20) NOT NULL ,
-  `Postalcode` VARCHAR(20) NOT NULL ,
-  `Phone` VARCHAR(20) NULL ,
-  PRIMARY KEY (`AddressID`) )
+  `postalcode` VARCHAR(20) NOT NULL ,
+  `phone` VARCHAR(20) NULL ,
+  PRIMARY KEY (`addressid`) )
 ENGINE = InnoDB;
 
 
@@ -66,12 +66,12 @@ CREATE  TABLE IF NOT EXISTS `cdstore`.`Account` (
   `lastname` VARCHAR(45) NULL ,
   `firstname` VARCHAR(45) NULL ,
   `password` VARCHAR(45) NULL ,
-  `AddressID` INT NULL ,
+  `addressid` INT NULL ,
   PRIMARY KEY (`username`) ,
-  INDEX `fk_account_Address1` (`AddressID` ASC) ,
+  INDEX `fk_account_Address1` (`addressid` ASC) ,
   CONSTRAINT `fk_account_Address1`
-    FOREIGN KEY (`AddressID` )
-    REFERENCES `cdstore`.`Address` (`AddressID` )
+    FOREIGN KEY (`addressid` )
+    REFERENCES `cdstore`.`Address` (`addressid` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -83,36 +83,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `cdstore`.`Order` ;
 
 CREATE  TABLE IF NOT EXISTS `cdstore`.`Order` (
-  `POID` INT NOT NULL AUTO_INCREMENT ,
+  `orderid` INT NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(20) NOT NULL ,
   `amount` VARCHAR(20) NOT NULL ,
-  `Status` ENUM('ORDERED','PROCESSED','DENIED') NOT NULL ,
+  `status` ENUM('ORDERED','PROCESSED','DENIED') NOT NULL ,
   `date` DATE NULL ,
-  PRIMARY KEY (`POID`) ,
+  PRIMARY KEY (`orderid`) ,
   INDEX `fk_PO_account1` (`username` ASC) ,
   CONSTRAINT `fk_PO_account1`
     FOREIGN KEY (`username` )
     REFERENCES `cdstore`.`Account` (`username` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `cdstore`.`VisitEvent`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `cdstore`.`VisitEvent` ;
-
-CREATE  TABLE IF NOT EXISTS `cdstore`.`VisitEvent` (
-  `VisitEventID` INT NOT NULL AUTO_INCREMENT ,
-  `day` VARCHAR(8) NULL ,
-  `eventtype` ENUM('VIEW','CART','PURCHASE') NOT NULL ,
-  `cdid` VARCHAR(20) NOT NULL ,
-  PRIMARY KEY (`VisitEventID`) ,
-  INDEX `fk_VisitEvent_CD1` (`cdid` ASC) ,
-  CONSTRAINT `fk_VisitEvent_CD1`
-    FOREIGN KEY (`cdid` )
-    REFERENCES `cdstore`.`CD` (`cdid` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -125,11 +105,11 @@ DROP TABLE IF EXISTS `cdstore`.`OrderDetails` ;
 
 CREATE  TABLE IF NOT EXISTS `cdstore`.`OrderDetails` (
   `cdid` VARCHAR(20) NOT NULL ,
-  `POID` INT NOT NULL ,
-  `Quantity` INT NOT NULL ,
-  `Price` DOUBLE NOT NULL ,
-  PRIMARY KEY (`cdid`, `POID`) ,
-  INDEX `fk_CD_has_PO_PO1` (`POID` ASC) ,
+  `orderid` INT NOT NULL ,
+  `quantity` INT NOT NULL ,
+  `price` DOUBLE NOT NULL ,
+  PRIMARY KEY (`cdid`, `orderid`) ,
+  INDEX `fk_CD_has_PO_PO1` (`orderid` ASC) ,
   INDEX `fk_CD_has_PO_CD1` (`cdid` ASC) ,
   CONSTRAINT `fk_CD_has_PO_CD1`
     FOREIGN KEY (`cdid` )
@@ -137,8 +117,8 @@ CREATE  TABLE IF NOT EXISTS `cdstore`.`OrderDetails` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_CD_has_PO_PO1`
-    FOREIGN KEY (`POID` )
-    REFERENCES `cdstore`.`Order` (`POID` )
+    FOREIGN KEY (`orderid` )
+    REFERENCES `cdstore`.`Order` (`orderid` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
