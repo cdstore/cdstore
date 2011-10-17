@@ -61,12 +61,16 @@ mysql -D cdstore -u root < C:\cdstore.sql
 
 This assignment submission (cdstoreproject.zip) consists of:
 - this document
-- cdstore.sql
+- test data (cdstore.sql)
+- test scripts
+- list of member contributions
 - cdstoreproject folder containing the source code and build scripts for the different components
 [???] - manually deployable wars/jars? could provide instructions for just deploying where omit ant and build steps but need one folder to contain all final war/jar files
 
 
 ===== Project Files =====
+
+Identifying the source code locations:
 
 com.cdstore.dbagent in DBAgent/src
 	- DBAgent.java
@@ -101,7 +105,20 @@ JSPs in CDStore/WebContent
 ???
 - web.xml
 - context.xml
+- queries.properties
+- test data
+- test scripts
+- expected test results
 
+===== Third-Party Dependencies =====
+
+Code, JARs and other libraries used in this project:
+- Apache CXF 2
+
+===== Other Documentation Requirements =====
+- deployment diagram, package diagram, interaction diagrams (UML sequence charts)
+- identify design patterns, assumptions and design decisions
+- document the db schema (also in code, along with class/method comments)
 
 
 ===== Useful Links =====
