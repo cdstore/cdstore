@@ -116,6 +116,7 @@ Web Services:
 
 Testing:
 - Prof's slides on unit testing web apps: http://www.site.uottawa.ca/~lpeyton/csi5380/slides/TestingWebApps.ppt
+- IBM tool: http://www.ibm.com/developerworks/java/library/j-jwebunit/
 
 DB:
 - Using @Resource for DBAgent: http://www.mkyong.com/tomcat/how-to-configure-mysql-datasource-in-tomcat-6/
