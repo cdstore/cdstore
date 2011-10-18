@@ -3,12 +3,12 @@ Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
 Project grading: http://www.site.uottawa.ca/~lpeyton/csi5380projectgrading.txt
 Facebook discussions: http://www.facebook.com/groups/CSI5380/
 
-===== Building & Deploying CDStore on Windows (no Eclipse required - see below for developer instructions) =====
+===== Building & Deploying CDStore on Windows (no Eclipse required - see below for additional developer instructions) =====
 
 1. Tomcat
 - Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
 [??? skip for now]- set up SSL as per http://blog.frankel.ch/ssl-your-tomcat-7
-- Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (required since contains servlet libraries and will ideally auto-deploy the jars/wars to the correct folder)
+- Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (this is needed because Tomcat's servlet libraries are required by ant to build the code - in the future we will ideally auto-deploy the jars/wars to the correct folder relative to TOMCAT_HOME through ant, but for debugging it's better to deploy wars manually while watching the server log)
 
 2. Ant
 - Download & unzip ant (ex: http://apache.parentingamerica.com//ant/binaries/apache-ant-1.8.2-bin.zip )
@@ -41,7 +41,7 @@ mysql -D cdstore -u root < C:\cdstore.sql
 
 5. Run
 - Start Tomcat by running %TOMCAT_HOME%\bin\startup.bat
-- Browse to https://localhost:8443/CDStore/
+- Browse to https://localhost:8080/CDStore/ (or if SSL set up: https://localhost:8443/CDStore/ )
 
 
 ===== Notes for Developers =====
@@ -61,12 +61,15 @@ mysql -D cdstore -u root < C:\cdstore.sql
 
 This assignment submission (cdstoreproject.zip) consists of:
 - this document
-- cdstore.sql
+- test data (cdstore.sql)
+- test scripts
 - cdstoreproject folder containing the source code and build scripts for the different components
 [???] - manually deployable wars/jars? could provide instructions for just deploying where omit ant and build steps but need one folder to contain all final war/jar files
 
 
 ===== Project Files =====
+
+Identifying the source code locations:
 
 com.cdstore.dbagent in DBAgent/src
 	- DBAgent.java
@@ -101,21 +104,42 @@ JSPs in CDStore/WebContent
 ???
 - web.xml
 - context.xml
+- queries.properties
+- test data
+- test scripts
+- expected test results
 
+
+===== Third-Party Dependencies =====
+
+Code, JARs and other libraries used in this project:
+- Apache CXF 2
+
+
+===== Other Documentation Requirements =====
+- list of member contributions
+- deployment diagram, package diagram, interaction diagrams (UML sequence charts)
+- identify design patterns, assumptions and design decisions
+- document the db schema (also in code, along with class/method comments)
 
 
 ===== Useful Links =====
 
 JSP and Beans
 - http://www.jsptut.com/Forms.jsp
+- navigating via jsp: http://www.peachpit.com/articles/article.aspx?p=25464
 
 Web Services:
+- Best one: http://www.mkyong.com/webservices/jax-ws/deploy-jax-ws-web-services-on-tomcat/
+	- note for step 5 to also put ha-api.jar in the TOMCAT_HOME/lib folder 
+	- for the client, see the zip in src/com/../client but update the URL from http://localhost:8080/HelloWorld/hello to http://localhost:8080/HelloWorld-20101123/hello  (as per name of war included in zip)
 - In Tomcat: http://puretech.paawak.com/2010/03/09/running-jax-ws-with-tomcat/
 - In Eclipse (also see step 2): http://angelozerr.wordpress.com/2011/08/23/jaxwscxf_step1/
 - Serializing/marshalling objects for passing via WS: http://myarch.com/create-jax-ws-service-in-5-minutes
 
 Testing:
 - Prof's slides on unit testing web apps: http://www.site.uottawa.ca/~lpeyton/csi5380/slides/TestingWebApps.ppt
+- IBM tool: http://www.ibm.com/developerworks/java/library/j-jwebunit/
 
 DB:
 - Using @Resource for DBAgent: http://www.mkyong.com/tomcat/how-to-configure-mysql-datasource-in-tomcat-6/

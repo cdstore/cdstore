@@ -38,7 +38,7 @@
 				<include name="*.jar"/>
 			</fileset>
 		</path>
-
+<!--	<echo message="${tomcat.home}"/> -->
 		<!-- Compile Java source into .class files in temporary classDir folder defined earlier -->
 		<javac debug="true" destdir="${classDir}" source="${source}" target="${target}" includeantruntime="false">
 			<src path="${src}" />
