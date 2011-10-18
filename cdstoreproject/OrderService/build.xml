@@ -7,7 +7,7 @@
 		<property name="source" value="1.7" />
 		<property name="classDir" value="${basedir}/antbuild/classes" /> <!-- .class files are first built into this temporary folder -->
 		<property name="src" value="${basedir}/src" /> <!-- Java (servlet) source folder -->
-		<property name="libDir" value="${basedir}/WebContent/WEB-INF/lib" /> 
+		<property name="libDir" value="${basedir}/WebContent/WEB-INF/lib" />
 		<property name="outputdir" value="${basedir}/antbuild" /> <!-- final location inside the war file for the .class files -->
 		<property environment="env"/>
 		
@@ -46,6 +46,12 @@
 		<!-- copy entire web code to into the folder that will be turned into a .war -->
 		<copy todir="${warDir}">
 			<fileset dir="${web}" includes="**/*.*" />
+		</copy>
+		
+		<copy todir="${warDir}/WEB-INF/lib">
+			<fileset dir="../DBAgent/antbuild">
+				<include name="*.jar"/>
+			</fileset>
 		</copy>
 		
 		<!-- some of the .jar libraries were only needed for compiling and are not needed in the final .war so delete them -->
