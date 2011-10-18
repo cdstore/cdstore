@@ -3,18 +3,18 @@ package entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class CustomerOrder {
-	private Customer Customer;
+public class Order {
+	private Account Account;
 	private String Status;
 	private Date Dateordered;
 	private BigDecimal Amount;
 	private Integer POID;
 	
-	public Customer getCustomer(){
-		return this.Customer;
+	public Account getCustomer(){
+		return this.Account;
 	}
-	public void setCustomer(Customer Customer){
-		this.Customer=Customer;
+	public void setCustomer(Account Account){
+		this.Account=Account;
 	}
 	public String getStatus(){
 		return this.Status;

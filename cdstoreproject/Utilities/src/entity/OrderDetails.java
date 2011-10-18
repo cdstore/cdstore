@@ -8,7 +8,7 @@ public class OrderDetails {
 	private Integer POID;
 	private Integer Quantity;
 	private Cds Cds;
-	private CustomerOrder CustomerOrder;
+	private Order CustomerOrder;
 	public OrderDetails(){
 		
 	}
@@ -42,10 +42,10 @@ public class OrderDetails {
 	public void setCds(Cds Cds){
 		this.Cds=Cds;
 	}
-	public CustomerOrder getCustomerOrder(){
+	public Order getCustomerOrder(){
 		return this.CustomerOrder;
 	}
-	public void setCustomerOrder(CustomerOrder CustomerOrder){
+	public void setCustomerOrder(Order CustomerOrder){
 		this.CustomerOrder=CustomerOrder;
 	}
 }

@@ -2,7 +2,7 @@ package entity;
 
 import java.util.Collection;
 
-public class Customer {
+public class Account {
 	private String FirstName;
 	private String LastName;
 	private String UserName;
