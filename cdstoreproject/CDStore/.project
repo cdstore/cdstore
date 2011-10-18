@@ -3,7 +3,6 @@
 	<name>CDStore</name>
 	<comment></comment>
 	<projects>
-		<project>WebServices</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
