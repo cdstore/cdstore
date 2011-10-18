@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="package" name="Utilities">
+
+	<target name="init">
+		<property name="target" value="1.7" />
+		<property name="source" value="1.7" />
+		<property name="classDir" value="${basedir}/antbuild/classes" /> <!-- .class files are first built into this temporary folder -->
+		<property name="src" value="${basedir}/src" /> <!-- Java (servlet) source folder -->
+		<property name="libDir" value="${basedir}/lib" /> 
+		<property name="outputdir" value="${basedir}/antbuild" /> <!-- final location inside the war file for the .class files -->
+		<property environment="env"/>
+		
+		<!-- Create directories to ensure they exist -->
+		<mkdir dir="${outputdir}" />
+		<mkdir dir="${classDir}" />
+		
+	</target>
+
+	<target name="build" depends="init">
+		<!-- Include jar files needed for compiling Java code -->
+		<path id="classpath">
+			<fileset dir="${libDir}">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+
+		<!-- Compile Java source into .class files in temporary classDir folder defined earlier -->
+		<javac debug="true" destdir="${classDir}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${src}" />
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+
+	<target name="package" depends="build">
+		<jar jarfile="${outputdir}/Utilities.jar" basedir="${classDir}" />
+	</target>
+
+</project>
