@@ -1,0 +1,9 @@
+package ws;
+
+public interface Khaled extends java.rmi.Remote
+{
+    public float farenheitToCelsius(float farenheit) throws java.rmi.RemoteException;
+    
+    public String faflk(java.lang.String input) throws java.rmi.RemoteException;
+   
+}

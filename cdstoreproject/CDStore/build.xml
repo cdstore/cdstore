@@ -15,7 +15,7 @@
 		<property name="warDir" value="${basedir}/antbuild/war" /> <!-- folder to hold war file contents before they are a .war -->
 		<property name="finalClassDir" value="${basedir}/antbuild/war/WEB-INF/classes" /> <!-- final location inside the war file for the .class files -->
 		
-		<property name="tomcat.home" value="${env.TOMCAT_HOME}"/> <!-- find Tomcat default deploy folder using Windows environment variable -->
+		<property name="tomcat.home" value="C:\apache-tomcat-7.0.21"/> <!-- find Tomcat default deploy folder using Windows environment variable -->
 		
 		
 		<!-- Create directories to ensure they exist -->

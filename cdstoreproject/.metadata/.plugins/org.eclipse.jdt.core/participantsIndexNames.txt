@@ -1,0 +1,5 @@
+INDEX VERSION 1.126
+C:\Users\Khaled\Documents\cdstore\cdstoreproject\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3324882166.index
+\CDStore\src
+C:\Users\Khaled\Documents\cdstore\cdstoreproject\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3688919147.index
+\CDStore\src

@@ -1,0 +1,5 @@
+INDEX VERSION 1.122+C:\Users\Khaled\Documents\Webservices\JAX-WS-Deploy-To-Tomcat-Example\WebServices\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+248557044.index
+2223129347.index
+47688086.index
+2946698341.index

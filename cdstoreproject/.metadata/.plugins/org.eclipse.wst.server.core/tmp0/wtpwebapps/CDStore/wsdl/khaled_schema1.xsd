@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws/" elementFormDefault="unqualified" targetNamespace="http://ws/" version="1.0">
+<xs:element name="get" type="tns:get"/>
+<xs:element name="getResponse" type="tns:getResponse"/>
+<xs:complexType name="get">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="getResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
