@@ -38,17 +38,18 @@ public class SessionFilter implements Filter {
 		//Block of Code By : tgiunipero
 		HttpServletRequest req = (HttpServletRequest) request;
 
-	        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession();
+        String userName = (String)session.getAttribute("userName");
 
-	        // if session doesn't exist, forward user to welcome page
-	        if (session == null) {
-	            try {
-	                req.getRequestDispatcher("/index.jsp").forward(request, response);
-	            } catch (Exception ex) {
-	                ex.printStackTrace();
-	            }
-	            return;
-	        }
+        // if session doesn't exist, forward user to welcome page
+        if (userName == null) {
+            try {
+                req.getRequestDispatcher("/index.jsp").forward(request, response);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return;
+        }
 
 	      
 
