@@ -7,17 +7,25 @@ public class Address {
 	private String Province;
 	private String Street;
 	private String PostalCode;
+	private String City;
 	
 	public Address(){
 	
 	}
-	public Address(Integer addressID,String phone, String country,String province,String street,String postalCode){
+	public Address(Integer addressID,String phone, String country,String province,String street,String postalCode,String city){
 		this.AddressID=addressID;
 		this.Phone=phone;
 		this.Country=country;
 		this.Province=province;
 		this.Street=street;
 		this.PostalCode=postalCode;
+		this.City=city;
+	}
+	public String getCity(){
+		return this.City;
+	}
+	public void setCity(String city){
+		this.City=city;
 	}
 	public String getPostalCode(){
 		return this.PostalCode;
