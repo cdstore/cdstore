@@ -20,7 +20,7 @@
 		<mkdir dir="${outputdir}" />
 		<mkdir dir="${classDir}" />
 		
-		<ant dir="../DBAgent" inheritall="false"/>
+		<ant dir="../Utilities" inheritall="false"/>
 	</target>
 
 	<target name="build" depends="init">
@@ -29,7 +29,7 @@
 			<fileset dir="${libDir}">
 				<include name="*.jar"/>
 			</fileset>
-			<fileset dir="../DBAgent/antbuild">
+			<fileset dir="../Utilities/antbuild">
 				<include name="*.jar"/>
 			</fileset>
 		</path>
@@ -48,11 +48,14 @@
 			<fileset dir="${web}" includes="**/*.*" />
 		</copy>
 		
+		<!-- Uncomment this if you need Utilities.jar in the war -->
+		<!-- 
 		<copy todir="${warDir}/WEB-INF/lib">
-			<fileset dir="../DBAgent/antbuild">
+			<fileset dir="../Utilities/antbuild">
 				<include name="*.jar"/>
 			</fileset>
 		</copy>
+		-->
 		
 		<!-- some of the .jar libraries were only needed for compiling and are not needed in the final .war so delete them -->
 		<!--  <delete file="${finalLibDir}/.jar" />	-->
