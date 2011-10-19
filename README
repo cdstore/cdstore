@@ -136,6 +136,7 @@ Web Services:
 - In Tomcat: http://puretech.paawak.com/2010/03/09/running-jax-ws-with-tomcat/
 - In Eclipse (also see step 2): http://angelozerr.wordpress.com/2011/08/23/jaxwscxf_step1/
 - Serializing/marshalling objects for passing via WS: http://myarch.com/create-jax-ws-service-in-5-minutes
+- proper use of annotations: http://jax-ws.java.net/jax-ws-ea3/docs/annotations.html
 
 Testing:
 - Prof's slides on unit testing web apps: http://www.site.uottawa.ca/~lpeyton/csi5380/slides/TestingWebApps.ppt
