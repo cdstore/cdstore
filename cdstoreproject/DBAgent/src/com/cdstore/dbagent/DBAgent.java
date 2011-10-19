@@ -65,13 +65,16 @@ public class DBAgent {
 		
 		Connection conn=null;
 		ArrayList<Cds> cds=new ArrayList<Cds>();
+		/**
+		 * Create an Error CD with is returned when there is an error
+		 */
 		Cds errorCD=new Cds();
 		errorCD.setid(0);
 		errorCD.setTitle("Error");
 		try{
 			Context ctx=new InitialContext();
 			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/cdstore");
-			//Context ctx=new InitialContext();
+			
 			/**Setup JNDI Loopup
 			//DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/cdstore");
 			Test Datasource to see if the JNDI loopup was successfull 
@@ -110,8 +113,53 @@ public class DBAgent {
 		//CatName="Someting to test";
 		return cds;
 	}
+	public Cds getCDInfo(Integer cdid) throws SQLException{
+		
+		Connection conn=null;
+		Cds cds=new Cds();
+		
+		try{
+			Context ctx=new InitialContext();
+			DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/cdstore");
+			//Context ctx=new InitialContext();
+			/**Setup JNDI Loopup
+			//DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/cdstore");
+			Test Datasource to see if the JNDI loopup was successfull 
+			*/
+			 if (ds != null) {
+				 /**Establish connection and check is connection is available */
+			        conn = ds.getConnection();
+			       if(conn != null)  {
+			    	   PreparedStatement pstmt=null;
+					
+					     /**Select  CDs Based on Category 
+					      * */
+			    	   pstmt=conn.prepareStatement("Select * from cd WHERE cdid=?");
+			    	   pstmt.setLong(1, cdid);
+			    	   ResultSet rs=pstmt.executeQuery();
+					   while(rs.next()){
+						   cds=new Cds(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+			   			
+			   			
+			   		}
+			        }else{
+			        	
+			        	
+			        }
+			        
+			 }else{
+				
+			 }
+
+		}catch(Exception ex){			
+			ex.printStackTrace();
+			
+		}
+		//CatName="Someting to test";
+		return cds;
+	}
 	public ArrayList<Cds> getCDList() throws SQLException{
-		String CatName="This Cannot be Null";
+		
 		Connection conn=null;
 		ArrayList<Cds> cds=new ArrayList<Cds>();
 		Cds errorCD=new Cds();
@@ -193,6 +241,7 @@ public class DBAgent {
 			   			address.setPostalCode(rs.getString(7));
 			   			address.setPhone(rs.getString(8));
 			   			address.setCountry(rs.getString(9));
+			   			
 			   			//CatName="INSIDE LOOP";
 			   			
 			   		}
@@ -214,7 +263,7 @@ public class DBAgent {
 		}
 		return account;
 	}
-public Account CreateAccount(Account accountInfo) throws SQLException{
+public Account createAccount(Account accountInfo) throws SQLException{
 		
 		Connection conn=null;
 		Account account=new Account();
@@ -234,13 +283,15 @@ public Account CreateAccount(Account accountInfo) throws SQLException{
 						Address address=accountInfo.getAddress();
 					     //Select  CDs Based on Category
 			    	   conn.setAutoCommit(false);
-			    	   pstmt=conn.prepareStatement("INSERT INTO address (street,province,country,postalcode,phone) VALUES (?, ?, ?,?, ?)",Statement.RETURN_GENERATED_KEYS);
+			    	   pstmt=conn.prepareStatement("INSERT INTO address (street,province,country,postalcode,phone,city) VALUES (?, ?, ?,?, ?,?)",Statement.RETURN_GENERATED_KEYS);
 			    	   pstmt.setString(1,address.getStreet());
 			    	   pstmt.setString(2, address.getProvince());
 			    	   pstmt.setString(3, address.getCountry());
 			    	   pstmt.setString(4, address.getPostalCode());
 			    	   pstmt.setString(5, address.getPhone());
+			    	   pstmt.setString(6, address.getCity());
 			    	   ResultSet rs=pstmt.getGeneratedKeys();
+			    	   
 			    	   
 			    	   while(rs.next()){
 			    		   address.setAddressID(rs.getInt(1));
@@ -276,7 +327,7 @@ public Account CreateAccount(Account accountInfo) throws SQLException{
 		return account;
 	}
 
-public Boolean ConfirmOrder(ShoppingCart cart,Order order) throws SQLException{
+public Boolean confirmOrder(ShoppingCart cart,Order order) throws SQLException{
 	
 	/**
 	 * Since the shopping cart is a session object all calculations including vat can be performed within
