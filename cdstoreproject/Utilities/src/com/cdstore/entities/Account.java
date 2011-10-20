@@ -43,7 +43,7 @@ public class Account {
 	public Address getAddress(){
 		return this.address;
 	}
-	public void setAddresses(Address address){
+	public void setAddress(Address address){
 		this.address=address;
 	}
 }
