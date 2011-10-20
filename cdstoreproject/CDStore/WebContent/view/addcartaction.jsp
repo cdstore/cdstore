@@ -4,13 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DreamTeam CD Store</title>
-<link rel="stylesheet" type="text/css" href="/CDStore/css/style.css"/>
+<title>Insert title here</title>
 </head>
 <body>
-	<div id="header">
-	
-	DreamTeam CD Store<br />
-	~~~~~
-	<br />
-	</div>
+
+</body>
+</html>

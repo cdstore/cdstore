@@ -16,17 +16,18 @@
   <jsp-config>
     <jsp-property-group>
       <url-pattern>/index.jsp</url-pattern>
+      <url-pattern>/createaccount.jsp</url-pattern>
       <url-pattern>/view/*</url-pattern>
       <include-prelude>/jspf/header.jspf</include-prelude>
       <include-coda>/jspf/footer.jspf</include-coda>
     </jsp-property-group>
   </jsp-config>
    
-  <!-- define filter to redirect to index.jsp if no session -->
+  <!-- define filter that will redirect to index.jsp if no session -->
   <filter>
     <display-name>SessionFilter</display-name>
     <filter-name>SessionFilter</filter-name>
-    <filter-class>filter.SessionFilter</filter-class>
+    <filter-class>com.cdstore.filter.SessionFilter</filter-class>
   </filter>
 
   <!-- filter applied every time access files in view folder -->

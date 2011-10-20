@@ -7,7 +7,7 @@ import java.util.List;
 import javax.naming.*;
 import javax.sql.*;
 import javax.annotation.Resource;
-import com.cdstore.entity.*;
+import com.cdstore.entities.*;
 
 
 
@@ -61,14 +61,14 @@ public class DBAgent {
 		return categories;
 	}
 	
-	public ArrayList<Cds> getCDList(Integer CategoryID) throws SQLException{
+	public ArrayList<CD> getCDList(Integer CategoryID) throws SQLException{
 		
 		Connection conn=null;
-		ArrayList<Cds> cds=new ArrayList<Cds>();
+		ArrayList<CD> cds=new ArrayList<CD>();
 		/**
 		 * Create an Error CD with is returned when there is an error
 		 */
-		Cds errorCD=new Cds();
+		CD errorCD=new CD();
 		errorCD.setid(0);
 		errorCD.setTitle("Error");
 		try{
@@ -91,7 +91,7 @@ public class DBAgent {
 			    	   pstmt.setLong(1, CategoryID);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
-			   			Cds cd=new Cds(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
 			   			cds.add(cd);
 			   			
 			   		}
@@ -113,10 +113,10 @@ public class DBAgent {
 		//CatName="Someting to test";
 		return cds;
 	}
-	public Cds getCDInfo(Integer cdid) throws SQLException{
+	public CD getCDInfo(Integer cdid) throws SQLException{
 		
 		Connection conn=null;
-		Cds cds=new Cds();
+		CD cds=new CD();
 		
 		try{
 			Context ctx=new InitialContext();
@@ -138,7 +138,7 @@ public class DBAgent {
 			    	   pstmt.setLong(1, cdid);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
-						   cds=new Cds(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+						   cds=new CD(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
 			   			
 			   			
 			   		}
@@ -158,11 +158,11 @@ public class DBAgent {
 		//CatName="Someting to test";
 		return cds;
 	}
-	public ArrayList<Cds> getCDList() throws SQLException{
+	public ArrayList<CD> getCDList() throws SQLException{
 		
 		Connection conn=null;
-		ArrayList<Cds> cds=new ArrayList<Cds>();
-		Cds errorCD=new Cds();
+		ArrayList<CD> cds=new ArrayList<CD>();
+		CD errorCD=new CD();
 		errorCD.setid(0);
 		errorCD.setTitle("Error");
 		try{
@@ -182,7 +182,7 @@ public class DBAgent {
 				   		ResultSet rs=stmt.executeQuery("Select * from cd");	
 			    	   
 					   while(rs.next()){
-			   			Cds cd=new Cds(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
 			   			cds.add(cd);
 			   			//CatName="INSIDE LOOP";
 			   		}

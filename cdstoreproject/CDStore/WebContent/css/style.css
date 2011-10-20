@@ -1,0 +1,23 @@
+@CHARSET "ISO-8859-1";
+
+.errormessage { 
+	color: red; 
+}
+
+.successmessage { 
+	color: green; 
+}
+
+#leftdiv {
+	float: left;
+	width: 50%;
+}
+
+#rightdiv {
+	float: right;
+	width: 50%;
+}
+
+#footer {
+	clear: both;
+}
