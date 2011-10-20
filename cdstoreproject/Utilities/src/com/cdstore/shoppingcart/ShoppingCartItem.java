@@ -1,20 +1,22 @@
-package com.cdstore.entity;
+package com.cdstore.shoppingcart;
+
+import com.cdstore.entities.CD;
 
 public class ShoppingCartItem {
-	Cds Cd;
+	CD Cd;
 	Integer Quantity;
 	
-	public ShoppingCartItem(Cds cd){
+	public ShoppingCartItem(CD cd){
 		this.Cd=cd;
 		this.Quantity=1;
 	}
-	public void setCD(Cds cd){
+	public void setCD(CD cd){
 		this.Cd=cd;
 	}
 	public void setQuantity(Integer Quantity){
 		this.Quantity=Quantity;
 	}
-	public Cds getCds(){
+	public CD getCds(){
 		return this.Cd;
 	}
 	public Integer getQuantity(){

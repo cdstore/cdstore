@@ -1,7 +1,9 @@
-package com.cdstore.entity;
+package com.cdstore.shoppingcart;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.cdstore.entities.CD;
 
 public class ShoppingCart {
 	List<ShoppingCartItem> items;
@@ -22,13 +24,13 @@ public class ShoppingCart {
      *
 
      */
-    public void addItem(Cds cd) {
+    public void addItem(CD cd) {
 
         boolean newItem = true;
 
         for (ShoppingCartItem scItem : items) {
 
-            if (scItem.getCds().getid() == cd.getid()) {
+            if (scItem.getCds().getID() == cd.getID()) {
 
                 newItem = false;
                 scItem.incrementQuantity();
@@ -48,7 +50,7 @@ public class ShoppingCart {
      * from the ShoppingCart's items list.
      *
      */
-    public void update(Cds cd, String quantity) {
+    public void update(CD cd, String quantity) {
 
         Integer qty = -1;
 
@@ -61,7 +63,7 @@ public class ShoppingCart {
 
             for (ShoppingCartItem scItem : items) {
 
-                if (scItem.getCds().getid() == cd.getid()) {
+                if (scItem.getCds().getID() == cd.getID()) {
 
                     if (qty != 0) {
                         // set item quantity to new value
@@ -124,7 +126,7 @@ public class ShoppingCart {
 
         for (ShoppingCartItem scItem : items) {
 
-            Cds product = (Cds) scItem.getCds();
+            CD product = (CD) scItem.getCds();
             amount += (scItem.getQuantity() * product.getPrice().doubleValue());
         }
 
