@@ -1,29 +1,24 @@
 package com.cdstore.entities;
 
-public class CD {
+import com.cdstore.shoppingcart.ShoppingCartItem;
+
+public class CD extends ShoppingCartItem {
 	
-	Integer cdID;
-	String title;
-	Float price;
-	Integer categoryID;
-	String artist;	
-	String label;
+	// id and price are inherited from ShoppingCartItem
+	private String title;
+	private Integer categoryID;
+	private String artist;	
+	private String label;
 	
 	public CD(){
 	}
-	public CD(Integer cdID, String title, Float price, Integer categoryID, String artist, String label){
-		this.cdID=cdID;
+	public CD(Integer id, String title, Float price, Integer categoryID, String artist, String label){
+		this.id=id;
 		this.price=price;
 		this.title=title;
 		this.categoryID=categoryID;
 		this.artist=artist;
 		this.label=label;
-	}
-	public Integer getID(){
-		return cdID;
-	}
-	public void setID(Integer cdID){
-		this.cdID=cdID;
 	}
 	public String getArtist(){
 		return this.artist;
@@ -48,12 +43,6 @@ public class CD {
 	}
 	public void setTitle(String title){
 		this.title=title;
-	}
-	public Float getPrice(){
-		return this.price;
-	}
-	public void setPrice(Float price){
-		this.price=price;
 	}
 	
 }

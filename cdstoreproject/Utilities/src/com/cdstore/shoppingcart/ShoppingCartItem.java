@@ -1,38 +1,30 @@
 package com.cdstore.shoppingcart;
 
-import com.cdstore.entities.CD;
-
-public class ShoppingCartItem {
-	CD Cd;
-	Integer Quantity;
+public abstract class ShoppingCartItem {
+	protected Integer id;
+	protected Float price;
 	
-	public ShoppingCartItem(CD cd){
-		this.Cd=cd;
-		this.Quantity=1;
+	public Integer getID() {
+		return id;
 	}
-	public void setCD(CD cd){
-		this.Cd=cd;
-	}
-	public void setQuantity(Integer Quantity){
-		this.Quantity=Quantity;
-	}
-	public CD getCds(){
-		return this.Cd;
-	}
-	public Integer getQuantity(){
-		return this.Quantity;
-	}
-	 public void incrementQuantity() {
-	        Quantity++;
-	    }
 
-	    public void decrementQuantity() {
-	        Quantity--;
-	    }
-	    
-	    public double getTotal() {
-	        double amount = 0;
-	        amount = (this.getQuantity() * Cd.getPrice().doubleValue());
-	        return amount;
-	    }
+	public void setID(Integer id) {
+		this.id = id;
+	}
+
+	public Float getPrice() {
+		return price;
+	}
+
+	public void setPrice(Float price) {
+		this.price = price;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		ShoppingCartItem that = (ShoppingCartItem)obj;
+		
+		return that.getID().equals(this.getID());
+	}
 }

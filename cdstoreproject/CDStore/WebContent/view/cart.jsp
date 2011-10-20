@@ -1,92 +1,65 @@
+<%@page import="com.cdstore.shoppingcart.ShoppingCartItem"%>
+<%@page import="com.cdstore.beans.CDStoreBean"%>
+<%@page import="com.cdstore.shoppingcart.ShoppingCart"%>
+<%@page import="com.cdstore.entities.CD"%>
+<%@page import="com.cdstore.shoppingcart.ShoppingCartBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 
-            <div id="centerColumn">
+<!-- shopping cart contains blah items, clear cart, continue shopping, checkout -->
+<!-- prod name, price, quantity -->
 
-                <p>Your shopping cart contains x items.</p>
+	<% 
+	
+	//retrieve shopping cart from session
+	ShoppingCartBean shopBean = (ShoppingCartBean)session.getAttribute("shopBean"); 
+	
+	if(shopBean==null || shopBean.getShoppingCart().getSize()==0){
+		%>
+		<br />
+			Your cart is currently empty.
+		<br />
+		<%
+	} else {	
+		%>
+		<br />
+		<a href="clearcartaction.jsp">Clear Cart</a>
+		<br />
+		<table>
+		<%		
+		ShoppingCart shopCart = shopBean.getShoppingCart();
+					
+		//output the details for each item in the shopping cart
+		for (int i=0; i<shopCart.getSize(); i++) {
+			
+			ShoppingCartItem cdItem = shopCart.getItemFromIndex(i);
+			CD cd = (CD)cdItem;
+			
+			%>
+			<form method="POST" action="updatequantityaction.jsp"><tr>
+			<input type="hidden" value="<%= i %>" name="itemIndex"/>
+			<td><%= cd.getTitle() %></td>
+			<td><%= cd.getPrice() %></td>
+			<td><input type="text" name="newQuantity" value="<%= shopCart.getQuantityByIndex(i) %>"/></td>
+			<td><input type="submit" value="Update Quantity" name="update" /></td>
+			<td><input type="submit" value="Remove Item" name="update" /></td>
+			</tr></form>
+			<% 
+		}
+		
+		%>
+		</table>
+		<br/>
+		Shopping Cart Total: <%= shopCart.getTotalPrice() %>
+		<br />
+		<br />
+		<a href="checkout.jsp">Checkout</a>		
+		<%
+	
+	} // else
+	%>
 
-                <div id="actionBar">
-                    <a href="#" class="bubble hMargin">clear cart</a>
-                    <a href="#" class="bubble hMargin">continue shopping</a>
-                    <a href="#" class="bubble hMargin">proceed to checkout</a>
-                </div>
-
-                <h4 id="subtotal">[ subtotal: xxx ]</h4>
-
-                <table id="cartTable">
-
-                    <tr class="header">
-                        <th>product</th>
-                        <th>name</th>
-                        <th>price</th>
-                        <th>quantity</th>
-                    </tr>
-
-                    <tr>
-                        <td class="lightBlue">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="lightBlue">[ product name ]</td>
-                        <td class="lightBlue">[ price ]</td>
-                        <td class="lightBlue">
-
-                            <form action="updateCart" method="post">
-                                <input type="text"
-                                       maxlength="2"
-                                       size="2"
-                                       value="1"
-                                       name="quantity">
-                                <input type="submit"
-                                       name="submit"
-                                       value="update button">
-                            </form>
-                        </td>
-                    </tr>
-
-                     <tr>
-                        <td class="white">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="white">[ product name ]</td>
-                        <td class="white">[ price ]</td>
-                        <td class="white">
-
-                            <form action="updateCart" method="post">
-                                <input type="text"
-                                       maxlength="2"
-                                       size="2"
-                                       value="1"
-                                       name="quantity">
-                                <input type="submit"
-                                       name="submit"
-                                       value="update button">
-                            </form>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="lightBlue">
-                            <img src="#" alt="product image">
-                        </td>
-                        <td class="lightBlue">[ product name ]</td>
-                        <td class="lightBlue">[ price ]</td>
-                        <td class="lightBlue">
-
-                            <form action="updateCart" method="post">
-                                <input type="text"
-                                       maxlength="2"
-                                       size="2"
-                                       value="1"
-                                       name="quantity">
-                                <input type="submit"
-                                       name="submit"
-                                       value="update button">
-                            </form>
-                        </td>
-                    </tr>
-
-                </table>
-
-            </div>
+<br />
+<a href="cdstore.jsp">Continue Shopping</a>
 
           

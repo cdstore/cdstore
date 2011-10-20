@@ -1,12 +1,20 @@
 package com.cdstore.beans;
 
+import java.util.Date;
+
 import com.cdstore.entities.Account;
+import com.cdstore.entities.Order;
+import com.cdstore.entities.OrderDetails;
 import com.cdstore.services.clients.OrderProcessClient;
+import com.cdstore.shoppingcart.ShoppingCart;
+import com.cdstore.shoppingcart.ShoppingCartItem;
 
 public class OrderBean {
 	
 	private Account account;
 	private OrderProcessClient orderServiceClient;
+	private Order order;
+	
 	
 	public OrderBean(){
 		orderServiceClient = new OrderProcessClient();
@@ -41,10 +49,41 @@ public class OrderBean {
 		
 		return serviceAccount;
 	}
-	
-	
-	
+		
 	public Account getAccount(){
 		return account;
+	}
+	
+	public void createOrder(ShoppingCart shopCart){
+		// call service to retrieve user's account
+		// order = orderServiceClient.getServiceInterface().createOrder(shopCart, account);
+				
+		//placeholder stuff below
+		order = new Order();
+		order.setAccount(account);
+		order.setAmount(shopCart.getTotalPrice());
+		order.setDateOrdered(new Date());
+		order.setOrderID(1);
+		
+		int shopCartSize = shopCart.getSize();
+		
+		OrderDetails[] details = new OrderDetails[shopCartSize];
+		
+		for (int i=0;i<shopCartSize;i++){
+			details[i] = new OrderDetails();
+			
+			ShoppingCartItem shopItem = shopCart.getItemFromIndex(i);
+			
+			details[i].setCDID(shopItem.getID());
+			details[i].setOrderID(1);	//belongs to order 1
+			details[i].setPrice(shopItem.getPrice());
+			details[i].setQuantity(shopCart.getQuantityByIndex(i));			
+		}
+		
+		order.setOrderDetails(details);
+	}
+
+	public Order getOrder() {
+		return order;
 	}
 }

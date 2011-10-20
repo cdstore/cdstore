@@ -8,15 +8,17 @@ public class Order {
 	private Date dateOrdered;
 	private Float amount;
 	private Integer orderID;
+	private OrderDetails[] orderDetails;
 
 	public Order(){
 	}
-	public Order(Account account, String status, Date dateOrdered, Float amount, Integer orderID){
+	public Order(Account account, String status, Date dateOrdered, Float amount, Integer orderID, OrderDetails[] orderDetails){
 		this.account=account;
 		this.status=status;
 		this.dateOrdered=dateOrdered;
 		this.amount=amount;
 		this.orderID=orderID;
+		this.orderDetails=orderDetails;
 	}	
 	public Account getAccount(){
 		return this.account;
@@ -47,5 +49,11 @@ public class Order {
 	}
 	public void setOrderID(Integer orderID){
 		this.orderID=orderID;
+	}
+	public OrderDetails[] getOrderDetails() {
+		return orderDetails;
+	}
+	public void setOrderDetails(OrderDetails[] orderDetails) {
+		this.orderDetails = orderDetails;
 	}
 }

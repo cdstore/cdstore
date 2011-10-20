@@ -1,12 +1,30 @@
+<%@page import="com.cdstore.beans.CDStoreBean"%>
+<%@page import="com.cdstore.entities.CD"%>
+<%@page import="com.cdstore.shoppingcart.ShoppingCartItem"%>
+<%@page import="com.cdstore.shoppingcart.ShoppingCartBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
-</html>
+<%
+	String cdid = request.getParameter("cdid");
+
+	ShoppingCartBean shopBean = (ShoppingCartBean)session.getAttribute("shopBean"); 
+	
+	// check if already have a shopping cart
+	if (shopBean==null){
+		
+		shopBean = new ShoppingCartBean();
+		
+		session.setAttribute("shopBean", shopBean);
+	}
+	
+	CDStoreBean cdBean = (CDStoreBean)session.getAttribute("cdBean"); 
+	
+	//returns CD object via service
+	ShoppingCartItem cdItem = cdBean.getCDInfo(new Integer (cdid));
+		
+	shopBean.addItemToShoppingCart(cdItem);	
+	
+	response.sendRedirect("cart.jsp");
+
+%>

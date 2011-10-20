@@ -3,13 +3,6 @@
 <%@page import="com.cdstore.beans.OrderBean"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Create Account Action</title>
-</head>
-<body>
 
 <%
     String username = request.getParameter("userName");
@@ -41,13 +34,13 @@
     	account.setFirstName(firstName);
     	account.setLastName(lastName);
     	address.setStreet(street);
-    	//address.setCity(city);
+    	address.setCity(city);
     	address.setProvince(province);
-    	//address.setPostalCode(postalcode);
+    	address.setPostalCode(postalcode);
     	address.setCountry(country);
     	address.setPhone(phonenumber);
     	
-    	//account.setAddress(address);
+    	account.setAddress(address);
     	
     	Account serviceAccount = oBean.createAccount(account);
     	
@@ -66,7 +59,3 @@
     session.setAttribute("createerror", true);
     response.sendRedirect("createaccount.jsp");
 %>
-
-
-</body>
-</html>

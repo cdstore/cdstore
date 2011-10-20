@@ -1,8 +1,8 @@
 package com.cdstore.entities;
 
 public class Category {
-	Integer categoryID;
-	String categoryName;
+	private Integer categoryID;
+	private String categoryName;
 	
 	public Category(){
 		
