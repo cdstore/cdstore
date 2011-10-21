@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename type &apos;com.cdstore.catalogservice.CatalogServiceImpl&apos; to &apos;ProductCatalogImpl&apos;&#x0D;&#x0A;- Original project: &apos;CatalogService&apos;&#x0D;&#x0A;- Original element: &apos;com.cdstore.catalogservice.CatalogServiceImpl&apos;&#x0D;&#x0A;- Renamed element: &apos;com.cdstore.catalogservice.ProductCatalogImpl&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;CatalogServiceImpl&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;com.cdstore.catalogservice{CatalogServiceImpl.java[CatalogServiceImpl" matchStrategy="1" name="ProductCatalogImpl" qualified="false" references="true" similarDeclarations="false" stamp="1319003408006" textual="false" version="1.0"/>
-</session>

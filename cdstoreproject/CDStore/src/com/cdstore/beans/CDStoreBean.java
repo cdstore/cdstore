@@ -17,7 +17,7 @@ public class CDStoreBean {
 	public Category[] getCategoryList(){
 		
 		//call service
-		//Category[] categories = productServiceClient.getServiceInterface().getCategoryList();
+		Category[] categories = productServiceClient.getServiceInterface().getCategoryList();
 		
 		//placeholder array data
 		
