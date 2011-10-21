@@ -1,6 +1,6 @@
 package com.cdstore.catalogservice;
 
-import com.cdstore.entity.*;
+import com.cdstore.entities.*;
 import com.cdstore.dbagent.*;
 import java.util.*;
 import java.sql.*;
@@ -14,17 +14,21 @@ public class ProductCatalogImpl {
 		DB = new DBAgent();
 	}
 	
-	public ArrayList <Category> getCategoryList() throws SQLException
+	public Category[] getCategoryList() throws SQLException
 	{
-		return DB.getCategories();
+		ArrayList<Category> input = DB.getCategories();
+	    Category[] output = new Category[input.size()];
+		return input.toArray(output);
 	}
 	
-    public ArrayList<Cds> getCDList(int CategoryID) throws SQLException
+    public CD[] getCDList(int CategoryID) throws SQLException
     {
-    	return DB.getCDList(CategoryID);
+    	ArrayList<CD> input = DB.getCDList();
+	    CD[] output = new CD[input.size()];
+		return input.toArray(output);
     }
     
-    public Cds getCDInfo(int CdID) throws SQLException
+    public CD getCDInfo(int CdID) throws SQLException
     {
     	return DB.getCDInfo(CdID);
     }

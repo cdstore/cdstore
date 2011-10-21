@@ -1,5 +1,6 @@
 package com.cdstore.orderservice;
-import com.cdstore.entity.*;
+import com.cdstore.entities.*;
+import com.cdstore.shoppingcart.*;
 import java.sql.*;
 
 public interface OrderProcess {

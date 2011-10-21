@@ -1,8 +1,7 @@
 package com.cdstore.orderservice;
 
-import com.cdstore.entity.Account;
-import com.cdstore.entity.Order;
-import com.cdstore.entity.ShoppingCart;
+import com.cdstore.entities.*;
+import com.cdstore.shoppingcart.*;
 import com.cdstore.dbagent.*;
 import java.sql.*;
 

@@ -1,15 +1,14 @@
 package com.cdstore.catalogservice;
 
-import entity.Category;
-import java.util.*;
-import entity.Cds;
+import com.cdstore.entities.*;
+
 
 public interface ProductCatalog {
-	public ArrayList<Category> getCategoryList();
+	public Category[] getCategoryList();
 	
-    public ArrayList<Cds> getCDList(int CategoryID);
+    public CD[] getCDList(int CategoryID);
     
-    public Cds getCDInfo(int CdID);
+    public CD getCDInfo(int CdID);
     
     public void validateInput();
    

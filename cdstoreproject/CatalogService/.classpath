@@ -8,7 +8,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Utilities/antbuild/Utilities.jar"/>
-	<classpathentry kind="lib" path="/DBAgent/antbuild/DBAgent.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/DBAgent"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Utilities"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
