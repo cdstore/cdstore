@@ -51,7 +51,7 @@
 	</target>
 	
 		
-	<target name="package" depends="buildUtilities,buildDBAgent">
+	<target name="package" depends="buildUtilities">
 		<jar jarfile="${outputdir}/Utilities.jar" basedir="${classDir}" />
 	</target>
 
