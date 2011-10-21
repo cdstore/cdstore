@@ -53,7 +53,7 @@
 		Shopping Cart Total: <%= shopCart.getTotalPrice() %>
 		<br />
 		<br />
-		<a href="../controller?actionName=checkout">Checkout</a>		
+		<a href="../controller?actionName=checkoutAction">Checkout</a>		
 		<%
 	
 	} // else
