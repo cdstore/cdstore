@@ -1,0 +1,8 @@
+Exception in thread "main" javax.xml.ws.soap.SOAPFaultException: 4
+	at com.sun.xml.internal.ws.fault.SOAP11Fault.getProtocolException(Unknown Source)
+	at com.sun.xml.internal.ws.fault.SOAPFaultBuilder.createException(Unknown Source)
+	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(Unknown Source)
+	at com.sun.xml.internal.ws.client.sei.SyncMethodHandler.invoke(Unknown Source)
+	at com.sun.xml.internal.ws.client.sei.SEIStub.invoke(Unknown Source)
+	at $Proxy21.getHelloWorldAsString(Unknown Source)
+	at com.mkyong.client.HelloWorldClient.main(HelloWorldClient.java:25)

@@ -1,0 +1,10 @@
+package com.cdstore.catalogservice;
+
+
+public class ProductCatalog {
+
+	Utilities.entity.Category [] getCategoryList()
+	{
+		
+	}
+}
