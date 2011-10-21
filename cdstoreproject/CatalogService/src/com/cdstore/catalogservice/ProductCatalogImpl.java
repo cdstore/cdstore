@@ -3,9 +3,14 @@ package com.cdstore.catalogservice;
 import com.cdstore.entities.*;
 import com.cdstore.dbagent.*;
 import java.util.*;
-import java.sql.*;
 
-public class ProductCatalogImpl {
+
+import javax.jws.WebService;
+
+//Service Implementation Bean
+
+@WebService(endpointInterface = "com.cdstore.catalogservice.ProductCatalog")
+public class ProductCatalogImpl implements ProductCatalog {
 	
 	private DBAgent DB;
 	
@@ -13,26 +18,38 @@ public class ProductCatalogImpl {
 	{
 		DB = new DBAgent();
 	}
-	
-	public Category[] getCategoryList() throws SQLException
+	@Override
+	public Category[] getCategoryList()
 	{
-		ArrayList<Category> input = DB.getCategories();
-	    Category[] output = new Category[input.size()];
+		ArrayList<Category> input=new ArrayList<Category>();
+		try{
+		input = DB.getCategories();
+	   
+		}catch(Exception ex){
+		
+		}
+		 Category[] output = new Category[input.size()];
 		return input.toArray(output);
 	}
 	
-    public CD[] getCDList(int CategoryID) throws SQLException
+	@Override
+    public CD[] getCDList(int CategoryID)
     {
-    	ArrayList<CD> input = DB.getCDList();
+    	ArrayList<CD> input =new ArrayList<CD>();
+    	try{
+    	 input = DB.getCDList();
+    	}catch(Exception ex){
+    		
+    	}
 	    CD[] output = new CD[input.size()];
 		return input.toArray(output);
     }
     
-    public CD getCDInfo(int CdID) throws SQLException
-    {
-    	return DB.getCDInfo(CdID);
-    }
-    
+//    public CD getCDInfo(int CdID) 
+//    {
+//    	return DB.getCDInfo(CdID);
+//    }
+    @Override
     public void validateInput()
     {
     	

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE project>
 
 <project basedir="." default="package" name="CatalogService">
 
@@ -31,9 +30,10 @@
 				<include name="*.jar"/>
 			</fileset>
 			<fileset dir="../Utilities/antbuild">
-				<include name="*.jar"/>
-			</fileset>
-		</path>
+							<include name="*.jar"/>
+						</fileset>
+
+		</path> 
 
 		<!-- Compile Java source into .class files in temporary classDir folder defined earlier -->
 		<javac debug="true" destdir="${classDir}" source="${source}" target="${target}" includeantruntime="false">
@@ -49,14 +49,13 @@
 			<fileset dir="${web}" includes="**/*.*" />
 		</copy>
 		
-		<!-- Uncomment this if you need Utilities.jar in the war -->
-		<!-- 
 		<copy todir="${warDir}/WEB-INF/lib">
+
 			<fileset dir="../Utilities/antbuild">
-				<include name="*.jar"/>
-			</fileset>
+							<include name="*.jar"/>
+						</fileset>
 		</copy>
-		-->
+
 		
 		<!-- some of the .jar libraries were only needed for compiling and are not needed in the final .war so delete them -->
 		<!--  <delete file="${finalLibDir}/.jar" />	-->
@@ -70,11 +69,6 @@
 	    <delete dir="${classDir}"/>
 		
 		<!-- build the folder into a .war at the specified location -->
-		<jar jarfile="${outputdir}/CatalogService.war" basedir="${warDir}" />
-
-
+		<jar jarfile="${outputdir}/ProductCatalog.war" basedir="${warDir}" />
 	</target> 
-	
-	
-
 </project>

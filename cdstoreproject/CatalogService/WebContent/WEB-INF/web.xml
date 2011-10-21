@@ -10,15 +10,15 @@ Inc.//DTD Web Application 2.3//EN"
         </listener-class>
     </listener>
     <servlet>
-        <servlet-name>CatalogService</servlet-name>
+        <servlet-name>catalog</servlet-name>
         <servlet-class>
         	com.sun.xml.ws.transport.http.servlet.WSServlet
         </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CatalogService</servlet-name>
-        <url-pattern>/CatalogService</url-pattern>
+        <servlet-name>catalog</servlet-name>
+        <url-pattern>/catalog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>120</session-timeout>
