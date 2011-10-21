@@ -4,9 +4,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-
-//import entity.*;
-
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
@@ -27,8 +24,10 @@ public class HelloWorldClient{
         ProductCatalog hello = service.getPort(ProductCatalog.class);
         System.out.println("Start");
         Category[] data=hello.getCategoryList();
-        Category cat=data[0];
-        System.out.println(cat.getCategoryName());
+        for(Category cat:data){
+        	System.out.println(cat.getCategoryID().toString()+" "+ cat.getCategoryName());
+        }
+        
         
        // String icount=hello.getCDs();
        // System.out.print(icount);

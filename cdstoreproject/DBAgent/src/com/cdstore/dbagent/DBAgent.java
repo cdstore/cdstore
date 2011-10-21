@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 //import javax.annotation.Resource;
@@ -13,7 +12,6 @@ import javax.sql.*;
 
 //import javax.annotation.Resource;
 import com.cdstore.entities.*;
-import com.cdstore.shoppingcart.*;
 
 
 
