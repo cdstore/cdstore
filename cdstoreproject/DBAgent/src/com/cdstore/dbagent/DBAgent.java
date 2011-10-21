@@ -40,16 +40,16 @@ public class DBAgent {
 //		}
 	//	Properties props = new Properties();
 		
-//		try {
+		try {
 			//props.load(new FileInputStream("queries.properties"));
 			//this.prop=props;
-		//	bundle = ResourceBundle.getBundle("queries");
+			bundle = ResourceBundle.getBundle("queries");
 			//System.out.println(bundle.getString("getCategories"));
-	//	} catch (Exception e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 
-	//		e.printStackTrace();
-	//	}
+			e.printStackTrace();
+		}
 		
 	}
 	public ArrayList<Category> getCategories() throws SQLException{
@@ -74,7 +74,7 @@ public class DBAgent {
 			        conn = ds.getConnection();
 			       if(conn != null)  {
 			        Statement stmt=conn.createStatement();
-			   		ResultSet rs=stmt.executeQuery("Select * from Category");	
+			   		ResultSet rs=stmt.executeQuery(bundle.getString("getCategories"));	
 			   		while(rs.next()){
 			   			Category category=new Category();
 			   			category.setCategoryID(rs.getInt(1));
@@ -129,7 +129,7 @@ public class DBAgent {
 					
 					     /**Select  CDs Based on Category 
 					      * */
-			    	   pstmt=conn.prepareStatement("getCDList");
+			    	   pstmt=conn.prepareStatement(bundle.getString("getCDList"));
 			    	   pstmt.setLong(1, CategoryID);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
@@ -176,7 +176,7 @@ public class DBAgent {
 					
 					     /**Select  CDs Based on Category 
 					      * */
-			    	   pstmt=conn.prepareStatement("getCDInfo");
+			    	   pstmt=conn.prepareStatement(bundle.getString("getCDInfo"));
 			    	   pstmt.setLong(1, cdid);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
@@ -221,7 +221,7 @@ public class DBAgent {
 			    	   	
 					     //Select  CDs Based on Category
 			    	   Statement stmt=conn.createStatement();
-				   		ResultSet rs=stmt.executeQuery("getallCDs");	
+				   		ResultSet rs=stmt.executeQuery(bundle.getString("getallCDs") );	
 			    	   
 					   while(rs.next()){
 			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getString(5),rs.getString(6));
@@ -263,7 +263,7 @@ public class DBAgent {
 			    	   PreparedStatement pstmt=null;
 						
 					     //Select  CDs Based on Category
-			    	   pstmt=conn.prepareStatement("getAccount");
+			    	   pstmt=conn.prepareStatement(bundle.getString("getAccount"));
 			    	   pstmt.setString(1,userName);
 			    	   pstmt.setString(2, Password);
 			    	   ResultSet rs=pstmt.executeQuery();
@@ -323,7 +323,7 @@ public Account createAccount(Account accountInfo) throws SQLException{
 						Address address=accountInfo.getAddress();
 					     //Select  CDs Based on Category
 			    	   conn.setAutoCommit(false);
-			    	   pstmt=conn.prepareStatement("addAccount",Statement.RETURN_GENERATED_KEYS);
+			    	   pstmt=conn.prepareStatement(bundle.getString("addAccount"),Statement.RETURN_GENERATED_KEYS);
 			    	   pstmt.setString(1,address.getStreet());
 			    	   pstmt.setString(2, address.getProvince());
 			    	   pstmt.setString(3, address.getCountry());
@@ -338,7 +338,7 @@ public Account createAccount(Account accountInfo) throws SQLException{
 			    	   }
 			    	   account=accountInfo;
 			    	   account.setAddress(address);
-			    	   pstmt=conn.prepareStatement("addaddress");
+			    	   pstmt=conn.prepareStatement(bundle.getString( "addaddress"));
 			    	   pstmt.setString(1,account.getUserName());
 			    	   pstmt.setString(2, account.getLastName());
 			    	   pstmt.setString(3, account.getFirstName());
@@ -395,7 +395,7 @@ public Boolean confirmOrder(Order order) throws SQLException{
 				     * an error
 				     */
 		    	   conn.setAutoCommit(false);
-		    	   pstmt=conn.prepareStatement("addOrder",Statement.RETURN_GENERATED_KEYS);
+		    	   pstmt=conn.prepareStatement(bundle.getString("addOrder"),Statement.RETURN_GENERATED_KEYS);
 		    	   pstmt.setString(1,order.getAccount().getUserName());
 		    	   pstmt.setDouble(2, order.getAmount());
 		    	   pstmt.setString(3, order.getStatus());
@@ -406,7 +406,7 @@ public Boolean confirmOrder(Order order) throws SQLException{
 		    	   }
 		    	   for(OrderDetails item:cartitems){
 		    		   
-			    	   pstmt=conn.prepareStatement("addOrderDetails");
+			    	   pstmt=conn.prepareStatement(bundle.getString( "addOrderDetails"));
 			    	   pstmt.setInt(1,item.getCDID());
 			    	   pstmt.setInt(2, order.getOrderID());
 			    	   pstmt.setInt(3, item.getQuantity());

@@ -48,7 +48,8 @@
 			<src path="${dbSrc}" />
 			<classpath refid="classpath"/>
 		</javac>
-		<copy todir="${classDir}/com/cdstore/dbagent"> 
+		<!--/com/cdstore/dbagent-->
+		<copy todir="${classDir}"> 
 				 	
 					<fileset dir="${dbSrc}" includes="*.properties" />
 		</copy>
