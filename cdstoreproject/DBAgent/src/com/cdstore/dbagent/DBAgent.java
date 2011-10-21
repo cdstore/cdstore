@@ -85,16 +85,18 @@ public class DBAgent {
 			   			
 			   		}
 			        }else{
-			        	
+			        	errorCat.setCategoryName("Connection Error");
 			        	categories.add(errorCat);
+			        	
 			        }
 			        
 			 }else{
-				 
+				 errorCat.setCategoryName("DataSource Error");
 				 categories.add(errorCat);
 			 }
 
 		}catch(Exception ex){
+			errorCat.setCategoryName("Connection Error " +ex.getMessage());
 			categories.add(errorCat);
 			ex.printStackTrace();
 			
