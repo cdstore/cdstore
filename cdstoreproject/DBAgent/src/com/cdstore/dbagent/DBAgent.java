@@ -1,11 +1,9 @@
 package com.cdstore.dbagent;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.ResourceBundle;
 //import javax.annotation.Resource;
 import javax.naming.*;
 import javax.sql.*;
@@ -22,35 +20,29 @@ public class DBAgent {
 	//private DataSource ds;
 // 
 	
-	private ResourceBundle bundle;
 	private String inputPath;
+	private String propertyFile = "/queries.properties";
+	
+	private Properties props = new Properties();
 	
 	public String getInput(){
 		return inputPath;
 	}
 	
 	public DBAgent(){
-	//	String sConfigFile = "queries.properties";
-		
-		//InputStream in = DBAgent.class.getClassLoader().getResourceAsStream(sConfigFile);
-		//inputPath=DBAgent.class.getClassLoader().getResource("sConfigFile").getPath();
-//		if (in == null) {
-//			//File not found! (Manage the problem)
-//			///System.out.println(DBAgent.class.getClassLoader().getResource("sConfigFile").getPath());
-//		}
-	//	Properties props = new Properties();
-		
-		try {
-			//props.load(new FileInputStream("queries.properties"));
-			//this.prop=props;
-			bundle = ResourceBundle.getBundle("queries");
-			//System.out.println(bundle.getString("getCategories"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
 
-			e.printStackTrace();
+ 		InputStream in = getClass().getResourceAsStream(propertyFile);
+		
+		if (in == null) {
+			//File not found! (Manage the problem)
+			System.out.println(propertyFile + "not found!");
 		}
 		
+		try {
+			props.load(in);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public ArrayList<Category> getCategories() throws SQLException{
 		
@@ -74,7 +66,7 @@ public class DBAgent {
 			        conn = ds.getConnection();
 			       if(conn != null)  {
 			        Statement stmt=conn.createStatement();
-			   		ResultSet rs=stmt.executeQuery(bundle.getString("getCategories"));	
+			   		ResultSet rs=stmt.executeQuery(props.getProperty("getCategories"));	
 			   		while(rs.next()){
 			   			Category category=new Category();
 			   			category.setCategoryID(rs.getInt(1));
@@ -129,7 +121,7 @@ public class DBAgent {
 					
 					     /**Select  CDs Based on Category 
 					      * */
-			    	   pstmt=conn.prepareStatement(bundle.getString("getCDList"));
+			    	   pstmt=conn.prepareStatement(props.getProperty("getCDList"));
 			    	   pstmt.setLong(1, CategoryID);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
@@ -176,7 +168,7 @@ public class DBAgent {
 					
 					     /**Select  CDs Based on Category 
 					      * */
-			    	   pstmt=conn.prepareStatement(bundle.getString("getCDInfo"));
+			    	   pstmt=conn.prepareStatement(props.getProperty("getCDInfo"));
 			    	   pstmt.setLong(1, cdid);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
@@ -221,7 +213,7 @@ public class DBAgent {
 			    	   	
 					     //Select  CDs Based on Category
 			    	   Statement stmt=conn.createStatement();
-				   		ResultSet rs=stmt.executeQuery(bundle.getString("getallCDs") );	
+				   		ResultSet rs=stmt.executeQuery(props.getProperty("getallCDs") );	
 			    	   
 					   while(rs.next()){
 			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getString(5),rs.getString(6));
@@ -263,7 +255,7 @@ public class DBAgent {
 			    	   PreparedStatement pstmt=null;
 						
 					     //Select  CDs Based on Category
-			    	   pstmt=conn.prepareStatement(bundle.getString("getAccount"));
+			    	   pstmt=conn.prepareStatement(props.getProperty("getAccount"));
 			    	   pstmt.setString(1,userName);
 			    	   pstmt.setString(2, Password);
 			    	   ResultSet rs=pstmt.executeQuery();
@@ -323,7 +315,7 @@ public Account createAccount(Account accountInfo) throws SQLException{
 						Address address=accountInfo.getAddress();
 					     //Select  CDs Based on Category
 			    	   conn.setAutoCommit(false);
-			    	   pstmt=conn.prepareStatement(bundle.getString("addAccount"),Statement.RETURN_GENERATED_KEYS);
+			    	   pstmt=conn.prepareStatement(props.getProperty("addAccount"),Statement.RETURN_GENERATED_KEYS);
 			    	   pstmt.setString(1,address.getStreet());
 			    	   pstmt.setString(2, address.getProvince());
 			    	   pstmt.setString(3, address.getCountry());
@@ -338,7 +330,7 @@ public Account createAccount(Account accountInfo) throws SQLException{
 			    	   }
 			    	   account=accountInfo;
 			    	   account.setAddress(address);
-			    	   pstmt=conn.prepareStatement(bundle.getString( "addaddress"));
+			    	   pstmt=conn.prepareStatement(props.getProperty( "addaddress"));
 			    	   pstmt.setString(1,account.getUserName());
 			    	   pstmt.setString(2, account.getLastName());
 			    	   pstmt.setString(3, account.getFirstName());
@@ -395,7 +387,7 @@ public Boolean confirmOrder(Order order) throws SQLException{
 				     * an error
 				     */
 		    	   conn.setAutoCommit(false);
-		    	   pstmt=conn.prepareStatement(bundle.getString("addOrder"),Statement.RETURN_GENERATED_KEYS);
+		    	   pstmt=conn.prepareStatement(props.getProperty("addOrder"),Statement.RETURN_GENERATED_KEYS);
 		    	   pstmt.setString(1,order.getAccount().getUserName());
 		    	   pstmt.setDouble(2, order.getAmount());
 		    	   pstmt.setString(3, order.getStatus());
@@ -406,7 +398,7 @@ public Boolean confirmOrder(Order order) throws SQLException{
 		    	   }
 		    	   for(OrderDetails item:cartitems){
 		    		   
-			    	   pstmt=conn.prepareStatement(bundle.getString( "addOrderDetails"));
+			    	   pstmt=conn.prepareStatement(props.getProperty( "addOrderDetails"));
 			    	   pstmt.setInt(1,item.getCDID());
 			    	   pstmt.setInt(2, order.getOrderID());
 			    	   pstmt.setInt(3, item.getQuantity());
