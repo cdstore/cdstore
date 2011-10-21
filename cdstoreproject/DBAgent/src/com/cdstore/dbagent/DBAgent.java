@@ -1,13 +1,21 @@
 package com.cdstore.dbagent;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Properties;
+import java.util.ResourceBundle;
 //import javax.annotation.Resource;
 import javax.naming.*;
 import javax.sql.*;
-import javax.annotation.Resource;
+
+//import javax.annotation.Resource;
 import com.cdstore.entities.*;
+import com.cdstore.shoppingcart.*;
+
+
 
 
 
@@ -15,11 +23,45 @@ public class DBAgent {
 	//@Resource(name="jdbc/cdstore")
 	//private DataSource ds;
 // 
+	
+	private ResourceBundle bundle;
+	private String inputPath;
+	
+	public String getInput(){
+		return inputPath;
+	}
+	
+	public DBAgent(){
+	//	String sConfigFile = "queries.properties";
+		
+		//InputStream in = DBAgent.class.getClassLoader().getResourceAsStream(sConfigFile);
+		//inputPath=DBAgent.class.getClassLoader().getResource("sConfigFile").getPath();
+//		if (in == null) {
+//			//File not found! (Manage the problem)
+//			///System.out.println(DBAgent.class.getClassLoader().getResource("sConfigFile").getPath());
+//		}
+	//	Properties props = new Properties();
+		
+//		try {
+			//props.load(new FileInputStream("queries.properties"));
+			//this.prop=props;
+		//	bundle = ResourceBundle.getBundle("queries");
+			//System.out.println(bundle.getString("getCategories"));
+	//	} catch (Exception e) {
+			// TODO Auto-generated catch block
+
+	//		e.printStackTrace();
+	//	}
+		
+	}
 	public ArrayList<Category> getCategories() throws SQLException{
 		
 		Connection conn=null;
 		ArrayList<Category> categories=new ArrayList<Category>();
 		Category errorCat=new Category();
+		
+		
+		
 		errorCat.setCategoryID(0);
 		errorCat.setCategoryName("Error");
 		try{
@@ -69,7 +111,7 @@ public class DBAgent {
 		 * Create an Error CD with is returned when there is an error
 		 */
 		CD errorCD=new CD();
-		errorCD.setid(0);
+		errorCD.setID(0);
 		errorCD.setTitle("Error");
 		try{
 			Context ctx=new InitialContext();
@@ -87,11 +129,11 @@ public class DBAgent {
 					
 					     /**Select  CDs Based on Category 
 					      * */
-			    	   pstmt=conn.prepareStatement("Select * from cd WHERE categoryid=?");
+			    	   pstmt=conn.prepareStatement("getCDList");
 			    	   pstmt.setLong(1, CategoryID);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
-			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getString(5),rs.getString(6));
 			   			cds.add(cd);
 			   			
 			   		}
@@ -134,11 +176,11 @@ public class DBAgent {
 					
 					     /**Select  CDs Based on Category 
 					      * */
-			    	   pstmt=conn.prepareStatement("Select * from cd WHERE cdid=?");
+			    	   pstmt=conn.prepareStatement("getCDInfo");
 			    	   pstmt.setLong(1, cdid);
 			    	   ResultSet rs=pstmt.executeQuery();
 					   while(rs.next()){
-						   cds=new CD(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+						   cds=new CD(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getString(5),rs.getString(6));
 			   			
 			   			
 			   		}
@@ -163,7 +205,7 @@ public class DBAgent {
 		Connection conn=null;
 		ArrayList<CD> cds=new ArrayList<CD>();
 		CD errorCD=new CD();
-		errorCD.setid(0);
+		errorCD.setID(0);
 		errorCD.setTitle("Error");
 		try{
 			Context ctx=new InitialContext();
@@ -179,10 +221,10 @@ public class DBAgent {
 			    	   	
 					     //Select  CDs Based on Category
 			    	   Statement stmt=conn.createStatement();
-				   		ResultSet rs=stmt.executeQuery("Select * from cd");	
+				   		ResultSet rs=stmt.executeQuery("getallCDs");	
 			    	   
 					   while(rs.next()){
-			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getBigDecimal(3),rs.getInt(4),rs.getString(5),rs.getString(6));
+			   			CD cd=new CD(rs.getInt(1),rs.getString(2),rs.getFloat(3),rs.getInt(4),rs.getString(5),rs.getString(6));
 			   			cds.add(cd);
 			   			//CatName="INSIDE LOOP";
 			   		}
@@ -221,9 +263,7 @@ public class DBAgent {
 			    	   PreparedStatement pstmt=null;
 						
 					     //Select  CDs Based on Category
-			    	   pstmt=conn.prepareStatement("Select a.username,a.lastname,a.firstname,d.addressid," +
-			    	   		"d.street,d.province,d.postalcode,d.phone,d.country from account a INNER JOIN address d on a.addressid=d.addressid" +
-			    	   		" WHERE username=? and password=?");
+			    	   pstmt=conn.prepareStatement("getAccount");
 			    	   pstmt.setString(1,userName);
 			    	   pstmt.setString(2, Password);
 			    	   ResultSet rs=pstmt.executeQuery();
@@ -245,7 +285,7 @@ public class DBAgent {
 			   			//CatName="INSIDE LOOP";
 			   			
 			   		}
-					   account.setAddresses(address);
+					   account.setAddress(address);
 			        }else{
 			        	//CatName="Connection Failure";
 			        	account.setUserName("Invalid");
@@ -283,7 +323,7 @@ public Account createAccount(Account accountInfo) throws SQLException{
 						Address address=accountInfo.getAddress();
 					     //Select  CDs Based on Category
 			    	   conn.setAutoCommit(false);
-			    	   pstmt=conn.prepareStatement("INSERT INTO address (street,province,country,postalcode,phone,city) VALUES (?, ?, ?,?, ?,?)",Statement.RETURN_GENERATED_KEYS);
+			    	   pstmt=conn.prepareStatement("addAccount",Statement.RETURN_GENERATED_KEYS);
 			    	   pstmt.setString(1,address.getStreet());
 			    	   pstmt.setString(2, address.getProvince());
 			    	   pstmt.setString(3, address.getCountry());
@@ -297,8 +337,8 @@ public Account createAccount(Account accountInfo) throws SQLException{
 			    		   address.setAddressID(rs.getInt(1));
 			    	   }
 			    	   account=accountInfo;
-			    	   account.setAddresses(address);
-			    	   pstmt=conn.prepareStatement("INSERT INTO account (username,lastname,firstname,password,addressid) VALUES (?, ?, ?,?, ?)");
+			    	   account.setAddress(address);
+			    	   pstmt=conn.prepareStatement("addaddress");
 			    	   pstmt.setString(1,account.getUserName());
 			    	   pstmt.setString(2, account.getLastName());
 			    	   pstmt.setString(3, account.getFirstName());
@@ -327,7 +367,7 @@ public Account createAccount(Account accountInfo) throws SQLException{
 		return account;
 	}
 
-public Boolean confirmOrder(ShoppingCart cart,Order order) throws SQLException{
+public Boolean confirmOrder(Order order) throws SQLException{
 	
 	/**
 	 * Since the shopping cart is a session object all calculations including vat can be performed within
@@ -336,9 +376,10 @@ public Boolean confirmOrder(ShoppingCart cart,Order order) throws SQLException{
 	Connection conn=null;
 	Order myorder=new Order();
 	myorder=order;
-	myorder.setAmount(cart.getTotal());
-	List<ShoppingCartItem> cartitems=new ArrayList<ShoppingCartItem>();
-	cartitems=cart.getItems();
+	//myorder.setAmount(order.getAmount());
+	OrderDetails[] cartitems=new OrderDetails[myorder.getOrderDetails().length];
+	//List<OrderDetails> cartitems=new ArrayList<OrderDetails>();
+	cartitems=myorder.getOrderDetails();
 	try{
 		Context ctx=new InitialContext();
 		DataSource ds=(DataSource)ctx.lookup("java:comp/env/jdbc/cdstore");
@@ -354,7 +395,7 @@ public Boolean confirmOrder(ShoppingCart cart,Order order) throws SQLException{
 				     * an error
 				     */
 		    	   conn.setAutoCommit(false);
-		    	   pstmt=conn.prepareStatement("INSERT INTO Order(username,amount,status) VALUES (?, ?, ?)",Statement.RETURN_GENERATED_KEYS);
+		    	   pstmt=conn.prepareStatement("addOrder",Statement.RETURN_GENERATED_KEYS);
 		    	   pstmt.setString(1,order.getAccount().getUserName());
 		    	   pstmt.setDouble(2, order.getAmount());
 		    	   pstmt.setString(3, order.getStatus());
@@ -363,13 +404,13 @@ public Boolean confirmOrder(ShoppingCart cart,Order order) throws SQLException{
 		    	   while(rs.next()){
 		    		   order.setOrderID(rs.getInt(1));
 		    	   }
-		    	   for(ShoppingCartItem item:cartitems){
+		    	   for(OrderDetails item:cartitems){
 		    		   
-			    	   pstmt=conn.prepareStatement("INSERT INTO OrderDetails(cdid,orderid,quantity,price) VALUES (?, ?, ?,?)");
-			    	   pstmt.setInt(1,item.getCds().getid());
+			    	   pstmt=conn.prepareStatement("addOrderDetails");
+			    	   pstmt.setInt(1,item.getCDID());
 			    	   pstmt.setInt(2, order.getOrderID());
 			    	   pstmt.setInt(3, item.getQuantity());
-			    	   pstmt.setDouble(4, item.getTotal());
+			    	   pstmt.setDouble(4, item.getQuantity());
 			    	   pstmt.executeUpdate();
 		    	   }
 		    	   conn.commit();
@@ -392,4 +433,14 @@ public Boolean confirmOrder(ShoppingCart cart,Order order) throws SQLException{
 
 	return true;
 }
+//public static void main(String[] args) throws Exception {
+//	try{
+//	DBAgent myAgent=new DBAgent();
+//	//ArrayList<Category> Categories=myAgent.getCategories();
+//	System.out.println("Success");
+//	}catch(Exception ex)
+//	{
+//		System.out.println("Error is: " +ex.getMessage());
+//	}
+//}
 }
