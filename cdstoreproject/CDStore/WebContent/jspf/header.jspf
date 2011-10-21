@@ -10,7 +10,18 @@
 <body>
 	<div id="header">
 	
-	DreamTeam CD Store<br />
+	DreamTeam CD Store 
+	<%
+	if(session.getAttribute("oBean")!=null){
+	%>
+	- <a href="logoutaction.jsp">Logout</a><br />
+	<%
+	} else {
+		%>
+		<br />
+		<%
+	}
+	%>
 	~~~~~
 	<br />
 	</div>
