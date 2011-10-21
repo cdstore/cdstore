@@ -8,6 +8,6 @@
 	shopBean.clearCart();
 
 	//redirect to cart
-	response.sendRedirect("cart.jsp");
+	response.sendRedirect("../controller?actionName=viewCart");
 
 %>

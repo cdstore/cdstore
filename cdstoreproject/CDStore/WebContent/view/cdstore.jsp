@@ -30,7 +30,7 @@ Welcome to the DreamTeam CD Store, <%= account.getUserName() %>! Please choose a
 <div id="leftdiv">
 	Categories:	<br />
 	<!-- catergory of -1 means 'All' is selected and all CDs are shown -->
-	<a href="cdstore.jsp?category=-1">All</a><br />
+	<a href="../controller?actionName=viewCategory&category=-1">All</a><br />
 	
 	<%
 	//retrieve all categories via CDStoreBean
@@ -45,7 +45,7 @@ Welcome to the DreamTeam CD Store, <%= account.getUserName() %>! Please choose a
 	
 	for (Category category:categories) {
 	%>
-		<a href="cdstore.jsp?category=<%= category.getCategoryID() %>"><%= category.getCategoryName() %></a><br />
+		<a href="../controller?actionName=viewCategory&category=<%= category.getCategoryID() %>"><%= category.getCategoryName() %></a><br />
 	<%	
 	}
 	%>
@@ -96,14 +96,14 @@ Welcome to the DreamTeam CD Store, <%= account.getUserName() %>! Please choose a
 	<tr>
 		<td><%= cd.getTitle() %> by <%= cd.getArtist() %> (<%= cd.getLabel() %>)</td>
 		<td>$<%= cd.getPrice() %></td>
-		<td><a href="addcartaction.jsp?cdid=<%= cd.getID() %>">Add to Cart</a></td>
+		<td><a href="../controller?actionName=addToCartAction&cdid=<%= cd.getID() %>">Add to Cart</a></td>
 	</tr>
 	<% 
 	}
 	%>
 	</table>
 </div>
-<br />
-<br />
-<a href="cart.jsp">View Shopping Cart</a>
+<div id="footer">
+<a href="../controller?actionName=viewCart">View Shopping Cart</a>
+</div>
 <br />

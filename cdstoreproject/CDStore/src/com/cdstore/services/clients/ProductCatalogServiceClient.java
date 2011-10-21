@@ -8,7 +8,7 @@ import javax.xml.ws.Service;
 
 public class ProductCatalogServiceClient {
 
-	private ProductCatalog pCatalogIF;
+	//private ProductCatalog pCatalogIF;
 	
 	public ProductCatalogServiceClient() {
 
@@ -22,15 +22,15 @@ public class ProductCatalogServiceClient {
 		
         QName qname = new QName("http://ws.mkyong.com/", "HelloWorldImplService");
 
-        Service service = Service.create(url, qname);
+    //    Service service = Service.create(url, qname);
 
-        pCatalogIF = service.getPort(ProductCatalog.class);
+    //    pCatalogIF = service.getPort(ProductCatalog.class);
 	}
 	
 	
 	// CDStoreBean will call methods from service through this interface
-	public ProductCatalog getServiceInterface(){
-		return pCatalogIF;
-	}
+	//public ProductCatalog getServiceInterface(){
+	//	return pCatalogIF;
+	//}
 	
 }

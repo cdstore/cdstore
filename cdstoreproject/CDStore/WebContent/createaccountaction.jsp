@@ -51,11 +51,13 @@
 	    	session.removeAttribute("createerror");
 	    	
 	    	session.setAttribute("createsuccess", true);
-	    	response.sendRedirect("view/cdstore.jsp");
+	    	response.sendRedirect("controller?actionName=loginSuccess");
     	}    	
     }
         
     //redirects before this if has account
     session.setAttribute("createerror", true);
-    response.sendRedirect("createaccount.jsp");
+    
+    response.sendRedirect("controller?actionName=createAccount");
+    
 %>

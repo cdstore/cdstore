@@ -9,7 +9,7 @@
 	}
 %>
 
-<form method="POST" action="createaccountaction.jsp">
+<form method="POST" action="controller?actionName=createAccount">
 	<p>Username: <input type="text" name="userName" /></p>
 	<p>Password: <input type="password" name="userPassword" /></p>
 	<p>Verify Password: <input type="password" name="verifyPassword" /></p>

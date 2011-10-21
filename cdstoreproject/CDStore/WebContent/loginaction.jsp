@@ -18,11 +18,13 @@
     		// have valid account in DB so store in session attribute & load cdstore.jsp
 	    	session.setAttribute("oBean", oBean);   	
 	    	session.removeAttribute("loginerror");
-	    	response.sendRedirect("view/cdstore.jsp");
-    	}    	
+	    	response.sendRedirect("controller?actionName=loginSuccess");
+	    }    	
     }
         
     //redirects before this if has account
     session.setAttribute("loginerror", true);
-    response.sendRedirect("index.jsp");
+    
+	response.sendRedirect("controller?actionName=loginFailed");
+      
 %>

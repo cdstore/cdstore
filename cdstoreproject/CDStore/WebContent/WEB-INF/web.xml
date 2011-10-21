@@ -36,4 +36,14 @@
     <url-pattern>/view/*</url-pattern>
   </filter-mapping>
 
+<servlet>
+	<servlet-name>SessionController</servlet-name>
+	<servlet-class>com.cdstore.controller.SessionController</servlet-class>
+</servlet>
+
+<servlet-mapping>
+	<servlet-name>SessionController</servlet-name>
+	<url-pattern>/controller</url-pattern>
+</servlet-mapping>
+
 </web-app>

@@ -23,7 +23,7 @@
 	} else {	
 		%>
 		<br />
-		<a href="clearcartaction.jsp">Clear Cart</a>
+		<a href="../controller?actionName=clearCartAction">Clear Cart</a>
 		<br />
 		<table>
 		<%		
@@ -36,7 +36,7 @@
 			CD cd = (CD)cdItem;
 			
 			%>
-			<form method="POST" action="updatequantityaction.jsp"><tr>
+			<form method="POST" action="../controller?actionName=updateQuantityAction"><tr>
 			<input type="hidden" value="<%= i %>" name="itemIndex"/>
 			<td><%= cd.getTitle() %></td>
 			<td><%= cd.getPrice() %></td>
@@ -53,13 +53,13 @@
 		Shopping Cart Total: <%= shopCart.getTotalPrice() %>
 		<br />
 		<br />
-		<a href="checkout.jsp">Checkout</a>		
+		<a href="../controller?actionName=checkout">Checkout</a>		
 		<%
 	
 	} // else
 	%>
 
 <br />
-<a href="cdstore.jsp">Continue Shopping</a>
+<a href="../controller?actionName=viewCDStore">Continue Shopping</a>
 
           

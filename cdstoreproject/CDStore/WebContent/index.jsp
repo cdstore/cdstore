@@ -9,10 +9,10 @@
 	}
 %>
 
-<form method="POST" action="loginaction.jsp">
+<form method="POST" action="controller?actionName=loginAction">
 	<p>Username: <input type="text" name="userName" /></p>
 	<p>Password: <input type="password" name="userPassword" /></p>
 	<p><input type="submit" value="Login" /></p>
 </form>
 
-<a href="createaccount.jsp">Sign Up!</a>
+<a href="controller?actionName=createAccount">Sign Up!</a>

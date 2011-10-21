@@ -5,6 +5,6 @@
 
 	session.invalidate();
 
-	response.sendRedirect("../index.jsp");
+	response.sendRedirect("../controller?actionName=index");
 
 %>

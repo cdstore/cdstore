@@ -14,7 +14,7 @@
 	<%
 	if(session.getAttribute("oBean")!=null){
 	%>
-	- <a href="logoutaction.jsp">Logout</a><br />
+	- <a href="../controller?actionName=logoutAction">Logout</a><br />
 	<%
 	} else {
 		%>

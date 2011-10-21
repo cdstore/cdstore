@@ -25,6 +25,6 @@
 		
 	shopBean.addItemToShoppingCart(cdItem);	
 	
-	response.sendRedirect("cart.jsp");
+	response.sendRedirect("../controller?actionName=addToCart");
 
 %>

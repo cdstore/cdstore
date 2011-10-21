@@ -55,13 +55,13 @@
 		</copy>
 		
 		<!-- Uncomment this if you need Utilities.jar in the war -->
-		<!-- 
+		 
 		<copy todir="${warDir}/WEB-INF/lib">
 			<fileset dir="../Utilities/antbuild">
 				<include name="*.jar"/>
 			</fileset>
 		</copy>
-		-->
+		
 		
 		<!-- some of the .jar libraries were only needed for compiling and are not needed in the final .war so delete them -->
 		<!--  <delete file="${finalLibDir}/.jar" />	-->
@@ -71,9 +71,13 @@
 			<fileset dir="${classDir}" includes="**/*.*" />
 		</copy>
 	
+		<copy todir="${finalClassDir}"> 
+			<fileset dir="${src}" includes="*.properties" />
+		</copy>
+		
 		<!-- delete class directory so next time rebuilds all classes -->
 	    <delete dir="${classDir}"/>
-		
+				
 		<!-- build the folder into a .war at the specified location -->
 		<jar jarfile="${outputdir}/CDStore.war" basedir="${warDir}" />
 

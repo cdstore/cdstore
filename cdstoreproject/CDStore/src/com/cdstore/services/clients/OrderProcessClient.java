@@ -8,7 +8,7 @@ import javax.xml.ws.Service;
 
 public class OrderProcessClient {
 
-	private OrderProcess oProcessIF;
+	//private OrderProcess oProcessIF;
 	
 	public OrderProcessClient() {
 
@@ -22,15 +22,15 @@ public class OrderProcessClient {
 		
         QName qname = new QName("http://ws.mkyong.com/", "HelloWorldImplService");
 
-        Service service = Service.create(url, qname);
+     //   Service service = Service.create(url, qname);
 
-        oProcessIF = service.getPort(OrderProcess.class);
+     //   oProcessIF = service.getPort(OrderProcess.class);
 	}
 	
 	
 	// OrderBean will call methods from service through this interface
-	public OrderProcess getServiceInterface(){
+	/*public OrderProcess getServiceInterface(){
 		return oProcessIF;
-	}
+	}*/
 	
 }
