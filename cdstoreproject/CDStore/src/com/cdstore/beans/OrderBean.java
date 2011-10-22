@@ -107,6 +107,8 @@ public class OrderBean {
 		return orderStatus;
 	}
 	
-	
+	public void removeLocalOrder(){
+		order = null;
+	}
 	
 }

@@ -15,7 +15,7 @@
 	int processedOrders = 0;
 	
 	if (session.getServletContext().getAttribute("processedOrders")==null){
-		session.getServletContext().setAttribute("processedOrders", 1);
+		session.getServletContext().setAttribute("processedOrders", new Integer(1));
 	}
 	
 	processedOrders = (Integer)session.getServletContext().getAttribute("processedOrders");
@@ -36,15 +36,14 @@
 		session.setAttribute("ordersuccess",true); 
 				
 		//delete order from bean
-		Order order = oBean.getOrder();
-		order = null;
+		oBean.removeLocalOrder();
 		
 		//clear shopping cart
 		ShoppingCartBean shopBean = (ShoppingCartBean)session.getAttribute("shopBean");
 		shopBean.clearCart();
 		
-		
 	}
+	
 	processedOrders++;
 	
 	session.getServletContext().setAttribute("processedOrders",processedOrders);
