@@ -5,5 +5,5 @@
   <endpoint
       name="OrderService"
       implementation="com.cdstore.orderservice.OrderProcessImpl"
-      url-pattern="/OrderService"/>
+      url-pattern="/order"/>
 </endpoints>
