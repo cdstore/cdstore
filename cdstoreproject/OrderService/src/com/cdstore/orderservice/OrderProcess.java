@@ -1,13 +1,19 @@
 package com.cdstore.orderservice;
 import com.cdstore.entities.*;
-import com.cdstore.shoppingcart.*;
-import java.sql.*;
+
+import javax.jws.WebService;
+import javax.jws.soap.SOAPBinding;
+import javax.jws.soap.SOAPBinding.Style;
+
+
+@WebService
+@SOAPBinding(style = Style.RPC)
 
 public interface OrderProcess {
 	
-	Account getAccount(String username, String password) throws SQLException;
-	Account createAccount(Account in) throws SQLException;
-	Boolean confirmOrder(ShoppingCart cart, Order order) throws SQLException;
+	Account getAccount(String username, String password);
+	Account createAccount(Account in);
+	Boolean confirmOrder (Order order);
 	void validateInput();
 	
 }

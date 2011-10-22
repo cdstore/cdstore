@@ -1,33 +1,64 @@
 package com.cdstore.orderservice;
 
 import com.cdstore.entities.*;
-import com.cdstore.shoppingcart.*;
 import com.cdstore.dbagent.*;
-import java.sql.*;
 
+
+import javax.jws.WebService;
+
+@WebService(endpointInterface = "com.cdstore.orderservice.OrderProcess")
 public class OrderProcessImpl implements OrderProcess{
 	
 	private DBAgent DB;
+	
 	
 	public OrderProcessImpl()
 	{
 		DB = new DBAgent();
 	}
 	
-	public Account getAccount(String username, String password) throws SQLException
+	@Override
+	public Account getAccount(String username, String password)
 	{
-		return DB.getAccount(username,password);
-	}
-	public Account createAccount(Account in) throws SQLException
-	{
-		return DB.createAccount(in);
+		Account A = new Account();
+		try {
+			A =  DB.getAccount(username,password);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return A;
 	}
 	
-	public Boolean confirmOrder(ShoppingCart cart, Order order) throws SQLException
+	@Override
+	public Account createAccount(Account in)
 	{
-		return DB.confirmOrder(cart,order);
+		Account A = new Account();
+		
+		try {
+			A = DB.createAccount(in);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return A;
 	}
 	
+	@Override
+	public Boolean confirmOrder(Order order)
+	{
+		Boolean A = false;
+		
+		try {
+			A = DB.confirmOrder(order);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return A;
+	}
+	
+	@Override
 	public void validateInput()
 	{
 		

@@ -4,6 +4,6 @@
   version="2.0">
   <endpoint
       name="OrderService"
-      implementation="com.cdstore.ws.Order"
+      implementation="com.cdstore.orderservice.OrderProcessImpl"
       url-pattern="/OrderService"/>
 </endpoints>
