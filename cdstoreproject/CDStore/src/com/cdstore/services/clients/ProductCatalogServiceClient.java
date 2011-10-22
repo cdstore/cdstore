@@ -8,29 +8,29 @@ import javax.xml.ws.Service;
 
 public class ProductCatalogServiceClient {
 
-	//private ProductCatalog pCatalogIF;
+	private ProductCatalog pCatalogIF;
 	
 	public ProductCatalogServiceClient() {
 
 		URL url = null;
 		
 		try {
-			url = new URL("http://localhost:8080/HelloWorld/hello?wsdl");
+			url = new URL("http://localhost:8080/ProductCatalog/catalog?wsdl");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		
-        QName qname = new QName("http://ws.mkyong.com/", "HelloWorldImplService");
+        QName qname = new QName("http://catalogservice.cdstore.com/", "ProductCatalogImplService");
 
-    //    Service service = Service.create(url, qname);
+        Service service = Service.create(url, qname);
 
-    //    pCatalogIF = service.getPort(ProductCatalog.class);
+        pCatalogIF = service.getPort(ProductCatalog.class);
 	}
 	
 	
 	// CDStoreBean will call methods from service through this interface
-	//public ProductCatalog getServiceInterface(){
-	//	return pCatalogIF;
-	//}
+	public ProductCatalog getServiceInterface(){
+		return pCatalogIF;
+	}
 	
 }

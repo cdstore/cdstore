@@ -17,11 +17,11 @@ public class CDStoreBean {
 	public Category[] getCategoryList(){
 		
 		//call service
-		//Category[] categories = productServiceClient.getServiceInterface().getCategoryList();
+		Category[] categories = productServiceClient.getServiceInterface().getCategoryList();
 		
 		//placeholder array data
 		
-		Category[] categories = new Category[3];
+		/*Category[] categories = new Category[3];
 		
 		categories[0] = new Category();
 		categories[0].setCategoryName("Rock");
@@ -34,7 +34,7 @@ public class CDStoreBean {
 		categories[2] = new Category();
 		categories[2].setCategoryName("Country");
 		categories[2].setCategoryID(2);
-		
+		*/
 		return categories;
 	}
 	

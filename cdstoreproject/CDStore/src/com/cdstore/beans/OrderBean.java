@@ -1,6 +1,7 @@
 package com.cdstore.beans;
 
 import java.util.Date;
+import java.util.Random;
 
 import com.cdstore.entities.Account;
 import com.cdstore.entities.Order;
@@ -14,6 +15,7 @@ public class OrderBean {
 	private Account account;
 	private OrderProcessClient orderServiceClient;
 	private Order order;
+	private boolean orderStatus;
 	
 	
 	public OrderBean(){
@@ -25,7 +27,7 @@ public class OrderBean {
 		// account not null if previously retrieved from service
 		
 		// call service to retrieve user's account (checked for null in loginaction.jsp)
-		// account = orderServiceClient.getServiceInterface().getAccount(username, password);
+		//account = orderServiceClient.getServiceInterface().getAccount(username, password);
 		
 		
 		//placeholder till can call service
@@ -86,4 +88,25 @@ public class OrderBean {
 	public Order getOrder() {
 		return order;
 	}
+	
+	public boolean confirmOrder(String ccNumber, String secNumber) {
+		
+		//pretending called imaginary CC service that returns confirmation code
+		Random rndgen = new Random();
+        int paymentInfo = rndgen.nextInt(999999) + 100000;
+		        
+		if (ccNumber == "error" || secNumber == "error"){
+			//orderStatus = orderServiceClient.getServiceInterface().confirmOrder(-1);
+		} else {
+			//orderStatus = orderServiceClient.getServiceInterface().confirmOrder(paymentInfo);
+		}
+		
+		//placeholder
+		orderStatus = true;
+		
+		return orderStatus;
+	}
+	
+	
+	
 }
