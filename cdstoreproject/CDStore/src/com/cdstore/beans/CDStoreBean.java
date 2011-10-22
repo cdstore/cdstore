@@ -1,8 +1,8 @@
 package com.cdstore.beans;
 
+import com.cdstore.catalogservice.ProductCatalogServiceClient;
 import com.cdstore.entities.Category;
 import com.cdstore.entities.CD;
-import com.cdstore.services.clients.ProductCatalogServiceClient;
 
 public class CDStoreBean {
 
@@ -94,12 +94,12 @@ public class CDStoreBean {
 	public CD[] getCDList(int categoryId){
 		
 		//call service
-		//CD[] cds = productServiceClient.getServiceInterface().getCDList(categoryId);
+		CD[] cds = productServiceClient.getServiceInterface().getCDList(categoryId);
 		
 		
 		//placeholder array data
 		
-		CD[] cds;
+		/*CD[] cds;
 		
 		if (categoryId == 0) {
 			cds = new CD[2];
@@ -147,24 +147,24 @@ public class CDStoreBean {
 			cds[0].setID(2);
 			cds[0].setLabel("Test Label");
 			cds[0].setArtist("Test Artist");
-		}
+		}*/
 		
 		return cds;
 	}
 	
-	public CD getCDInfo(Integer cdid){
+	public CD getCDInfo(int cdid){
 		
 		//call service
-		//CD cd = productServiceClient.getServiceInterface().getCDInfo(Integer cdid);
+		CD cd = productServiceClient.getServiceInterface().getCDInfo(cdid);
 		
 		//placeholder data - can get entity?
-		CD cd = new CD();
+		/*CD cd = new CD();
 		cd.setTitle("Title0");
 		cd.setPrice(new Float(10.0));		
 		cd.setCategoryID(0);
 		cd.setID(0);
 		cd.setLabel("Test Label");
-		cd.setArtist("Test Artist");
+		cd.setArtist("Test Artist");*/
 		
 		return cd;
 		

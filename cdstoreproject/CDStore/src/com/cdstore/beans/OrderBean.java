@@ -6,7 +6,7 @@ import java.util.Random;
 import com.cdstore.entities.Account;
 import com.cdstore.entities.Order;
 import com.cdstore.entities.OrderDetails;
-import com.cdstore.services.clients.OrderProcessClient;
+import com.cdstore.orderservice.OrderProcessClient;
 import com.cdstore.shoppingcart.ShoppingCart;
 import com.cdstore.shoppingcart.ShoppingCartItem;
 

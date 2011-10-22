@@ -2,6 +2,8 @@ package com.cdstore.catalogservice;
 
 import com.cdstore.entities.*;
 import com.cdstore.dbagent.*;
+
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -18,6 +20,7 @@ public class ProductCatalogImpl implements ProductCatalog {
 	{
 		DB = new DBAgent();
 	}
+	
 	@Override
 	public Category[] getCategoryList()
 	{
@@ -45,10 +48,19 @@ public class ProductCatalogImpl implements ProductCatalog {
 		return input.toArray(output);
     }
     
-//    public CD getCDInfo(int CdID) 
-//    {
-//    	return DB.getCDInfo(CdID);
-//    }
+    @Override
+    public CD getCDInfo(int CdID) 
+    {
+    	CD input = new CD();
+    	try {
+			input =  DB.getCDInfo(CdID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return input;
+    }
+    
     @Override
     public void validateInput()
     {
