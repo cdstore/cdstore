@@ -7,8 +7,18 @@ Facebook discussions: http://www.facebook.com/groups/CSI5380/
 
 1. Tomcat
 - Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
-[??? skip for now]- set up SSL as per http://blog.frankel.ch/ssl-your-tomcat-7
 - Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (this is needed because Tomcat's servlet libraries are required by ant to build the code - in the future we will ideally auto-deploy the jars/wars to the correct folder relative to TOMCAT_HOME through ant, but for debugging it's better to deploy wars manually while watching the server log)
+- set up SSL by copying the included keystore.jsk into yout TOMCAT_HOME/conf folder and modifying your TOMCAT_HOME/conf/server.xml file to replace the following commented xml section:
+<!--
+  <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+           maxThreads="150" scheme="https" secure="true"
+           clientAuth="false" sslProtocol="TLS" />
+-->
+with the following uncommented XML section:
+    <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+               maxThreads="150" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" keystoreFile="conf\keystore.jks"
+	       keystorePass="asdasd" />
 
 2. Ant
 - Download & unzip ant (ex: http://apache.parentingamerica.com//ant/binaries/apache-ant-1.8.2-bin.zip )
@@ -16,32 +26,28 @@ Facebook discussions: http://www.facebook.com/groups/CSI5380/
 - As required by ant, set your JAVA_HOME environment variable to your JDK (ex: C:\Program Files\Java\jdk1.7.0)
 
 3. MySQL
-- Install mysql such that you can type 'mysql' at command line (if the installer didn't do it, ensure PATH contains "C:\Program Files\MySQL\MySQL Server 5.5\bin" or similar)
+- Install mysql over  such that you can type 'mysql' at command line (if the installer didn't do it, ensure PATH contains "C:\Program Files\MySQL\MySQL Server 5.5\bin" or similar)
 - Run 'mysql -u root -p' from command line (if first run, press enter for the password)
 - Set the 'root' user password to 'asdasd' by entering the following two lines:
 UPDATE mysql.user SET Password=PASSWORD('asdasd') WHERE User='root';
 flush privileges;
-[??? correct?]- To insert the sample data, run the following from command line (using the correct path to the provided cdstore.sql):
-mysql -D cdstore -u root < C:\cdstore.sql
+- To insert the sample data, run the following from command line (using the correct path to the provided cdstore.sql) and enter the password:
+mysql -u root -p < C:\cdstore.sql
 
 4. Build & Deploy
-- Use command line to browse to the 'DBAgent' folder and enter 'ant'
-- copy the CDStore.jar file from the 'CDStore\build' folder into '%TOMCAT_HOME%\lib'
+- ensure Tomcat is not already started
+- Use command line to browse to the 'Utilities' folder and enter 'ant'
+- copy the Utilities.jar file from the 'CDStore\antbuild' folder into '%TOMCAT_HOME%\lib'
 - Use command line to browse to the 'CatalogService' folder and enter 'ant'
-- Copy the CatalogService.war file from the 'CatalogService\build' folder into '%TOMCAT_HOME%\webapps'
+- Copy the CatalogService.war file from the 'CatalogService\antbuild' folder into '%TOMCAT_HOME%\webapps'
 - Use command line to browse to the 'OrderService' folder and enter 'ant'
-- Copy the OrderService.war file from the 'OrderService\build' folder into '%TOMCAT_HOME%\webapps'
+- Copy the OrderService.war file from the 'OrderService\antbuild' folder into '%TOMCAT_HOME%\webapps'
 - Use command line to browse to the 'CDStore' folder and enter 'ant'
-- Copy the CDStore.war file from the 'CDStore\build' folder into '%TOMCAT_HOME%\webapps'
-[??? eventually to replace above steps]- Browse to the root of the provided 'cdstoreproject' folder and enter 'ant'. The build.xml file will do the following:
-	- Build and deploy DBAgent.jar to Tomcat's libraries
-	- Build and deploy CatalogService.war to Tomcat's webapps
-	- Build and deploy OrderService.war to Tomcat's webapps
-	- Build and deploy CDStore.war to Tomcat's webapps
+- Copy the CDStore.war file from the 'CDStore\antbuild' folder into '%TOMCAT_HOME%\webapps'
 
 5. Run
 - Start Tomcat by running %TOMCAT_HOME%\bin\startup.bat
-- Browse to https://localhost:8080/CDStore/ (or if SSL set up: https://localhost:8443/CDStore/ )
+- Browse to https://localhost:8443/CDStore/
 
 
 ===== Notes for Developers =====
@@ -49,12 +55,18 @@ mysql -D cdstore -u root < C:\cdstore.sql
 - Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
 - From the "Project" menu, make sure "Build Automatically" is unchecked since we will be using ant to build
 - File > Import > Existing Projects Into Workspace
-- Provide the location of the 'cdstoreproject' folder obtained from git as the 'root directory' to import from (four projects should appear for import)
-- Do not select 'copy projects into workspace'; leave the projects in the folder that is synchronized with git so that you can commit your changes later
+- Provide the location of the 'cdstoreproject' folder obtained from git as the 'root directory' to import from (five projects should appear for import)
 - Once imported, right click on build.xml from CDStore (for example) and select Run As > Ant Build to create CDStore.war in the 'antbuild' folder
 - While ant should work fine, Eclipse will show errors in the project because it doesn't know where Tomcat's servlet libraries are, so add Tomcat to Elipse (Servers tab at the bottom > right click in white area > New > Server > Apache Tomcat v7 > Next > Browse... > Select your Tomcat folder > Finish)
-- Don't worry about the XML warnings on build.xml
-- run 'git status' in the 'cdstoreproject' folder; git should not list any files as having been modified by these build/setup activities
+- the keystore.jks was generated using the following command line, password 'asdasd', and other information as per the table on http://www.site.uottawa.ca/~lpeyton/csi5389ssl.html:
+keytool -genkeypair -keyalg RSA -alias tomcat -keystore keystore.jks  -validity 999 -keysize 512
+- for client-side debugging with Eclipse when Tomcat is started in a separate process:
+	- start tomcat using the following (instead of the usual startup.bat):
+	catalina jpda start
+	(this way it will open port 8000 for Eclipse to connect to)
+	- from Eclipse, Run > Debug Configuration, double click "Remote Java Application" on the right side to create a new profile (it should already have localhost/8000 as the defaults) and give it a name at the top
+	- start browsing the CDStore jsps to create a session on the server
+	- click the bug icon in Eclipse and select the debug profile name you entered before and provide eclipse with the location of the source files by adding the projects
 
 
 ===== Included Files =====
@@ -63,8 +75,9 @@ This assignment submission (cdstoreproject.zip) consists of:
 - this document
 - test data (cdstore.sql)
 - test scripts
+- config.xml for defining the connection pool for Tomcat
+- keystore.jks for enabling SSL in Tomcat
 - cdstoreproject folder containing the source code and build scripts for the different components
-[???] - manually deployable wars/jars? could provide instructions for just deploying where omit ant and build steps but need one folder to contain all final war/jar files
 
 
 ===== Project Files =====
