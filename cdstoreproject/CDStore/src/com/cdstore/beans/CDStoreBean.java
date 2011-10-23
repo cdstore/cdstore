@@ -33,20 +33,20 @@ public class CDStoreBean {
 		
 		categories[2] = new Category();
 		categories[2].setCategoryName("Country");
-		categories[2].setCategoryID(2);
-		*/
+		categories[2].setCategoryID(2);*/
+		
 		return categories;
 	}
 	
 	public CD[] getCDList(){
 		
 		//call service
-		//CD[] cds = productServiceClient.getServiceInterface().getCDList();
+		CD[] cds = productServiceClient.getServiceInterface().getCDList();
 		
 		
 		//placeholder array data
 		
-		CD[] cds = new CD[5];
+		/*CD[] cds = new CD[5];
 		
 		cds[0] = new CD();
 		cds[0].setTitle("Title0");
@@ -86,7 +86,7 @@ public class CDStoreBean {
 		cds[4].setCategoryID(1);
 		cds[4].setID(4);
 		cds[4].setLabel("Test Label");
-		cds[4].setArtist("Test Artist");
+		cds[4].setArtist("Test Artist");*/
 		
 		return cds;
 	}
@@ -94,7 +94,7 @@ public class CDStoreBean {
 	public CD[] getCDList(int categoryId){
 		
 		//call service
-		CD[] cds = productServiceClient.getServiceInterface().getCDList(categoryId);
+		CD[] cds = productServiceClient.getServiceInterface().getCDListByCategory(categoryId);
 		
 		
 		//placeholder array data

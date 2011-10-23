@@ -36,11 +36,24 @@ public class ProductCatalogImpl implements ProductCatalog {
 	}
 	
 	@Override
-    public CD[] getCDList(int CategoryID)
+    public CD[] getCDList()
     {
     	ArrayList<CD> input =new ArrayList<CD>();
     	try{
     	 input = DB.getCDList();
+    	}catch(Exception ex){
+    		
+    	}
+	    CD[] output = new CD[input.size()];
+		return input.toArray(output);
+    }
+	
+	@Override
+    public CD[] getCDListByCategory(int CategoryID)
+    {
+    	ArrayList<CD> input =new ArrayList<CD>();
+    	try{
+    	 input = DB.getCDList(CategoryID);
     	}catch(Exception ex){
     		
     	}
