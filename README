@@ -189,6 +189,8 @@ In addition to the above, the following external libraries (JARs) are used in th
 
 ===== Pre-Submit Checklist =====
 - includes a js?
+- remove helloworlds
+- remove context.xml
 - comments in all code (top of classes and before each method) incl schema
 - identify files where code used
 - ensure Utilities.jar works if deployed on own and fix build.xml files to not include the Utilities.jar
