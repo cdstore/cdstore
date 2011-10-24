@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project>
 
-<project basedir="." default="package" name="DTCDStore">
+<project basedir="." default="package" name="CDStore">
 
 	<target name="init">
 		<property name="target" value="1.7" />

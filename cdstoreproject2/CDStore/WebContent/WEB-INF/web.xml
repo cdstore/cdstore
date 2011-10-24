@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>CDStore</display-name>
-  
-  <!-- order to find index -->
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -11,8 +9,6 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
-  <!-- include header and footer on index.jsp and files in view folder -->
   <jsp-config>
     <jsp-property-group>
       <url-pattern>/index.jsp</url-pattern>
@@ -22,29 +18,25 @@
       <include-coda>/jspf/footer.jspf</include-coda>
     </jsp-property-group>
   </jsp-config>
-   
-  <!-- define filter that will redirect to index.jsp if no session -->
   <filter>
     <display-name>SessionFilter</display-name>
     <filter-name>SessionFilter</filter-name>
     <filter-class>com.cdstore.filter.SessionFilter</filter-class>
   </filter>
- <context-param>
-  	<description>VAT PERCENTILE</description>
-  	<param-name>tax</param-name>
-  	<param-value>0.13</param-value>
+  <context-param>
+    <description>VAT PERCENTILE</description>
+    <param-name>tax</param-name>
+    <param-value>0.13</param-value>
   </context-param>
-  <!-- filter applied every time access files in view folder -->
   <filter-mapping>
     <filter-name>SessionFilter</filter-name>
     <url-pattern>/view/*</url-pattern>
   </filter-mapping>
-
-<servlet>
-<display-name>ControllerServellet</display-name>
-	<servlet-name>SessionController</servlet-name>
-	<servlet-class>com.cdstore.controller.SessionController</servlet-class>
-</servlet>
+  <servlet>
+    <display-name>ControllerServellet</display-name>
+    <servlet-name>SessionController</servlet-name>
+    <servlet-class>com.cdstore.controller.SessionController</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>SessionController</servlet-name>
     <url-pattern>/loginAction</url-pattern>
@@ -61,6 +53,4 @@
     <url-pattern>/logout</url-pattern>
     <url-pattern>/home</url-pattern>
   </servlet-mapping>
-
-
 </web-app>
