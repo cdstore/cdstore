@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+
+<project basedir="." default="package" name="OrderService">
+
+	<target name="init">
+		<property name="target" value="1.7" />
+		<property name="source" value="1.7" />
+		<property name="classDir" value="${basedir}/antbuild/classes" /> <!-- .class files are first built into this temporary folder -->
+		<property name="src" value="${basedir}/src" /> <!-- Java (servlet) source folder -->
+		<property name="libDir" value="${basedir}/WebContent/WEB-INF/lib" />
+		<property name="outputdir" value="${basedir}/antbuild" /> <!-- final location inside the war file for the .class files -->
+		<property environment="env"/>
+		
+		<property name="web" value="${basedir}/WebContent" /> <!-- web source folder (sometimes WebRoot etc) -->
+		<property name="warDir" value="${basedir}/antbuild/war" /> <!-- folder to hold war file contents before they are a .war -->
+		<property name="finalClassDir" value="${basedir}/antbuild/war/WEB-INF/classes" /> <!-- final location inside the war file for the .class files -->
+		
+		
+		<!-- Create directories to ensure they exist -->
+		<mkdir dir="${outputdir}" />
+		<mkdir dir="${classDir}" />
+		
+		<ant dir="../Utilities" inheritall="false"/>
+	</target>
+
+	<target name="build" depends="init">
+		<!-- Include jar files needed for compiling Java code -->
+		<path id="classpath">
+			<fileset dir="${libDir}">
+				<include name="*.jar"/>
+			</fileset>
+			<fileset dir="../Utilities/antbuild">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+
+		<!-- Compile Java source into .class files in temporary classDir folder defined earlier -->
+		<javac debug="true" destdir="${classDir}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${src}" />
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+	<!-- Create the War File -->
+	<target name="package" depends="build">
+		<!-- copy entire web code to into the folder that will be turned into a .war -->
+		<copy todir="${warDir}">
+			<fileset dir="${web}" includes="**/*.*" />
+		</copy>
+		
+		<!-- Uncomment this if you need Utilities.jar in the war -->
+		 
+		<copy todir="${warDir}/WEB-INF/lib">
+			<fileset dir="../Utilities/antbuild">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		
+		
+		<!-- some of the .jar libraries were only needed for compiling and are not needed in the final .war so delete them -->
+		<!--  <delete file="${finalLibDir}/.jar" />	-->
+		
+		<!-- copy temporary classDir folder with the .class files to the folder that will be turned into a .war -->
+ 		<copy todir="${finalClassDir}">
+			<fileset dir="${classDir}" includes="**/*.*" />
+		</copy>
+	
+		<!-- delete class directory so next time rebuilds all classes -->
+	    <delete dir="${classDir}"/>
+		
+		<!-- build the folder into a .war at the specified location -->
+		<jar jarfile="${outputdir}/OrderService.war" basedir="${warDir}" />
+
+
+	</target> 
+	
+	
+
+</project>
