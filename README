@@ -8,17 +8,30 @@ Facebook discussions: http://www.facebook.com/groups/CSI5380/
 1. Tomcat
 - Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
 - Set TOMCAT_HOME to the root of the tomcat server (ex: J:\work\apache-tomcat-7.0.22) (this is needed because Tomcat's servlet libraries are required by ant to build the code - in the future we will ideally auto-deploy the jars/wars to the correct folder relative to TOMCAT_HOME through ant, but for debugging it's better to deploy wars manually while watching the server log)
-- set up SSL by copying the included keystore.jsk into yout TOMCAT_HOME/conf folder and modifying your TOMCAT_HOME/conf/server.xml file to replace the following commented xml section:
-<!--
-  <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-           maxThreads="150" scheme="https" secure="true"
-           clientAuth="false" sslProtocol="TLS" />
--->
-with the following uncommented XML section:
-    <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-               maxThreads="150" scheme="https" secure="true"
-               clientAuth="false" sslProtocol="TLS" keystoreFile="conf\keystore.jks"
-	       keystorePass="asdasd" />
+- set up SSL as follows:
+	- run the following from command line while in a folder that has write access (PATH environment variable must contain JRE or JDK bin folder):
+	keytool -genkeypair -keyalg RSA -alias tomcat -keystore keystore.jks  -validity 999 -keysize 512
+	- enter the password 'asdasd'
+	- re-enter the password 'asdasd'
+	- for "First and last name" enter 'localhost'
+	- for "Organizational unit" enter 'SITE'
+	- for "Name of organization" enter  'University of Ottawa'
+	- for "City or locality" enter 'Ottawa'
+	- for "State or province" enter 'ON'
+	- for "Two letter country code" enter 'CA'
+	- enter 'Yes' to confirm the information
+	- press RETURN when asked to enter the password again
+	- move the generated keystore.jks file into yout TOMCAT_HOME/conf folder and modify your TOMCAT_HOME/conf/server.xml file to replace the following commented xml section:
+	<!--
+	  <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+		   maxThreads="150" scheme="https" secure="true"
+		   clientAuth="false" sslProtocol="TLS" />
+	-->
+	with the following uncommented XML section:
+	    <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+		       maxThreads="150" scheme="https" secure="true"
+		       clientAuth="false" sslProtocol="TLS" keystoreFile="conf\keystore.jks"
+		       keystorePass="asdasd" />
 
 2. Ant
 - Download & unzip ant (ex: http://apache.parentingamerica.com//ant/binaries/apache-ant-1.8.2-bin.zip )
@@ -26,7 +39,7 @@ with the following uncommented XML section:
 - As required by ant, set your JAVA_HOME environment variable to your JDK (ex: C:\Program Files\Java\jdk1.7.0)
 
 3. MySQL
-- Install mysql over  such that you can type 'mysql' at command line (if the installer didn't do it, ensure PATH contains "C:\Program Files\MySQL\MySQL Server 5.5\bin" or similar)
+- Install mysql with TCP/IP support and such that you can type 'mysql' at command line (if the installer didn't do it, ensure PATH contains "C:\Program Files\MySQL\MySQL Server 5.5\bin" or similar)
 - Run 'mysql -u root -p' from command line (if first run, press enter for the password)
 - Set the 'root' user password to 'asdasd' by entering the following two lines:
 UPDATE mysql.user SET Password=PASSWORD('asdasd') WHERE User='root';
@@ -50,7 +63,7 @@ mysql -u root -p < C:\cdstore.sql
 - Browse to https://localhost:8443/CDStore/
 
 
-===== Notes for Developers =====
+===== Additional Notes for Developers =====
 - Ensure you have TOMCAT_HOME, JAVA_HOME to v1.7, MySQL etc. set up as per instructions above
 - Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
 - From the "Project" menu, make sure "Build Automatically" is unchecked since we will be using ant to build
@@ -69,10 +82,15 @@ keytool -genkeypair -keyalg RSA -alias tomcat -keystore keystore.jks  -validity 
 	- click the bug icon in Eclipse and select the debug profile name you entered before and provide eclipse with the location of the source files by adding the projects
 
 
+===== Running the Test Scripts/Driver =====
+- sample data etc., where see expected vs result - need "Test Data and Expected Results Clearly Defined"
+- "Test drivers and test data AND an execution log file to demonstrate unit and system testing"
+
 ===== Included Files =====
 
 This assignment submission (cdstoreproject.zip) consists of:
-- this document
+- this README.txt
+- DesignDocument.pdf
 - test data (cdstore.sql)
 - test scripts
 - config.xml for defining the connection pool for Tomcat
@@ -125,15 +143,57 @@ JSPs in CDStore/WebContent
 
 ===== Third-Party Dependencies =====
 
-Code, JARs and other libraries used in this project:
-- Apache CXF 2
+In addition to the above, the following external libraries (JARs) are used in this project and are required for building or at runtime:
+
+- JAX-WS Reference Implementation
+	- Download the latest distribution from http://jax-ws.java.net/ (ex: http://jax-ws.java.net/2.2.5/JAXWS2.2.5-20110729.zip )
+	- From the jaxws-ri/lib folder within the zip, copy the following JARs to your TOMCAT_HOME/lib:
+		- ha-api.jar
+		- jaxb-impl.jar
+		- jaxws-api.jar
+		- jaxws-rt.jar
+		- gmbal-api-only.jar
+		- management-api.jar
+		- stax-ex.jar
+		- streambuffer.jar
+		- policy.jar
+
+- MySQL Connector/J 5.1.18
+	- download via http://dev.mysql.com/downloads/connector/j/ (ex: ftp://mirror.csclub.uwaterloo.ca/mysql/Downloads/Connector-J/mysql-connector-java-5.1.17.zip )
+	- copy mysql-connector-java-5.1.17-bin.jar from the root of the zip to cdstoreproject/DBAgent/lib
+
+- Apache TagLibs 1.1.2
+	- download via http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/jakarta-taglibs-standard-1.1.2.zip
+	- copy the two jars from the /lib folder in the zip (jstl-impl-1.2.jar and jstl-api-1.2.jar) to the cdstoreproject/CDStore/WebContent/WEB-INF/lib folder
 
 
-===== Other Documentation Requirements =====
+===== Identification of Other Code Used in this Project =====
+- The JAX-WS code used is based on the "Hello World" example provided by Mkyong at http://www.mkyong.com/webservices/jax-ws/deploy-jax-ws-web-services-on-tomcat/
+- The CDStore project contains concepts and sample code from http://netbeans.org/kb/docs/javaee/ecommerce/page-views-controller.html (Oracle Corporation) that illustrate MVC separation with servlets and a shopping cart  
+- The library at http://typeface.neocracy.org/fonts.html is used to change the page font and illustrate the use of a .js file
+
+
+===== Other README Requirements =====
 - list of member contributions
+
+
+===== Design Document Requirements =====
 - deployment diagram, package diagram, interaction diagrams (UML sequence charts)
 - identify design patterns, assumptions and design decisions
-- document the db schema (also in code, along with class/method comments)
+- map screenshot to arch to source code
+- key mechanisms and design patterns, assumptions, decisions
+- reusable components
+- "Explain how the SOAP messages are generated and parsed"
+- "a roadmap to the source code and the application which explains the architecture"
+
+
+===== Pre-Submit Checklist =====
+- includes a js?
+- comments in all code (top of classes and before each method) incl schema
+- identify files where code used
+- ensure Utilities.jar works if deployed on own and fix build.xml files to not include the Utilities.jar
+- make sure fo;ders don't contain gitignores or other traces of git
+- identify where public code used above
 
 
 ===== Useful Links =====
