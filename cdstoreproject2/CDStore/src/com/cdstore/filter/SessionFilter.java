@@ -8,14 +8,14 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cdstore.beans.OrderBean;
+import com.cdstore.entities.*;
 
 /**
  * Servlet Filter implementation class SessionFilter
  */
+
 
 public class SessionFilter implements Filter {
 
@@ -42,12 +42,14 @@ public class SessionFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
 
-        HttpSession session = req.getSession(false);
-
+        HttpSession session = req.getSession();
+        Account account=(Account)session.getAttribute("account");
+        
         // if session doesn't exist, forward user to welcome page
-        if (session == null) {
+        if (account == null) {
             try {
                 req.getRequestDispatcher("/index.jsp").forward(request, response);
+                //((HttpServletResponse)response).sendRedirect("../index.jsp");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

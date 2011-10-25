@@ -34,7 +34,7 @@
                 <c:param name="clear" value="true"/>
             </c:url>
 
-            <a href="${url}" class="bubble hMargin">clear Cart</a>
+            <a href="${url}" class="bubble hMargin">Clear Cart</a>
 		<br />
 		
 		

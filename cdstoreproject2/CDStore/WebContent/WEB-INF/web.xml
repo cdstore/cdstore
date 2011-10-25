@@ -23,18 +23,29 @@
     <filter-name>SessionFilter</filter-name>
     <filter-class>com.cdstore.filter.SessionFilter</filter-class>
   </filter>
-
+    <session-config>
+        <session-timeout>
+            10
+        </session-timeout>
+    </session-config>
   <context-param>
     <description>VAT PERCENTILE</description>
     <param-name>tax</param-name>
     <param-value>0.13</param-value>
   </context-param>
-  <filter-mapping>
+ <filter-mapping>
     <filter-name>SessionFilter</filter-name>
-    <url-pattern>/view/*</url-pattern>
+    <url-pattern>/viewCart</url-pattern>
+    <url-pattern>/addToCart</url-pattern>
+    <url-pattern>/clearCart</url-pattern>
+    <url-pattern>/checkout</url-pattern>
+    <url-pattern>/updateQuantity</url-pattern>
+    <url-pattern>/confirmOrder</url-pattern>
+    <url-pattern>/cancelOrder</url-pattern>
+    <url-pattern>/viewCategory</url-pattern>
   </filter-mapping>
   <servlet>
-    <display-name>ControllerServellet</display-name>
+    <display-name>ControllerServlet</display-name>
     <servlet-name>SessionController</servlet-name>
     <servlet-class>com.cdstore.controller.SessionController</servlet-class>
   </servlet>

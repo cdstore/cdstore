@@ -13,7 +13,7 @@
 	 -->
 	
 	
-	Number of Order ${processedOrders}
+
 	Your order contains the following items:
 	<table >
 <!-- 	<tr><th>Item</th><th>Unit Price</th><th>Quantity</th><th>Total Price</th></tr> -->
