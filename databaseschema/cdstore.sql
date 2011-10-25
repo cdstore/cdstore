@@ -87,7 +87,7 @@ CREATE  TABLE IF NOT EXISTS `cdstore`.`Order` (
   `orderid` INT NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(20) NOT NULL ,
   `amount` DECIMAL(12,2) NOT NULL ,
-  `status` ENUM('ORDERED','PROCESSED','DENIED') NOT NULL ,
+  `orderstatus` ENUM('ORDERED','PROCESSED','DENIED') NOT NULL ,
   `date` DATE NULL ,
   PRIMARY KEY (`orderid`) ,
   INDEX `fk_PO_account1` (`username` ASC) ,
