@@ -16,6 +16,7 @@ import com.cdstore.beans.OrderBean;
 /**
  * Servlet Filter implementation class SessionFilter
  */
+
 public class SessionFilter implements Filter {
 
     /**
@@ -39,16 +40,14 @@ public class SessionFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-		HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletRequest req = (HttpServletRequest) request;
 
-		//creates session if doesn't exist
-        HttpSession session = req.getSession();
-        OrderBean oBean = (OrderBean)session.getAttribute("oBean");
+        HttpSession session = req.getSession(false);
 
-        // if OrderBean with Account doesn't exist, forward user to welcome page
-        if (oBean == null) {
+        // if session doesn't exist, forward user to welcome page
+        if (session == null) {
             try {
-            	((HttpServletResponse)response).sendRedirect("../index.jsp");
+                req.getRequestDispatcher("/index.jsp").forward(request, response);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

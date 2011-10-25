@@ -20,7 +20,9 @@ public class ProductCatalogImpl implements ProductCatalog {
 	{
 		DB = new DBAgent();
 	}
-	
+	/**
+	 * Get List of all categories from web service
+	 */
 	@Override
 	public Category[] getCategoryList()
 	{
@@ -34,19 +36,9 @@ public class ProductCatalogImpl implements ProductCatalog {
 		 Category[] output = new Category[input.size()];
 		return input.toArray(output);
 	}
-	
-	@Override
-    public CD[] getCDList(int CategoryID)
-    {
-    	ArrayList<CD> input =new ArrayList<CD>();
-    	try{
-    	 input = DB.getCDList(CategoryID);
-    	}catch(Exception ex){
-    		
-    	}
-	    CD[] output = new CD[input.size()];
-		return input.toArray(output);
-    }
+	/**
+	 * Get List of all CDs from Webservice
+	 */
 	@Override
     public CD[] getCDListAll()
     {
@@ -59,6 +51,24 @@ public class ProductCatalogImpl implements ProductCatalog {
 	    CD[] output = new CD[input.size()];
 		return input.toArray(output);
     }
+	/**
+	 * Get List of CDs per Category from Webservice
+	 */
+	@Override
+    public CD[] getCDList(int CategoryID)
+    {
+    	ArrayList<CD> input =new ArrayList<CD>();
+    	try{
+    	 input = DB.getCDList(CategoryID);
+    	}catch(Exception ex){
+    		
+    	}
+	    CD[] output = new CD[input.size()];
+		return input.toArray(output);
+    }
+    /**
+     * Get CD Information from Webservice
+     */
     @Override
     public CD getCDInfo(int CdID) 
     {

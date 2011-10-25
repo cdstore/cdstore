@@ -1,7 +1,11 @@
 package com.cdstore.entities;
 
 //import com.cdstore.shoppingcart.ShoppingCartItem;
-
+/**
+ * CD Entity object for CD Informatoin
+ * @author Nicedan
+ *
+ */
 public class CD {
 	
 	// id and price are inherited from ShoppingCartItem

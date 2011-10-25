@@ -61,7 +61,7 @@ public class ShoppingCart {
      * is the given quantity, the <code>ShoppingCartItem</code> is removed
      * from the <code>ShoppingCart</code>'s <code>items</code> list.
      *
-     * @param product the <code>Product</code> that defines the type of shopping cart item
+     * @param CD the <code>Product</code> that defines the type of shopping cart item
      * @param quantity the number which the <code>ShoppingCartItem</code> is updated to
      * @see ShoppingCartItem
      */
@@ -197,7 +197,7 @@ public class ShoppingCart {
     }
     
     /**
-     * GET THE TAX COMPONENT
+     * RETURNS THE TAX COMPONENT
      */
     public Double getTax(){
     	return this.tax;

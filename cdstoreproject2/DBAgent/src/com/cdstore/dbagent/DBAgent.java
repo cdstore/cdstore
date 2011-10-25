@@ -28,7 +28,9 @@ public class DBAgent {
 	public String getInput(){
 		return inputPath;
 	}
-	
+	/**
+	 * Default Constructor for the CD Class
+	 */
 	public DBAgent(){
 
  		InputStream in = getClass().getResourceAsStream(propertyFile);
@@ -44,6 +46,11 @@ public class DBAgent {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * This Function Returns of the CD Categories
+	 * @return ArrayList of Categories
+	 * @throws SQLException
+	 */
 	public ArrayList<Category> getCategories() throws SQLException{
 		
 		Connection conn=null;
@@ -99,6 +106,12 @@ public class DBAgent {
 		return categories;
 	}
 	
+	/**
+	 * This function returns and array list of CD of object
+	 * @param CategoryID
+	 * @return Array List of CD Objects
+	 * @throws SQLException
+	 */
 	public ArrayList<CD> getCDList(Integer CategoryID) throws SQLException{
 		
 		Connection conn=null;
@@ -155,6 +168,12 @@ public class DBAgent {
 		//CatName="Someting to test";
 		return cds;
 	}
+	/**
+	 * This Function Returns of the information about a single CD based on the cdid
+	 * @param cdid
+	 * @return Returns CD Information Details
+	 * @throws SQLException
+	 */
 	public CD getCDInfo(Integer cdid) throws SQLException{
 		
 		Connection conn=null;
@@ -204,6 +223,11 @@ public class DBAgent {
 		//CatName="Someting to test";
 		return cds;
 	}
+	/**
+	 * This Function Retrieves all CDs in the DB into an ArrayList of CD objects
+	 * @return ArrayList of CD objects
+	 * @throws SQLException
+	 */
 	public ArrayList<CD> getCDList() throws SQLException{
 		
 		Connection conn=null;
@@ -253,6 +277,14 @@ public class DBAgent {
 		
 		return cds;
 	}
+	
+	/**
+	 * This Function all information about an Account based on a username and password into an Account object
+	 * @param userName
+	 * @param Password
+	 * @return Account
+	 * @throws SQLException
+	 */
 	public Account getAccount(String userName,String Password) throws SQLException{
 		
 		Connection conn=null;
@@ -289,7 +321,7 @@ public class DBAgent {
 			   			address.setPostalCode(rs.getString(7));
 			   			address.setPhone(rs.getString(8));
 			   			address.setCountry(rs.getString(9));
-			   			
+			   			address.setCity(rs.getString(10));
 			   			//CatName="INSIDE LOOP";
 			   		 account.setAddress(address);
 			   		}
@@ -315,7 +347,13 @@ public class DBAgent {
 		}
 		return account;
 	}
-public Account createAccount(Account accountInfo) throws SQLException{
+	/**
+	 * Creates a New Account based on Account information supplied and returns the information into an account object
+	 * @param accountInfo
+	 * @return Account
+	 * @throws SQLException
+	 */
+	public Account createAccount(Account accountInfo) throws SQLException{
 		
 		Connection conn=null;
 		Account account=new Account();
@@ -384,8 +422,13 @@ public Account createAccount(Account accountInfo) throws SQLException{
 	
 		return account;
 	}
-
-public Boolean confirmOrder(Order order) throws SQLException{
+	/**
+	 * Saves/persists the order information into DB and return true if success otherwise returns false
+	 * @param order
+	 * @return Boolean
+	 * @throws SQLException
+	 */
+	public Boolean confirmOrder(Order order) throws SQLException{
 	
 	/**
 	 * Since the shopping cart is a session object all calculations including vat can be performed within
@@ -417,6 +460,7 @@ public Boolean confirmOrder(Order order) throws SQLException{
 		    	   pstmt.setString(1,order.getAccount().getUserName());
 		    	   pstmt.setDouble(2, order.getAmount());
 		    	   pstmt.setString(3, order.getStatus());
+		    	   pstmt.execute();
 		    	   ResultSet rs=pstmt.getGeneratedKeys();
 		    	   
 		    	   while(rs.next()){
@@ -496,9 +540,10 @@ public String confirmOrderT(Order order) throws SQLException{
 		    	   ret+=order.getAccount().getUserName();
 		    	   Double amt=order.getAmount();
 		    	   pstmt.setDouble(2, amt);
-		    	  ret+=amt.toString();
+		    	   ret+=amt.toString();
 		    	   pstmt.setString(3, order.getStatus());
 		    	   ret+=order.getStatus()+"-";
+		    	   pstmt.execute();
 		    	   ResultSet rs=pstmt.getGeneratedKeys();
 		    	   ret+="- Generate Key Succeed";
 		    	   

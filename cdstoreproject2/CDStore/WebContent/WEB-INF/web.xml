@@ -23,6 +23,7 @@
     <filter-name>SessionFilter</filter-name>
     <filter-class>com.cdstore.filter.SessionFilter</filter-class>
   </filter>
+
   <context-param>
     <description>VAT PERCENTILE</description>
     <param-name>tax</param-name>

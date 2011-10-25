@@ -1,5 +1,9 @@
 package com.cdstore.entities;
-
+/**
+ * Category Entity Object for Category Information
+ * @author Nicedan
+ *
+ */
 public class Category {
 	private Integer categoryID;
 	private String categoryName;

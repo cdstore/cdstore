@@ -1,5 +1,9 @@
 package com.cdstore.entities;
-
+/**
+ * Address Entity Object for Address Information
+ * @author Nicedan
+ *
+ */
 public class Address {
 	private Integer addressID;
 	private String phone;

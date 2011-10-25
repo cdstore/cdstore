@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 import com.cdstore.beans.*;
 import com.cdstore.entities.*;
 import com.cdstore.shoppingcart.*;
-
+/**
+ * 
+ * @author Dan
+ *
+ */
 public class SessionController extends HttpServlet {
 
 	private String propertyFile = "/navigation.properties";
@@ -26,11 +30,14 @@ public class SessionController extends HttpServlet {
      * @see HttpServlet#HttpServlet()
      */
 	String tax="";
+	/**
+	 * At Servlet Initializaiton load the properties files which contains the exact file name of the JSP pages
+	 */
 	 @Override
 	 public void init(ServletConfig servletConfig) throws ServletException {
 
 	        super.init(servletConfig);
-
+	        
 	        InputStream in = getClass().getResourceAsStream(propertyFile);
 			
 			if (in == null) {
@@ -71,16 +78,19 @@ public class SessionController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * 
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userPath=request.getServletPath();
         HttpSession session = request.getSession();
         
 
 		ShoppingCart shopBean = (ShoppingCart)session.getAttribute("cart"); 
-		if(userPath.equals("/cds")){
-			//TODO: Implement category request
-		}else if(userPath.equals("/viewCategory")){
+		/**
+		 * This directs you to the main CDs page
+		 */
+		if(userPath.equals("/viewCategory")){
 			String categoryId = request.getQueryString();
 			Integer CatID=Integer.parseInt(categoryId);
 			CDStoreBean bean=new CDStoreBean();
@@ -177,10 +187,10 @@ public class SessionController extends HttpServlet {
 		 */
 		else if(userPath.equals("/cancelOrder")){
 			OrderBean oBean=new OrderBean();
+		
 			//Clear Order Session Object
-			Order order = (Order)session.getAttribute("order");
-			order=null;
-			oBean.confirmOrder(order,"error", "error");
+			session.removeAttribute("order");
+			
 			//Clear Shopping Cart Session Object
 			ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
 			shopBean.clear();
@@ -233,18 +243,19 @@ public class SessionController extends HttpServlet {
 			String pwd=request.getParameter("userPassword");
 			session.setAttribute("selectedCategory", "All CDS");
 			OrderBean account=new OrderBean();
-			
+			session.removeAttribute("createSuccess");
 	        Account userAccount = new Account();
 	        /**
 	         *  CHECK USER CREDENTIALS FROM WEBSERVICE - INVALID USERNAME IS RETURNED IF CREDENTIALS ARE NOT CORRECT
 	         */
 	        		userPath=props.getProperty("loginFailed");
 	        		userAccount=account.getAccount(userName, pwd);
-	        		if(userAccount.getUserName()!=userName || userAccount.getPassword()!=pwd){	        			
+	        		if(userAccount.getUserName()==null){	        			
 	        			userPath=props.getProperty("loginFailed");
-	        			//session.setAttribute("loginerror","Please check your username and password!");
-	        		}else if(userAccount.getUserName()==userName && userAccount.getPassword()==pwd){
+	        			session.setAttribute("loginerror","Please check your username and password!"+userName+""+pwd+" "+userAccount.getUserName());
+	        		}else{
 	        			session.setAttribute("account", userAccount);
+	        			session.setAttribute("loginerror","");
 	        			userPath=props.getProperty("viewCDStore");
 	        			CDStoreBean bean=new CDStoreBean();
 	        			CD[] cds=bean.getCDList();
@@ -264,11 +275,14 @@ public class SessionController extends HttpServlet {
            String quantity = request.getParameter("newQuantity");
 
            CDStoreBean cdBean = new CDStoreBean(); 
-			
-			//returns CD object via service
-			CD cdItem = cdBean.getCDInfo(Integer.parseInt(cdid));
-           shopBean.update(cdItem, quantity);
+           CD cdItem = cdBean.getCDInfo(Integer.parseInt(cdid));
 
+			//returns CD object via service
+           if(request.getParameter("update")!=null){
+			           shopBean.update(cdItem, quantity);
+           }else if(request.getParameter("delete")!=null){
+        	   shopBean.update(cdItem, "0");
+           }
            userPath = props.getProperty("viewCart");
 		}
 		/**
@@ -291,8 +305,8 @@ public class SessionController extends HttpServlet {
 			 */
 			if((processedOrders % 5) == 0){
 				
-			  orderStatus=oBean.confirmOrder(mOrder,"error", "error");
-			  session.removeAttribute("ordersuccess");
+				orderStatus=oBean.confirmOrder(mOrder,"error", "error");
+				session.setAttribute("orderMsg","ORDER FAILED!!! <br/>Every fifth request is refused!!!");
 				
 			} else {
 						
@@ -301,15 +315,17 @@ public class SessionController extends HttpServlet {
 				
 				//confirm successful order
 				orderStatus = oBean.confirmOrder(mOrder,ccNumber, secCode);
-				
-				session.setAttribute("ordersuccess",true); 
-						
+				if(orderStatus==true){
+				session.setAttribute("orderMsg","Order Successfully Completed"); 
+				}else{
+					session.setAttribute("orderMsg","Credit Card Authorization Failed.");
+				}
 				//delete order from bean
 				Order order = (Order)session.getAttribute("order");
 				order = null;
 				
 				//clear shopping cart
-				ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
+				
 				shopBean.clear();
 				
 				
@@ -372,10 +388,14 @@ public class SessionController extends HttpServlet {
 				    	session.removeAttribute("createerror");
 				    	selectedCategory="All CDs";
 				    	CDStoreBean bean=new CDStoreBean();
+				    	//load CDs into the CD Session to allow browsing of CDs
 				        CD[] cds=bean.getCDList();
 				        session.setAttribute("CDS", cds);
 				        session.setAttribute("selectedCategory", selectedCategory);
+				        //Set the account new account information into the account session to track the user
 				    	session.setAttribute("account", account);
+				    	//Set this session to separate login from successful account creation since they both takes to to the cdstore.jsp page
+				    	session.setAttribute("createSuccess", true);
 				    	userPath=props.getProperty("loginSuccess");
 			    	} else{
 			    		session.setAttribute("errorMessage", "Sorry Username already exist please use a different Username");

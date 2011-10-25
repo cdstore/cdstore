@@ -16,7 +16,9 @@ public class OrderProcessImpl implements OrderProcess{
 	{
 		DB = new DBAgent();
 	}
-	
+	/**
+	 * Get Acount Information from DB Agent
+	 */
 	@Override
 	public Account getAccount(String username, String password)
 	{
@@ -29,7 +31,9 @@ public class OrderProcessImpl implements OrderProcess{
 		}
 		return A;
 	}
-	
+	/**
+	 * Submit Account Information to DB agent to Persist
+	 */
 	@Override
 	public Account createAccount(Account in)
 	{
@@ -43,7 +47,9 @@ public class OrderProcessImpl implements OrderProcess{
 		}
 		return A;
 	}
-	
+	/**
+	 * Submit Order Information to DB Agent to Persist
+	 */
 	@Override
 	public Boolean confirmOrder(Order order)
 	{
@@ -57,19 +63,7 @@ public class OrderProcessImpl implements OrderProcess{
 		}
 		return A;
 	}
-	@Override
-	public String confirmOrderT(Order order)
-	{
-		String A = "false";
-		
-		try {
-			A = DB.confirmOrderT(order);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return A;
-	}
+	
 	
 	@Override
 	public void validateInput()

@@ -8,7 +8,8 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 import com.cdstore.catalogservice.ProductCatalog;
-import com.cdstore.entities.*;
+import com.cdstore.entities.CD;
+import com.cdstore.entities.Category;
 
 
 
@@ -23,10 +24,22 @@ public class HelloWorldClient{
        // ArrayList<Category> data=new ArrayList<Category>();
         ProductCatalog hello = service.getPort(ProductCatalog.class);
         System.out.println("Start");
-        CD data=hello.getCDInfo(2);
-        //for(CD cat:data){
-        	System.out.println(data.getCdid().toString()+" "+ data.getArtist());
-       // }
+        Category[] data=hello.getCategoryList();
+        for(Category cat:data){
+        	System.out.println(cat.getCategoryID().toString()+" "+ cat.getCategoryName());
+        }
+        
+//        CD[] cds=hello.getCDList();
+//        for(CD cd:cds){
+//        	System.out.println(cd.getTitle());
+//        }
+//        
+//        System.out.println("---");
+//        
+//        CD[] cds2 = hello.getCDListByCategory(4);
+//        for(CD cd2:cds2){
+//        	System.out.println(cd2.getTitle());
+//        }
         
         
        // String icount=hello.getCDs();
