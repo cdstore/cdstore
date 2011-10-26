@@ -11,8 +11,8 @@ Facebook discussions: http://www.facebook.com/groups/CSI5380/
 - set up SSL as follows:
 	- run the following from command line while in a folder that has write access (PATH environment variable must contain JRE or JDK bin folder):
 	keytool -genkeypair -keyalg RSA -alias tomcat -keystore keystore.jks  -validity 999 -keysize 512
-	- enter the password 'asdasd'
-	- re-enter the password 'asdasd'
+	- enter the password 'asdasd' (you *must* use this password since it is in the code for accessing SSL-based Web Services)
+	- re-enter the password 'asdasd' 
 	- for "First and last name" enter 'localhost'
 	- for "Organizational unit" enter 'SITE'
 	- for "Name of organization" enter  'University of Ottawa'
@@ -32,7 +32,9 @@ Facebook discussions: http://www.facebook.com/groups/CSI5380/
 		       maxThreads="150" scheme="https" secure="true"
 		       clientAuth="false" sslProtocol="TLS" keystoreFile="conf\keystore.jks"
 		       keystorePass="asdasd" />
-
+	- if you run Tomcat and you receive a "SSLCertificateFile must be defined when using SSL with APR" exception, comment out the following line near the top of server.xml:
+	<Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+	
 2. Ant
 - Download & unzip ant (ex: http://apache.parentingamerica.com//ant/binaries/apache-ant-1.8.2-bin.zip )
 - Add the ant 'bin' folder to PATH (ex: C:\Program Files\apache-ant-1.8.2\bin) so that you can run 'ant' from command line
@@ -48,6 +50,7 @@ flush privileges;
 mysql -u root -p < C:\cdstore.sql
 
 4. Build & Deploy
+- see "Third-Party Dependencies" section below and complete all steps
 - ensure Tomcat is not already started
 - Use command line to browse to the 'Utilities' folder and enter 'ant'
 - copy the Utilities.jar file from the 'CDStore\antbuild' folder into '%TOMCAT_HOME%\lib'
@@ -64,7 +67,7 @@ mysql -u root -p < C:\cdstore.sql
 
 
 ===== Additional Notes for Developers =====
-- Ensure you have TOMCAT_HOME, JAVA_HOME to v1.7, MySQL etc. set up as per instructions above
+- Ensure you have TOMCAT_HOME set, JAVA_HOME set to v1.7, MySQL etc. set up as per instructions above
 - Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
 - From the "Project" menu, make sure "Build Automatically" is unchecked since we will be using ant to build
 - File > Import > Existing Projects Into Workspace
@@ -88,57 +91,106 @@ keytool -genkeypair -keyalg RSA -alias tomcat -keystore keystore.jks  -validity 
 
 ===== Included Files =====
 
-This assignment submission (cdstoreproject.zip) consists of:
+This assignment submission (csi5380part1dreamteam.zip) consists of:
 - this README.txt
-- DesignDocument.pdf
+- DesignDocumentation.pdf
 - test data (cdstore.sql)
-- test scripts
-- config.xml for defining the connection pool for Tomcat
-- keystore.jks for enabling SSL in Tomcat
-- cdstoreproject folder containing the source code and build scripts for the different components
+- context.xml for defining the connection pool for Tomcat
+- "cdstoreproject" folder containing the source code and build scripts for the different components
+- "testscripts" folder containing unit tests and expected test results
 
 
 ===== Project Files =====
 
 Identifying the source code locations:
 
-com.cdstore.dbagent in DBAgent/src
+= DBAgent Project =
+
+In DBAgent/src as part of com.cdstore.dbagent:
 	- DBAgent.java
 
-com.cdstore.entities in Utilities/src
+In DBAgent/src 
+	- queries.properties
+
+= Utilities Project =
+
+In Utilities/src as part of com.cdstore.entities:
+	- Account.java
 	- Address.java
-	- CD.java
 	- Category.java
-	- Customer.java
-	- CustomerOrder.java
+	- CD.java
+	- Order.java
 	- OrderDetails.java
 
-com.cdstore.catalogservice in CatalogService/src
+In Utilities/src as part of com.cdstore.shoppingcart:
+	- ShoppingCart.java
+	- ShoppingCartItem.java
+
+= CatalogService Project =
+	- In CatalogService/src as part of com.cdstore.catalogservice:
 	- ProductCatalog.java
+	- ProductCatalogImpl.java
 
-com.cdstore.orderservice in OrderService/src
+In CatalogService/WebContent/WEB-INF:
+	- sun-jaxws.xml
+	- web.xml
+
+= OrderService Project = 
+
+In OrderService/src as part of com.cdstore.orderprocess:
 	- OrderProcess.java
+	- OrderProcessImpl.java
 
-com.cdstore.beans in CDStore/src
+In OrderService/WebContent/WEB-INF:
+	- sun-jaxws.xml
+	- web.xml
+
+= CDStore Project =
+
+In CDStore/src as part of com.cdstore.beans
 	- CDStoreBean.java
-	- ShoppingCartBean.java
 	- OrderBean.java
 
-JSPs in CDStore/WebContent
-	- cdStorePage.jsp
-	- cdDetailsPage.jsp
-	- shoppingCartPage.jsp
-	- checkoutPage.jsp
-	- accountOrderPage.jsp
-	- template.jsp
+In CDStore/src as part of com.cdstore.catalogservice:
+	- ProductCatalog.java
+	- ProductCatalogServiceClient.java
 
-???
-- web.xml
-- context.xml
-- queries.properties
-- test data
-- test scripts
-- expected test results
+In CDStore/src as part of com.cdstore.controller
+	- SessionController.java
+
+In CDStore/src as part of com.cdstore.filter
+	- SessionController.java
+
+In CDStore/src as part of com.cdstore.orderservice
+	- OrderProcess.java
+	- OrderProcessServiceClient.java
+
+In CDStore/src as part of com.cdstore.orderservice
+	- navigation.properties
+
+In CDStore/WebContent/css:
+	- style.css
+
+In CDStore/WebContent/jspf:
+	- footer.jspf
+	- header.jspf
+
+In CDStore/WebContent/view:
+	- cart.jsp
+	- cdstore.jsp
+	- checkout.jsp
+	- resultpage.jsp
+
+In CDStore/WebContent/WEB-INF:
+	- web.xml
+
+In CDStore/WebContent:
+	- creataccount.jsp
+	- createaccountaction.jsp
+	- index.jsp
+	- loginaction.jsp
+
+Descriptions of all files are available in the included design document.
 
 
 ===== Third-Party Dependencies =====
@@ -164,38 +216,22 @@ In addition to the above, the following external libraries (JARs) are used in th
 
 - Apache TagLibs 1.1.2
 	- download via http://archive.apache.org/dist/jakarta/taglibs/standard/binaries/jakarta-taglibs-standard-1.1.2.zip
-	- copy the two jars from the /lib folder in the zip (jstl-impl-1.2.jar and jstl-api-1.2.jar) to the cdstoreproject/CDStore/WebContent/WEB-INF/lib folder
+	- copy the two jars from the /lib folder in the zip (jstl.jar and standard.jar) to the cdstoreproject/CDStore/WebContent/WEB-INF/lib folder
 
 
 ===== Identification of Other Code Used in this Project =====
 - The JAX-WS code used is based on the "Hello World" example provided by Mkyong at http://www.mkyong.com/webservices/jax-ws/deploy-jax-ws-web-services-on-tomcat/
 - The CDStore project contains concepts and sample code from http://netbeans.org/kb/docs/javaee/ecommerce/page-views-controller.html (Oracle Corporation) that illustrate MVC separation with servlets and a shopping cart  
-- The library at http://typeface.neocracy.org/fonts.html is used to change the page font and illustrate the use of a .js file
 
 
-===== Other README Requirements =====
-- list of member contributions
-
-
-===== Design Document Requirements =====
-- deployment diagram, package diagram, interaction diagrams (UML sequence charts)
-- identify design patterns, assumptions and design decisions
-- map screenshot to arch to source code
-- key mechanisms and design patterns, assumptions, decisions
-- reusable components
-- "Explain how the SOAP messages are generated and parsed"
-- "a roadmap to the source code and the application which explains the architecture"
-
-
-===== Pre-Submit Checklist =====
-- includes a js?
-- remove helloworlds
-- remove context.xml
-- comments in all code (top of classes and before each method) incl schema
-- identify files where code used
-- ensure Utilities.jar works if deployed on own and fix build.xml files to not include the Utilities.jar
-- make sure fo;ders don't contain gitignores or other traces of git
-- identify where public code used above
+===== Running the Test Scripts/Driver =====
+- Browse to https://localhost:8443/CDStore/
+- Import the "testscripts\Testing" project in Eclipse
+- Download JWebUnit 3.0 http://sourceforge.net/projects/jwebunit/files/
+- From the /lib folder in the zip (jwebunit-3.0-release.zip), add htmlunit-2.9.jar to the Eclipse project (right click the project, select Properties, select "Java Build Path" on the left, and in the Libraries tab click "Add External JARs")
+- Run the project (it should run as a JUnit test case)
+- The provided "testscripts" folder contains a screenshot.jpg of what should be obtained (all tests passing)
+- The provided "testscripts" folder also contains TestCaseDocumentation.docx with the test descriptions and expected results
 
 
 ===== Useful Links =====
