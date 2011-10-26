@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Downloads/junit-dep-4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Downloads/jwebunit-3.0-release/jwebunit-core-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Downloads/jwebunit-3.0-release/jwebunit-htmlunit-plugin-3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Documents/MyUniversity/CSI/cdstore/jWebUnit/junit4.10/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Documents/MyUniversity/CSI/cdstore/jWebUnit/junit4.10/junit-4.10-src.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Downloads/jakarta-regexp-1.5/jakarta-regexp-1.5/jakarta-regexp-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/chocobo/Downloads/htmlunit-1.12.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+
+<project basedir="." default="package" name="Utilities">
+
+	<target name="init">
+		<property name="target" value="1.7" />
+		<property name="source" value="1.7" />
+		<property name="classDir" value="${basedir}/antbuild/classes" /> <!-- .class files are first built into this temporary folder -->
+		<property name="utilsSrc" value="${basedir}/src" />
+		<property name="dbSrc" value="${basedir}/../DBAgent/src" />
+		<property name="utilsLibDir" value="${basedir}/lib" /> 
+		<property name="dbLibDir" value="${basedir}/../DBAgent/lib" />
+		<property name="outputdir" value="${basedir}/antbuild" /> <!-- final location inside the war file for the .class files -->
+		<property environment="env"/>
+		
+		<!-- Create directories to ensure they exist -->
+		<mkdir dir="${outputdir}" />
+		<mkdir dir="${classDir}" />
+		
+	</target>
+
+	<target name="buildUtilities" depends="init">
+		<!-- Include jar files needed for compiling Java code -->
+		<path id="classpath">
+			<fileset dir="${utilsLibDir}">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+
+		<!-- Compile Java source into .class files in temporary classDir folder defined earlier -->
+		<javac debug="true" destdir="${classDir}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${utilsSrc}" />
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+
+	<target name="buildDBAgent" depends="init">
+		<!-- Include jar files needed for compiling Java code -->
+		<path id="classpath">
+			<fileset dir="${dbLibDir}">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+
+		<!-- Compile Java source into .class files in temporary classDir folder defined earlier -->
+		<javac debug="true" destdir="${classDir}" source="${source}" target="${target}" includeantruntime="false">
+			<src path="${dbSrc}" />
+			<classpath refid="classpath"/>
+		</javac>
+		<!--/com/cdstore/dbagent-->
+		<copy todir="${classDir}"> 
+				 	
+					<fileset dir="${dbSrc}" includes="*.properties" />
+		</copy>
+	</target>
+	
+		
+	<target name="package" depends="buildUtilities,buildDBAgent">
+		<jar jarfile="${outputdir}/Utilities.jar" basedir="${classDir}" />
+	</target>
+	
+</project>
