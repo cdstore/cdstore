@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  <c:choose>
-        <c:when test="${loginerror}">
+        <c:when test="${loginerror!=''}">
         	<p class="errormessage">${loginerror}</p>
         </c:when>  
   </c:choose>	

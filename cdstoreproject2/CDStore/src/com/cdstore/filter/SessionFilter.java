@@ -8,14 +8,15 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.cdstore.beans.OrderBean;
+import com.cdstore.entities.*;
 
 /**
  * Servlet Filter implementation class SessionFilter
  */
+
+
 public class SessionFilter implements Filter {
 
     /**
@@ -39,16 +40,16 @@ public class SessionFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-		HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletRequest req = (HttpServletRequest) request;
 
-		//creates session if doesn't exist
         HttpSession session = req.getSession();
-        OrderBean oBean = (OrderBean)session.getAttribute("oBean");
-
-        // if OrderBean with Account doesn't exist, forward user to welcome page
-        if (oBean == null) {
+        Account account=(Account)session.getAttribute("account");
+        
+        // if session doesn't exist, forward user to welcome page
+        if (account == null) {
             try {
-            	((HttpServletResponse)response).sendRedirect("../index.jsp");
+                req.getRequestDispatcher("/index.jsp").forward(request, response);
+                //((HttpServletResponse)response).sendRedirect("../index.jsp");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }

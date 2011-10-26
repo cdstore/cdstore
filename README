@@ -3,7 +3,7 @@ Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
 Project grading: http://www.site.uottawa.ca/~lpeyton/csi5380projectgrading.txt
 Facebook discussions: http://www.facebook.com/groups/CSI5380/
 
-===== Building & Deploying CDStore on Windows (no Eclipse required - see below for additional developer instructions) =====
+===== Building & Deploying CDStore on Windows (no Eclipse required) =====
 
 1. Tomcat
 - Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
@@ -88,6 +88,7 @@ keytool -genkeypair -keyalg RSA -alias tomcat -keystore keystore.jks  -validity 
 ===== Running the Test Scripts/Driver =====
 - sample data etc., where see expected vs result - need "Test Data and Expected Results Clearly Defined"
 - "Test drivers and test data AND an execution log file to demonstrate unit and system testing"
+
 
 ===== Included Files =====
 

@@ -1,5 +1,10 @@
 package com.cdstore.entities;
 
+/**
+ * Order Detail Entity Object for Order Detail Information
+ * @author Nicedan
+ *
+ */
 public class OrderDetails {
 	
 	private Integer cdID;

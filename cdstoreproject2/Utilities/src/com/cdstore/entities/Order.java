@@ -1,7 +1,11 @@
 package com.cdstore.entities;
 
 import java.util.Date;
-
+/**
+ * Order Entity object for Order Information
+ * @author Nicedan
+ *
+ */
 public class Order {
 	private Account account;
 	private String status;
@@ -54,6 +58,7 @@ public class Order {
 		return orderDetails;
 	}
 	public void setOrderDetails(OrderDetails[] orderDetails) {
+		this.orderDetails=new OrderDetails[orderDetails.length];
 		this.orderDetails = orderDetails;
 	}
 }

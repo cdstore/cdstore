@@ -1,3 +1,7 @@
+/*
+ * Account Entity object for account information
+ * 
+ */
 package com.cdstore.entities;
 
 public class Account {

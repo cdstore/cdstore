@@ -87,7 +87,7 @@ CREATE  TABLE IF NOT EXISTS `cdstore`.`Order` (
   `orderid` INT NOT NULL AUTO_INCREMENT ,
   `username` VARCHAR(20) NOT NULL ,
   `amount` DECIMAL(12,2) NOT NULL ,
-  `status` ENUM('ORDERED','PROCESSED','DENIED') NOT NULL ,
+  `orderstatus` ENUM('ORDERED','PROCESSED','DENIED') NOT NULL ,
   `date` DATE NULL ,
   PRIMARY KEY (`orderid`) ,
   INDEX `fk_PO_account1` (`username` ASC) ,
@@ -129,14 +129,18 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
+-- INSERT CATEGORIES DATA FOR TESTING
 INSERT INTO `cdstore`.`category` (categoryid,categoryname) values(1,'POP');
 INSERT INTO `cdstore`.`category` (categoryid,categoryname) values(2,'JAZZ');
 INSERT INTO `cdstore`.`category` (categoryid,categoryname) values(3,'COUNTRY');
 INSERT INTO `cdstore`.`category` (categoryid,categoryname) values(4,'ROCK');
 INSERT INTO `cdstore`.`category` (categoryid,categoryname) values(5,'GOSPEL');
+
+-- INSERT TEST USER ACCOUNT INFORMATION INCLUDING ADDRESS INFORMATION---
 INSERT INTO `cdstore`.`address`(`addressid`,`street`,`province`,`country`,`postalcode`,`phone`,`city`)VALUES(1,'3882 Carling','ON','Canada','k2h3d9','6135679876','Ottawa');
 INSERT INTO `cdstore`.`account` (`username`, `lastname`, `firstname`, `password`, `addressid`) VALUES ('test', 'John', 'FT', 'test', 1);
+
+-- INSERT SAMPLE CD DATA
 INSERT INTO `cdstore`.`cd` (`cdid`, `title`, `price`, `categoryid`, `artist`, `label`) VALUES ('1', 'The Way Of The Fist ', 5.29, 4, 'Five Finger', 'Prospect Pack');
 INSERT INTO `cdstore`.`cd` (`cdid`, `title`, `price`, `categoryid`, `artist`, `label`) VALUES ('2', 'Stereo Hearts', 14.99, 1, 'Gym Class Heroes', 'Stero Hearts');
 INSERT INTO `cdstore`.`cd` (`cdid`, `title`, `price`, `categoryid`, `artist`, `label`) VALUES ('3', 'The Good, The Bad', 19.99, 1, 'Joe', 'Kedar');

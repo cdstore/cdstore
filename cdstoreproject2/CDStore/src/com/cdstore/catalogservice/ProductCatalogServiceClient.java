@@ -5,17 +5,22 @@ import java.net.URL;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
-
+/**
+ * Product Catalog Webservice Interface Class. All Methods will call the webservice through this class
+ * @author Chris
+ *
+ */
 public class ProductCatalogServiceClient {
 
 	private ProductCatalog pCatalogIF;
 	
 	public ProductCatalogServiceClient() {
-
+		System.setProperty("javax.net.ssl.trustStore", System.getenv("TOMCAT_HOME")+"/conf/keystore.jks");
+		System.setProperty("javax.net.ssl.trustStorePassword", "asdasd");
 		URL url = null;
 		
 		try {
-			url = new URL("http://localhost:8080/ProductCatalog/catalog?wsdl");
+			url = new URL("https://localhost:8443/ProductCatalog/catalog?wsdl");
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

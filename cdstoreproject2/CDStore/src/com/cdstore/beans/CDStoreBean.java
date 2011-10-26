@@ -15,7 +15,10 @@ private ProductCatalogServiceClient productServiceClient;
 		
 	}
 	
-	
+	/**
+	 * Get all Categories from web service
+	 * @return
+	 */
 	public Category[] getCategoryList(){
 		
 		//call service
@@ -26,7 +29,10 @@ private ProductCatalogServiceClient productServiceClient;
 		
 		return categories;
 	}
-	
+	/**
+	 * Get all CD list from web service
+	 * @return
+	 */
 	public CD[] getCDList(){
 		
 		//call service
@@ -37,7 +43,11 @@ private ProductCatalogServiceClient productServiceClient;
 		  
 		  return cds;
 	}
-	
+	/**
+	 * Get List of CDs per category from web service
+	 * @param categoryId
+	 * @return
+	 */
 	public CD[] getCDList(int categoryId){
 		
 		//call service
@@ -46,7 +56,11 @@ private ProductCatalogServiceClient productServiceClient;
 	
 		  return cds;
 	}
-	
+	/**
+	 * Get CD Information from web service
+	 * @param cdid
+	 * @return
+	 */
 	public CD getCDInfo(Integer cdid){
 		
 		//call service
@@ -56,9 +70,9 @@ private ProductCatalogServiceClient productServiceClient;
 		  return cd;
 		
 	}
-//	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 //		System.out.println("DAY.....");
-//	  CDStoreBean data=new CDStoreBean();
+	  CDStoreBean data=new CDStoreBean();
  //      CD[] cds=data.getCDList();
 //	  Category[] cds=data.getCategoryList();
 //       // System.out.println(data.getUserName());
@@ -79,7 +93,7 @@ private ProductCatalogServiceClient productServiceClient;
 //        	Category cat=iterator.next();
 //        	System.out.println(cat.getCategoryName()+i.toString());
 //        }
-//   }
+   }
 
 	
 }

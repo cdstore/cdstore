@@ -6,6 +6,7 @@
         	<p class="errormessage">${errorMessage}</p>
         </c:when>  
   </c:choose>
+<a href="home">Login Page</a>
 <form method="POST" action="<c:url value='createAccount'/>">
 	<p>Username: <input type="text" name="userName" /></p>
 	<p>Password: <input type="password" name="userPassword" /></p>

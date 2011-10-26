@@ -34,7 +34,7 @@
                 <c:param name="clear" value="true"/>
             </c:url>
 
-            <a href="${url}" class="bubble hMargin">clear Cart</a>
+            <a href="${url}" class="bubble hMargin">Clear Cart</a>
 		<br />
 		
 		
@@ -43,7 +43,8 @@
 	</c:if>		
 
     <c:if test="${!empty cart && cart.numberOfItems != 0}">
-			
+    <!-- SET THE LOCAL TO ENGLISH CANADA -->
+		<fmt:setLocale value="en_CA"/>		
 		 <c:forEach var="cartItem" items="${cart.items}" varStatus="iter">
 
 <%--           <c:set var="cd" value="${cartItem.cd}"/> --%>
@@ -51,15 +52,16 @@
 			<form method="POST" action="<c:url value='updateQuantity'/>"><tr>
 			<input type="hidden" value="${cartItem.cdid}" name="itemIndex"/>
 			<td>${cartItem.title }</td>
-			<td>${cartItem.price}</td>
+			<td><fmt:formatNumber type="currency" value="${cartItem.price}"/></td>
 			<td><input type="text" name="newQuantity" value="${cartItem.quantity}"/></td>
 			<td><input type="submit" value="Update Quantity" name="update" /></td>
-			<td><input type="submit" value="Remove Item" name="update" /></td>
+			<td><input type="submit" value="Remove Item" name="delete" /></td>
 			</tr></form>
 		 </c:forEach>
 		</table>
 		<br/>
-		Shopping Cart Total: ${cartItem.total}
+		
+		Shopping Cart Total: <fmt:formatNumber type="currency" value="${cart.subtotal}" />
 		<br />
 		<br />
 		<a href="checkout">Checkout</a>		

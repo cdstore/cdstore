@@ -1,31 +1,30 @@
 package com.cdstore.beans;
 
-import java.net.URL;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-
-import com.cdstore.catalogservice.ProductCatalog;
 import com.cdstore.entities.*;
-import com.cdstore.orderservice.OrderProcessClient;
+import com.cdstore.orderservice.OrderProcessServiceClient;
 import com.cdstore.shoppingcart.ShoppingCart;
 import com.cdstore.shoppingcart.ShoppingCartItem;
 
 public class OrderBean {
 	
 	private Account account;
-	private OrderProcessClient orderServiceClient;
+	private OrderProcessServiceClient orderServiceClient;
 	private Order order;
 	private boolean orderStatus;
 	
 	
 	public OrderBean(){
-		orderServiceClient = new OrderProcessClient();
+		orderServiceClient = new OrderProcessServiceClient();
 	}
-	
+	/***
+	 * Retrieve account information from the webservice when user logs in
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public Account getAccount(String username, String password){
 			
 		// account not null if previously retrieved from service
@@ -33,11 +32,6 @@ public class OrderBean {
 		// call service to retrieve user's account (checked for null in loginaction.jsp)
 		account = orderServiceClient.getServiceInterface().getAccount(username, password);
 		
-		
-		//placeholder till can call service
-		account = new Account();
-		account.setUserName(username);
-		account.setPassword(password);
 	
 		return account;
 		
@@ -45,6 +39,11 @@ public class OrderBean {
 	public void setAccount(Account account){
 		this.account=account;
 	}
+	/**
+	 * Creates a new user account by submitting the information to the web service
+	 * @param account
+	 * @return
+	 */
 	public Account createAccount(Account account) {
 		Account serviceAccount = null; 
 		
@@ -61,15 +60,16 @@ public class OrderBean {
 	public Account getAccount(){
 		return account;
 	}
-	
+	/**
+	 * Creates and ordder from shopping cart information and user account information
+	 * @param shopCart
+	 */
 	public void createOrder(ShoppingCart shopCart){
-		// call service to retrieve user's account
-		// order = orderServiceClient.getServiceInterface().createOrder(shopCart, account);
-
 		order = new Order();
 		order.setAccount(account);
 		int shopCartSize = shopCart.getItems().size();
 		order.setAmount(shopCart.getTotal());
+		order.setStatus("ORDERED");
 		OrderDetails[] details = new OrderDetails[shopCartSize];
 		
 		int i=0;
@@ -90,7 +90,14 @@ public class OrderBean {
 	public Order getOrder() {
 		return order;
 	}
-	
+	/**
+	 * This Function Takes the Order Information and Credit Card Information validate against an imaginary credit system
+	 * and submits submits it to the webservice to be persisted
+	 * @param order	- Order That need to to persisted in the Database
+	 * @param ccNumber - Credit Card Number
+	 * @param secNumber - Credit Card Security Number
+	 * @return Boolean
+	 */
 	public boolean confirmOrder(Order order,String ccNumber, String secNumber) {
 		
 		//pretending called imaginary CC service that returns confirmation code
@@ -107,35 +114,48 @@ public class OrderBean {
 		return orderStatus;
 	}
 	
-
+public void removeLocalOrder(){
+	this.order=null;
+}
 	public static void main(String[] args) throws Exception {
 //	System.out.println("DAY.....");
-		Order order=new Order();
-		Account account=new Account();
-		account.setFirstName("Daniel");
-		account.setLastName("Antwi");
-		account.setLastName("nss");
-		account.setUserName("sldkd");
-		Address add=new Address();
-		add.setAddressID(1);
-		add.setCity("ottawa");
-		add.setPhone("02342343");
-		account.setAddress(add);
-		order.setAccount(account);
-		Double dt= 80.00;
-		order.setAmount(dt);
-		order.setStatus("PROCESSED");
-		OrderDetails od=new OrderDetails();
-		od.setCDID(1);
-		od.setOrderID(0);
-		od.setPrice(11.3);
-		od.setQuantity(2);
-		OrderDetails[] ods=new OrderDetails[1];
-		order.setOrderDetails(ods);
-		
+//		Order order=new Order();
+//		Account account=new Account();
+//		account.setFirstName("Daniel");
+//		account.setLastName("Antwi");
+//		account.setLastName("nss");
+//		account.setUserName("test");
+//		Address add=new Address();
+//		add.setAddressID(1);
+//		add.setCity("ottawa");
+//		add.setPhone("02342343");
+//		account.setAddress(add);
+//		order.setAccount(account);
+//		Double dt= 80.00;
+//		order.setAmount(dt);
+//		order.setStatus("PROCESSED");
+//		OrderDetails od=new OrderDetails();
+//		od.setCDID(1);
+//		od.setOrderID(0);
+//		od.setPrice(11.3);
+//		od.setQuantity(2);
+//		OrderDetails[] ods=new OrderDetails[1];
+//		ods[0]=od;
+//		order.setOrderDetails(ods);
+//		
 		OrderBean oBean=new OrderBean();
-	    String result=oBean.orderServiceClient.getServiceInterface().confirmOrderT(order);
-		System.out.println(result);
+//	    String result=oBean.orderServiceClient.getServiceInterface().confirmOrderT(order);
+//		System.out.println(result);
+		 Account  acct=new Account();
+	//	 acct=oBean.getAccount("test", "tt");
+//		 	Boolean b=oBean.confirmOrder(order, "2234", "99");
+//		    if(b==false)
+//		    {
+//				System.out.println("HelloNO NO NO");
+//		    }else
+//		    {
+//		    	System.out.println(acct.getUserName());
+//		    }
 //   for(CD cat:cds){
 //    	System.out.println(cat.getCategoryID().toString()+" "+ cat.getTitle());
 //    }
