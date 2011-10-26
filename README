@@ -226,7 +226,7 @@ In addition to the above, the following external libraries (JARs) are used in th
 
 
 ===== Running the Test Scripts/Driver =====
-- Browse to https://localhost:8443/CDStore/
+- Ensure https://localhost:8443/CDStore/ is available from a regular web browser
 - Import the "testscripts\Testing" project in Eclipse
 - Download JWebUnit 3.0 http://sourceforge.net/projects/jwebunit/files/
 - From the /lib folder in the zip (jwebunit-3.0-release.zip), add all JARs to the Eclipse project (right click the project, select Properties, select "Java Build Path" on the left, and in the Libraries tab click "Add External JARs...")
