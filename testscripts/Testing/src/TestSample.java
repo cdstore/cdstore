@@ -12,6 +12,10 @@ public class TestSample {
   @Before
   public void prepare() {
   	setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT);    // use HtmlUnit
+  	
+  	System.setProperty("javax.net.ssl.trustStore", System.getenv("TOMCAT_HOME")+"/conf/keystore.jks");
+	System.setProperty("javax.net.ssl.trustStorePassword", "asdasd");
+  	
       tester = new WebTester();
       tester.setBaseUrl("https://localhost:8443/CDStore");
   }
@@ -22,8 +26,8 @@ public class TestSample {
       tester.clickLinkWithExactText("Sign Up!");
       tester.assertFormPresent();
       tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
-      tester.setTextField("verifyPassword", "test123");
+      tester.setTextField("userPassword", "test");
+      tester.setTextField("verifyPassword", "test");
       tester.setTextField("firstName", "Albert");
       tester.setTextField("lastName", "Smith");
       tester.setTextField("street", "123 Test Street");
@@ -42,7 +46,7 @@ public class TestSample {
       tester.beginAt("index.jsp");
       tester.assertFormPresent();
       tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
       tester.assertFormNotPresent();
       tester.assertLinkPresentWithExactText("Add to Cart");
@@ -63,7 +67,7 @@ public class TestSample {
   public void testLoginMissing2() {
       tester.beginAt("index.jsp"); 
       tester.assertFormPresent();
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
       tester.assertFormPresent();
       tester.assertLinkPresentWithExactText("Sign Up!");
@@ -83,6 +87,7 @@ public class TestSample {
   @Test
   public void testRegistrationMissing() {
   	  tester.beginAt("index.jsp"); 
+  	  tester.clickLinkWithExactText("Sign Up!");
       tester.assertFormPresent();
       tester.setTextField("userName", "test2");
       tester.setTextField("userPassword", "test456");
@@ -90,23 +95,21 @@ public class TestSample {
       tester.setTextField("firstName", "Albert");
       tester.setTextField("lastName", "Smith");
       tester.setTextField("street", "456 Test Street");
-      
       tester.setTextField("province", "Website");
       tester.setTextField("postalcode", "N7D5F7");
       tester.setTextField("country", "CDStore");
       tester.setTextField("phonenumber", "6131234567");    	
       tester.submit();
-      tester.assertFormPresent();
-      
+      tester.assertLinkPresentWithExactText("Add to Cart");
   }
   
   @Test
   public void testCDStoreCategories() {
   	  tester.beginAt("index.jsp"); 
       tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
-      tester.clickLinkWithExactText("Country");
+      tester.clickLinkWithExactText("COUNTRY");
       tester.assertLinkPresentWithExactText("Add to Cart");
   }
   
@@ -115,7 +118,7 @@ public class TestSample {
   public void testCartAdd() {
   	  tester.beginAt("index.jsp");
       tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
       tester.clickLinkWithExactText("Add to Cart");
       tester.assertLinkPresentWithExactText("Checkout");
@@ -125,11 +128,11 @@ public class TestSample {
   public void testCartUpdate() {
   	  tester.beginAt("index.jsp"); 
       tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
       tester.clickLinkWithExactText("Add to Cart");
       tester.setTextField("newQuantity", "0");
-      tester.submit("Update Quantity");
+      tester.submit("update");
       tester.assertTextPresent("Your shopping cart is empty.");
   }
   
@@ -137,13 +140,13 @@ public class TestSample {
   public void testSubmitOrderValid() {
   	  tester.beginAt("index.jsp"); 
   	  tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
       tester.clickLinkWithExactText("Add to Cart");
       tester.clickLinkWithExactText("Checkout");
       tester.assertTextPresent("Grand Total");
-      tester.submit("Confirm Order");
-      tester.assertTextPresent("Your order was processed successfully!");
+      tester.submit();
+      tester.assertTextPresent("Order Successfully Completed ");
   }
 
   
@@ -152,48 +155,60 @@ public class TestSample {
   
   	  tester.beginAt("index.jsp");
       tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
+      tester.setTextField("userPassword", "test");
       tester.submit();
       tester.clickLinkWithExactText("Add to Cart");
       tester.clickLinkWithExactText("Checkout");
       tester.assertTextPresent("Grand Total");
       tester.setTextField("ccNumber", "12345678910111213");
       tester.setTextField("secCode", "123");
-      tester.submit("Confirm Order");
+      tester.submit();
       
-      tester.beginAt("index.jsp");
-      tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
-      tester.submit();
-      tester.clickLinkWithExactText("Add to Cart");
-      tester.clickLinkWithExactText("Checkout");
-      tester.assertTextPresent("Grand Total");
-      tester.setTextField("ccNumber", "12345678910111213");
-      tester.setTextField("secCode", "123");
-      tester.submit("Confirm Order");
+      tester.assertTextPresent("Order Successfully Completed ");
       
-      tester.beginAt("index.jsp");
-      tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
-      tester.submit();
+      //tester.beginAt("index.jsp");
+      tester.clickLinkWithExactText("Return to CD Store");
       tester.clickLinkWithExactText("Add to Cart");
       tester.clickLinkWithExactText("Checkout");
       tester.assertTextPresent("Grand Total");
       tester.setTextField("ccNumber", "12345678910111213");
       tester.setTextField("secCode", "123");
-      tester.submit("Confirm Order");
+      tester.submit();
+      
+      tester.assertTextPresent("Order Successfully Completed ");
+      
+      //tester.beginAt("index.jsp");
+      tester.clickLinkWithExactText("Return to CD Store");
+      tester.clickLinkWithExactText("Add to Cart");
+      tester.clickLinkWithExactText("Checkout");
+      tester.assertTextPresent("Grand Total");
+      tester.setTextField("ccNumber", "12345678910111213");
+      tester.setTextField("secCode", "123");
+      tester.submit();
+      
+      tester.assertTextPresent("Order Successfully Completed ");
       		
-      tester.beginAt("index.jsp");
-      tester.setTextField("userName", "test");
-      tester.setTextField("userPassword", "test123");
-      tester.submit();
+      //tester.beginAt("index.jsp");
+      tester.clickLinkWithExactText("Return to CD Store");
       tester.clickLinkWithExactText("Add to Cart");
       tester.clickLinkWithExactText("Checkout");
       tester.assertTextPresent("Grand Total");
       tester.setTextField("ccNumber", "12345678910111213");
       tester.setTextField("secCode", "123");
-      tester.submit("Confirm Order");
-      tester.assertTextPresent("There was a problem processing your order! Please contact a CD Store representative.");
+      tester.submit();
+      
+      tester.assertTextPresent("Order Successfully Completed ");
+      
+      //tester.beginAt("index.jsp");
+      tester.clickLinkWithExactText("Return to CD Store");
+      tester.clickLinkWithExactText("Add to Cart");
+      tester.clickLinkWithExactText("Checkout");
+      tester.assertTextPresent("Grand Total");
+      tester.setTextField("ccNumber", "12345678910111213");
+      tester.setTextField("secCode", "123");
+      tester.submit();
+   
+      tester.assertTextPresent("Every fifth request is refused!!!");
   }
   
   @Test
@@ -201,13 +216,14 @@ public class TestSample {
   	
   	tester.beginAt("index.jsp"); 
     tester.setTextField("userName", "test");
-    tester.setTextField("userPassword", "test123");
+    tester.setTextField("userPassword", "test");
     tester.submit();
     tester.clickLinkWithExactText("Add to Cart");
     tester.clickLinkWithExactText("Checkout");
     tester.assertTextPresent("Grand Total");
     tester.setTextField("ccNumber", "12345678910111213");
     tester.setTextField("secCode", "123");
+    tester.clickLinkWithExactText("Cancel Order");
 	tester.assertTextNotPresent("Grand Total");
 	tester.assertTextNotPresent("There was a problem processing your order! Please contact a CD Store representative.");
 	tester.assertTextNotPresent("Your order was processed successfully!");

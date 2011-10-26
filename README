@@ -229,8 +229,10 @@ In addition to the above, the following external libraries (JARs) are used in th
 - Browse to https://localhost:8443/CDStore/
 - Import the "testscripts\Testing" project in Eclipse
 - Download JWebUnit 3.0 http://sourceforge.net/projects/jwebunit/files/
-- From the /lib folder in the zip (jwebunit-3.0-release.zip), add htmlunit-2.9.jar to the Eclipse project (right click the project, select Properties, select "Java Build Path" on the left, and in the Libraries tab click "Add External JARs")
-- Run the project (it should run as a JUnit test case)
+- From the /lib folder in the zip (jwebunit-3.0-release.zip), add all JARs to the Eclipse project (right click the project, select Properties, select "Java Build Path" on the left, and in the Libraries tab click "Add External JARs...")
+- From the root of the zip (jwebunit-3.0-release.zip), add jwebunit-htmlunit-plugin-3.0.jar to the Eclipse project using the same process
+- Add JUnit4 to the project: right click the Testing project in Eclipse, select Properties, select "Java Build Path" on the left, in the Libraries tab click "Add Library...", the select "JUnit" and click "Next", then select "JUnit 4" from the dropdown and click "Finish")
+- Right click the project and select "Run As" > "JUnit Test"
 - The provided "testscripts" folder contains a screenshot.jpg of what should be obtained (all tests passing)
 - The provided "testscripts" folder also contains TestCaseDocumentation.docx with the test descriptions and expected results
 
