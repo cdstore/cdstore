@@ -3,7 +3,7 @@ Project requirements: http://www.site.uottawa.ca/~lpeyton/csi5380project.html
 Project grading: http://www.site.uottawa.ca/~lpeyton/csi5380projectgrading.txt
 Facebook discussions: http://www.facebook.com/groups/CSI5380/
 
-===== Building & Deploying CDStore on Windows (no Eclipse required - see below for additional developer instructions) =====
+===== Building & Deploying CDStore on Windows (no Eclipse required) =====
 
 1. Tomcat
 - Download & unzip tomcat (ex: http://apache.mirror.iweb.ca/tomcat/tomcat-7/v7.0.22/bin/apache-tomcat-7.0.22.zip )
@@ -67,7 +67,7 @@ mysql -u root -p < C:\cdstore.sql
 
 
 ===== Additional Notes for Developers =====
-- Ensure you have TOMCAT_HOME, JAVA_HOME to v1.7, MySQL etc. set up as per instructions above
+- Ensure you have TOMCAT_HOME set, JAVA_HOME set to v1.7, MySQL etc. set up as per instructions above
 - Download & unzip Eclipse Indigo 3.7.1 (ex: http://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&url=http://mirror.csclub.uwaterloo.ca/eclipse/technology/epp/downloads/release/indigo/SR1/eclipse-jee-indigo-SR1-win32.zip&mirror_id=492 )
 - From the "Project" menu, make sure "Build Automatically" is unchecked since we will be using ant to build
 - File > Import > Existing Projects Into Workspace
@@ -225,7 +225,6 @@ In addition to the above, the following external libraries (JARs) are used in th
 ===== Identification of Other Code Used in this Project =====
 - The JAX-WS code used is based on the "Hello World" example provided by Mkyong at http://www.mkyong.com/webservices/jax-ws/deploy-jax-ws-web-services-on-tomcat/
 - The CDStore project contains concepts and sample code from http://netbeans.org/kb/docs/javaee/ecommerce/page-views-controller.html (Oracle Corporation) that illustrate MVC separation with servlets and a shopping cart  
-- The library at http://typeface.neocracy.org/fonts.html is used to change the page font and illustrate the use of a .js file
 
 
 ===== Other README Requirements =====
@@ -243,14 +242,14 @@ In addition to the above, the following external libraries (JARs) are used in th
 
 
 ===== Pre-Submit Checklist =====
-- includes a js?
 - remove helloworlds
-- remove context.xml
+- remove context.xml adn include in root
 - comments in all code (top of classes and before each method) incl schema
 - identify files where code used
-- ensure Utilities.jar works if deployed on own and fix build.xml files to not include the Utilities.jar
-- make sure fo;ders don't contain gitignores or other traces of git
-- identify where public code used above
+- ensure Utilities.jar works if deployed on own
+- fix build.xml files to not include the Utilities.jar
+- make sure folders don't contain gitignores or other traces of git
+- remove jars
 
 
 ===== Useful Links =====
