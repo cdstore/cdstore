@@ -43,6 +43,7 @@
     <url-pattern>/confirmOrder</url-pattern>
     <url-pattern>/cancelOrder</url-pattern>
     <url-pattern>/viewCategory</url-pattern>
+    <url-pattern>/view/*</url-pattern>
   </filter-mapping>
   <servlet>
     <display-name>ControllerServlet</display-name>
