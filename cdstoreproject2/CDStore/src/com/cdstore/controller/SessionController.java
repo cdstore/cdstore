@@ -252,7 +252,7 @@ public class SessionController extends HttpServlet {
 	        		userAccount=account.getAccount(userName, pwd);
 	        		if(userAccount.getUserName()==null){	        			
 	        			userPath=props.getProperty("loginFailed");
-	        			session.setAttribute("loginerror","Please check your username and password!"+userName+""+pwd+" "+userAccount.getUserName());
+	        			session.setAttribute("loginerror","Please check your username and password!");
 	        		}else{
 	        			session.setAttribute("account", userAccount);
 	        			session.setAttribute("loginerror","");
@@ -381,7 +381,7 @@ public class SessionController extends HttpServlet {
 			    	/**
 			    	 * IF ACCOUNT ALREADY EXIST INVALID USERNAME IS RETURNED
 			    	 */
-			    	if (!serviceAccount.getAddress().equals("Invalid") && serviceAccount.getAddress()!=null ) {
+			    	if (!serviceAccount.getUserName().equals("Invalid") && serviceAccount.getUserName()!=null ) {
 			    		// have account in DB
 				    	session.setAttribute("oBean", oBean);   	
 				    	session.removeAttribute("loginerror");

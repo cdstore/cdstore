@@ -413,7 +413,6 @@ public class DBAgent {
 		}catch(Exception ex){
 			conn.rollback();
 			account.setUserName("Invalid");
-			ex.printStackTrace();
 			
 		}finally{
 			if(conn!=null)

@@ -49,7 +49,7 @@ public class SessionFilter implements Filter {
         if (account == null) {
             try {
                 req.getRequestDispatcher("/index.jsp").forward(request, response);
-                //((HttpServletResponse)response).sendRedirect("../index.jsp");
+               // ((HttpServletResponse)response).sendRedirect("../index.jsp");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
