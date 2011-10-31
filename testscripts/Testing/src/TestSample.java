@@ -1,4 +1,6 @@
 
+import java.util.Random;
+
 import net.sourceforge.jwebunit.junit.WebTester;
 import net.sourceforge.jwebunit.util.TestingEngineRegistry;
 
@@ -22,10 +24,13 @@ public class TestSample {
   
   @Test
   public void testRegistrationValid() {
+	  Random rndgen = new Random();
+      int randNum = rndgen.nextInt(9999999) + 1;
+	  
       tester.beginAt("index.jsp");
       tester.clickLinkWithExactText("Sign Up!");
       tester.assertFormPresent();
-      tester.setTextField("userName", "test");
+      tester.setTextField("userName", "test" + randNum);
       tester.setTextField("userPassword", "test");
       tester.setTextField("verifyPassword", "test");
       tester.setTextField("firstName", "Albert");
@@ -37,8 +42,7 @@ public class TestSample {
       tester.setTextField("country", "CDStore");
       tester.setTextField("phonenumber", "6131234567");    	
       tester.submit();
-      tester.assertFormNotPresent();
-      tester.assertLinkPresentWithExactText("Add to Cart");
+      tester.assertTextPresent("Your account was created");
   }
   
   @Test
@@ -83,13 +87,13 @@ public class TestSample {
   }
   
  
-  
+  // "test" account exists in sample data so ensure registration gives error
   @Test
   public void testRegistrationMissing() {
   	  tester.beginAt("index.jsp"); 
   	  tester.clickLinkWithExactText("Sign Up!");
       tester.assertFormPresent();
-      tester.setTextField("userName", "test2");
+      tester.setTextField("userName", "test");
       tester.setTextField("userPassword", "test456");
       tester.setTextField("verifyPassword", "test456");
       tester.setTextField("firstName", "Albert");
@@ -100,7 +104,7 @@ public class TestSample {
       tester.setTextField("country", "CDStore");
       tester.setTextField("phonenumber", "6131234567");    	
       tester.submit();
-      tester.assertLinkPresentWithExactText("Add to Cart");
+      tester.assertTextPresent("Username already exist");
   }
   
   @Test
