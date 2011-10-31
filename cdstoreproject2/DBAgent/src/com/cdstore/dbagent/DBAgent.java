@@ -471,7 +471,7 @@ public class DBAgent {
 			    	   pstmt.setInt(1,item.getCDID());
 			    	   pstmt.setInt(2, order.getOrderID());
 			    	   pstmt.setInt(3, item.getQuantity());
-			    	   pstmt.setDouble(4, item.getQuantity());
+			    	   pstmt.setDouble(4, item.getPrice());
 			    	   pstmt.executeUpdate();
 		    	   }
 		    	   conn.commit();
