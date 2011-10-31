@@ -99,6 +99,7 @@ CREATE  TABLE IF NOT EXISTS `cdstore`.`Order` (
 ENGINE = InnoDB;
 
 
+ALTER TABLE `cdstore`.`order` CHANGE COLUMN `date` `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP  ;
 -- -----------------------------------------------------
 -- Table `cdstore`.`OrderDetails`
 -- -----------------------------------------------------
