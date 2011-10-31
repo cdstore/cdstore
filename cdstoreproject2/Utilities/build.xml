@@ -13,11 +13,11 @@
 		<property name="dbLibDir" value="${basedir}/../DBAgent/lib" />
 		<property name="outputdir" value="${basedir}/antbuild" /> <!-- final location inside the war file for the .class files -->
 		<property environment="env"/>
-		
+
 		<!-- Create directories to ensure they exist -->
 		<mkdir dir="${outputdir}" />
 		<mkdir dir="${classDir}" />
-		
+
 	</target>
 
 	<target name="buildUtilities" depends="init">
@@ -50,14 +50,14 @@
 		</javac>
 		<!--/com/cdstore/dbagent-->
 		<copy todir="${classDir}"> 
-				 	
+
 					<fileset dir="${dbSrc}" includes="*.properties" />
 		</copy>
 	</target>
-	
-		
+
+
 	<target name="package" depends="buildUtilities,buildDBAgent">
 		<jar jarfile="${outputdir}/Utilities.jar" basedir="${classDir}" />
 	</target>
-	
+
 </project>
